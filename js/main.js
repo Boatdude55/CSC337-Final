@@ -209,7 +209,7 @@ var MineSweeper = function ( ctx ) {
                 
             }else{
                 
-                ctx.font = '30px Lucida Console';
+                ctx.font = '10px Lucida Console';
                 ctx.fillStyle = "white";
                 ctx.strokeStyle = "grey";
                 ctx.fillRect(this.x, this.y, this.dx, this.dy);
@@ -261,7 +261,7 @@ var MineSweeper = function ( ctx ) {
             var randY = Math.floor(Math.random()*10)*seed.tileHeight;
             
             //if ( Math.random() < chance ) {
-            if ( x === randX || y === randY ) {
+            if ( x == randX || y == randY ) {
 
                 mine = true;
                 seed.numOfMines--;
