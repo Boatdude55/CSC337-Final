@@ -2,7 +2,7 @@
 
 	if ( isset( $_POST['username']) ) {
 		
-		//include dirname(__FILE__) . "/controllers/controller.php";
+		include dirname(__FILE__) . "/controllers/controller.php";
 
 		$registrationStatus = $controller->registerUser( $_POST['username'], $_POST['password']);
 		
@@ -11,8 +11,8 @@
 			$_SESSION["registrationError"] = $registrationStatus;
 			
 		}else{
-
-			header("Location: quotes.php");
+			
+			header("Location: index.php");
 		}
 	}
 

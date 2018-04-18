@@ -5,9 +5,9 @@
 
 if ( isset( $_POST['username']) ) {
 	
-	//include dirname(__FILE__) . "/controllers/controller.php";
+	include dirname(__FILE__) . "/controllers/controller.php";
 	
-	$loginStatus = true;//$controller->loginUser( $_POST['username'], $_POST['password']);
+	$loginStatus = $controller->loginUser( $_POST['username'], $_POST['password']);
 	
 	if ( $loginStatus !== true ) {
 
@@ -28,7 +28,7 @@ if ( isset( $_POST['username']) ) {
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="./styles.global.css"></link>
-		<title>Quotation Service</title>
+		<title>MineSweeper</title>
 	</head>
 	<body>
 <header>

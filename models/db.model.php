@@ -203,9 +203,12 @@ class DatabaseAdaptor {
 
 // Testing code that should not be run when a part of MVC
 
+//Use whatever relevant credentials
+$db = "final";//test database I made: contains users table
 $ip = getenv('IP');
 $username = getenv('C9_USER');
-$theDBA = new DatabaseAdaptor ("final", $ip, $username);
+
+$theDBA = new DatabaseAdaptor ($db, $ip, $username);
 
 //	SelectAllOrdered Test
 //	$arr = $theDBA->selectAllOrdered();

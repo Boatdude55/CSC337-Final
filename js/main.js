@@ -160,14 +160,7 @@ var MineSweeper = function ( ctx ) {
                         return true;
                     }else {
     
-                        this.toggleAll(this.children[i]);                            
-                        /**
-                         * Expecting Update property to be a function
-                         * for redrawing the game board based on rules
-                         * 
-                         * */
-                        
-                        //this.update();
+                        this.toggleAll(this.children[i]);
                         
                     }
                     
@@ -178,17 +171,15 @@ var MineSweeper = function ( ctx ) {
     
         }
     };
-
-    //function CanvasElement ( x, y, dx, dy, id, mine ) {
+    
     function CanvasElement ( x, y, dx, dy ) {
+
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
         this.state = false;
-        //this.id = id;
-        //this.isTrigger = mine;
-    
+        
     }
     CanvasElement.prototype = {
         draw: function ( func ) {
@@ -209,7 +200,7 @@ var MineSweeper = function ( ctx ) {
                 
             }else{
                 
-                ctx.font = '10px Lucida Console';
+                ctx.font = '20px Lucida Console';
                 ctx.fillStyle = "white";
                 ctx.strokeStyle = "grey";
                 ctx.fillRect(this.x, this.y, this.dx, this.dy);
@@ -253,30 +244,17 @@ var MineSweeper = function ( ctx ) {
             var x = (i*seed.tileWidth)%Field.canvas.width;
             var y = Math.floor(i/seed.tilesPerRow) * seed.tileHeight;
             var mine = false;
-            var chance = seed.numOfMines / Math.abs(100 - i);
  
             //Makes game too easy but is more consistent in result than probabilty implementation
             var randX = Math.floor(Math.random()*10)*seed.tileWidth;
             var randY = Math.floor(Math.random()*10)*seed.tileHeight;
-            
-            //if ( Math.random() < chance ) {
-            if ( x == randX || y == randY ) {
 
-            //if ( Math.random() <= chance && seed.numOfMines > 0 ) {
-            //if ( x > randX && y < randY && chance < Math.random() ) {
             if( x === randX || y === randY ) {
-                console.log(randX,x);
-                console.log(randY,y);
+                
                 mine = true;
                 seed.numOfMines-10;
                 
-            }//else if ( chance <= randX && seed.numOfMines > 0) {
-             //   mine = true;
-             //   seed.numOfMines--;
-                
-            //}
-            
-            //var tile = new CanvasElement( x, y, seed.tileWidth, seed.tileHeight, tileID, mine);
+            }
             
             var left = (x - seed.tileWidth) < 0? undefined:(x - seed.tileWidth);
             var right = (x + seed.tileWidth) > Field.canvas.width? undefined:(x + seed.tileWidth);
@@ -322,14 +300,10 @@ var MineSweeper = function ( ctx ) {
                 
                 try{
                     
-                    //ctx.fillStyle = "grey";
-                    //ctx.strokeStyle = "black";
-                    //ctx.fillRect(this.x, this.y, this.dx, this.dy);
-                    //ctx.strokeRect(this.x, this.y, this.dx, this.dy);
                     var img = document.getElementById("tile");
-                    //ctx.fillStyle = "white";
-                    //ctx.fillRect(this.x, this.y, this.dx, this.dy)
+                    
                     ctx.drawImage(img,this.x, this.y, this.dx, this.dy);
+                    
                 }catch ( err ) {
                     
                     var msg = "Error drawing CanvasElem " + this.id + err.message;
