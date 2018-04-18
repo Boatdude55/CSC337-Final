@@ -246,7 +246,6 @@ var MineSweeper = function ( ctx ) {
     };
     
     function setUpGame ( Field, seed ) {
-        
 
         for ( var i = 0; i < seed.fieldSize; i++ ) {
             
@@ -254,19 +253,25 @@ var MineSweeper = function ( ctx ) {
             var x = (i*seed.tileWidth)%Field.canvas.width;
             var y = Math.floor(i/seed.tilesPerRow) * seed.tileHeight;
             var mine = false;
-            var chance = seed.numOfMines / (100 - i);
-            
+            var chance = seed.numOfMines / Math.abs(100 - i);
+ 
             //Makes game too easy but is more consistent in result than probabilty implementation
-            var randX = Math.floor(Math.random()*10)*seed.tileWidth;
-            var randY = Math.floor(Math.random()*10)*seed.tileHeight;
-            
-            //if ( Math.random() < chance ) {
-            if ( x === randX || y === randY ) {
+            var randX = (Math.floor(Math.random()*10)*seed.tileWidth)%Field.canvas.width;
+            var randY = (Math.floor(Math.random()*10)/seed.tilePerRow) * seed.tileHeight;
 
+            //if ( Math.random() <= chance && seed.numOfMines > 0 ) {
+            //if ( x > randX && y < randY && chance < Math.random() ) {
+            if( x === randX || y === randY ) {
+                console.log(randX,x);
+                console.log(randY,y);
                 mine = true;
-                seed.numOfMines--;
+                seed.numOfMines-10;
                 
-            }
+            }//else if ( chance <= randX && seed.numOfMines > 0) {
+             //   mine = true;
+             //   seed.numOfMines--;
+                
+            //}
             
             //var tile = new CanvasElement( x, y, seed.tileWidth, seed.tileHeight, tileID, mine);
             
