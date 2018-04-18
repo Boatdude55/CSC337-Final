@@ -65,10 +65,6 @@ if ( isset($_SESSION['registered-user']) ) {
 		
 		if ( $mode == 'boards' ) {
 			
-			
-			//include("play.php");
-			//header("Location: play.php");
-			
 			//For Testing
 			//echo '<h1>Elevated Leader Boards</h1>';
 		}
@@ -112,10 +108,7 @@ if ( isset($_SESSION['registered-user']) ) {
 				}
 				
 				if ( $mode == 'boards' ) {
-					
-					//include("play.php");
-					//header("Location: play.php");
-					
+
 					//For Testing
 					echo '<h1>Leader Boards</h1>';
 				}
