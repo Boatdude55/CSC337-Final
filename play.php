@@ -16,15 +16,12 @@
 			<div class="row">
 			    <div class="col">
 					<img id="boom" src="./assets/8-bit/explosion.png" width="0px" height="0px"></img>
-				    <img id="tile" src="./assets/tile2.png" width="0px" height="0px"></img>
-				    <!-- Tiles
 				    <img id="tile" src="./assets/8-bit/tile.png" width="0px" height="0px"></img>
-				    <img id="tile" src="./assets/tile2.png" width="0px" height="0px"></img>
-				    -->
+
 				    <img id="mine" src="./assets/8-bit/mine.png" width="0px" height="0px"></img>
 				    <img id="head" src="./assets/head.png" width="0px" height="0px"></img>
 				    <img id="hair" src="./assets/hair.png" width="0px" height="0px"></img>
-				    <!--<canvas id="canvas" width="800px" height="600px"></canvas>-->
+
 				    <canvas id="canvas" width="800" height="600" style="width: 800px; height: 600px;">
 				    	Canvas not supported upgrade to evergreen browser
 				    </canvas>
