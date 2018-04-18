@@ -209,7 +209,7 @@ var MineSweeper = function ( ctx ) {
                 
             }else{
                 
-                ctx.font = '30px Lucida Console';
+                ctx.font = '10px Lucida Console';
                 ctx.fillStyle = "white";
                 ctx.strokeStyle = "grey";
                 ctx.fillRect(this.x, this.y, this.dx, this.dy);
@@ -256,8 +256,11 @@ var MineSweeper = function ( ctx ) {
             var chance = seed.numOfMines / Math.abs(100 - i);
  
             //Makes game too easy but is more consistent in result than probabilty implementation
-            var randX = (Math.floor(Math.random()*10)*seed.tileWidth)%Field.canvas.width;
-            var randY = (Math.floor(Math.random()*10)/seed.tilePerRow) * seed.tileHeight;
+            var randX = Math.floor(Math.random()*10)*seed.tileWidth;
+            var randY = Math.floor(Math.random()*10)*seed.tileHeight;
+            
+            //if ( Math.random() < chance ) {
+            if ( x == randX || y == randY ) {
 
             //if ( Math.random() <= chance && seed.numOfMines > 0 ) {
             //if ( x > randX && y < randY && chance < Math.random() ) {

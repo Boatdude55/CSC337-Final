@@ -5,14 +5,15 @@ class DatabaseAdaptor {
 	  // The instance variable used in every one of the functions in class DatbaseAdaptor
 	  private $DB;
 	  // Make a connection to the data based named 'imdb_small' (described in project). 
-	  public function __construct( $dbname ) {
-	    $db = "mysql:dbname=$dbname;host=127.0.0.1;charset=utf8";
-	    $user = 'root';
-	    $password = '';
+	  public function __construct( $dbname, $host, $name ) {
+	    $db = "mysql:dbname=$dbname;host=$host;charset=utf8";
+	    $user = $name;//'root';
+	    $password = "";
 	    
 	    try {
 	      $this->DB = new PDO ( $db, $user, $password );
 	      $this->DB->setAttribute ( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+	      
 	    } catch ( PDOException $e ) {
 	      echo ('Error establishing Connection');
 	      exit ();
@@ -201,7 +202,10 @@ class DatabaseAdaptor {
 } // End class DatabaseAdaptor
 
 // Testing code that should not be run when a part of MVC
-$theDBA = new DatabaseAdaptor ("quotes");
+
+$ip = getenv('IP');
+$username = getenv('C9_USER');
+$theDBA = new DatabaseAdaptor ("final", $ip, $username);
 
 //	SelectAllOrdered Test
 //	$arr = $theDBA->selectAllOrdered();

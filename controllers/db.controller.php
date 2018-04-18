@@ -84,4 +84,7 @@ $dbController = new DataBaseController( $theDBA );
 
 //	$arr = $dbController->insertValue("Hello World!", "PC" );
 //	print("<pre>".print_r($arr,true)."</pre>");
+
+//$arr = $dbController->insertUser("Ivan", "abc" );
+//	print("<pre>".print_r($arr,true)."</pre>");
 ?>

@@ -1,14 +1,5 @@
 <?php 
-
-if ( isset($_POST['quote']) ) {
-	
-	include dirname(__FILE__) . "/controllers/controller.php";
-	
-	$controller->insertQuote( $_POST['quote'], $_POST['author']);
-	
-	header("Location: quotes.php");
-}
-
+	session_start();
 ?>
 <html lang="en">
 	<head>
@@ -20,31 +11,91 @@ if ( isset($_POST['quote']) ) {
 	</head>
 	<body>
 		<header>
-			<h3>Let's Play</h3>
 		</header>
 		<div class="main container">
-			<div class="row>
-			
-				<div class="col">
+			<div class="row">
+			    <div class="col">
 					<img id="boom" src="./assets/8-bit/explosion.png" width="0px" height="0px"></img>
 				    <img id="tile" src="./assets/8-bit/tile.png" width="0px" height="0px"></img>
+
 				    <img id="mine" src="./assets/8-bit/mine.png" width="0px" height="0px"></img>
-				    <div>
-				        <div id="score-board">Score</div>
-				        <div id="clock">000</div>
-				    </div>
-				    <canvas id="canvas" width="800px" height="600px"></canvas>
+				    <img id="head" src="./assets/head.png" width="0px" height="0px"></img>
+				    <img id="hair" src="./assets/hair.png" width="0px" height="0px"></img>
+
+				    <canvas id="canvas" width="800" height="600" style="width: 800px; height: 600px;">
+				    	Canvas not supported upgrade to evergreen browser
+				    </canvas>
+					
 				</div>
-				
-				<?php
-					echo '<div class="col">
-						<p>Registered  User Side Panel</p>
-				<p>Can edit game aesthetics</p>
-					</div>';
-				?>
-			        
-			 </div>
-		</div>  	
+				<div class="col card">
+					<div class="card-img">
+					<?php
+						if ( isset($_SESSION["registered-user"]) ) {
+						echo '
+							<div class="card-title">Rank: Private</div>
+							<canvas id="character">Canvas not supported upgrade to evergreen browser</canvas>
+						';
+						}else{
+							echo '
+							<h3 class="advert">Join to keep track of Rank</h3>
+							';
+						}
+					?>
+					</div>
+					<hr class="divider">
+					<div class="card-content">
+						<div class="row">
+							<div class="col" id="score-board">Score</div>
+							<div class="col" id="clock">000</div>
+						</div>
+						<hr class="divider">
+						<?php
+							if ( isset($_SESSION["registered-user"]) ) {
+								echo '
+									<div>
+										<h5>styles</h5>
+										<div class="row">
+											<div class="col input-field">
+												<label>tile1</label>
+												<label>tile2</label>
+												<label>tile3</label>
+												<label>tile4</label>
+											</div>
+											<div class="col input-field">
+												<label>mine1</label>
+												<label>mine2</label>
+												<label>mine3</label>
+												<label>mine4</label>
+											</div>
+										</div>
+									</div>
+								';
+							}else{
+								echo '
+								<h3 class="advert">Login for extra Features</h3>
+								';
+							}
+						?>
+					</div>
+					<hr class="divider">
+					<div class="card-footer">
+						<div class="row">
+							<form>
+								<button class="btn" onclick="new">New Game</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+	<?php
+		if ( isset($_SESSION["registered-user"]) ) {
+			echo '<script type="text/javascript">
+			var character = document.getElementById("character");
+			
+			</script>';
+		}
+	?>
 	<script type="text/javascript">
     
 	    var count = 0;

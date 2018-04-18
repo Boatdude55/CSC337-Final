@@ -1,10 +1,11 @@
 <?php
 // File Name: index.php
-//URL: http://localhost/quotes/index.php
+//URL:  https://project-euler-boatrider.c9users.io/CSC337-Final/index.php
 
 session_start();
 
-//include dirname(__FILE__) . "/controllers/controller.php";
+include dirname(__FILE__) . "/controllers/controller.php";
+
 ?>
 <html lang="en">
 	<head>
@@ -23,9 +24,11 @@ session_start();
 				<?php 
 					if ( isset($_SESSION['registered-user']) ) {
 						
-						echo '<button class="nav-item" type="submit" name="mode" value="play">Edit Account</button>'.
-						'<button class="nav-item" type="submit" name="mode" value="play">Edit Field</button>'.
-						'<button class="btn right" type="submit" name="logout" value="logout">Logout</button>';
+						echo '
+						<button class="nav-item" type="submit" name="mode" value="play">Edit Account</button>
+						<button class="nav-item" type="submit" name="mode" value="play">Edit Field</button>
+						<button class="btn right" type="submit" name="logout" value="logout">Logout</button>
+						';
  
 					}
 				?>
@@ -73,15 +76,15 @@ if ( !isset($_SESSION['registered-user']) ) {
 		
 		if ( $mode == 'register') {
 			
-			echo 'Register';
-			//include("register.php");
+			//echo 'Register';
+			include("register.php");
 			//header("Location: register.php");
 		}
 		
 		if ( $mode == 'login' ) {
 			
-			echo 'Login';
-			//include("login.php");
+			//echo 'Login';
+			include("login.php");
 			//header("Location: login.php");
 			
 		}
