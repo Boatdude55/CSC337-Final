@@ -122,79 +122,84 @@ if ( isset($_SESSION['registered-user']) ) {
 		<div class="main container">
 			<div class="row">
 			    <div class="col">
-					<img id="boom" src="./assets/8-bit/explosion.png" width="0px" height="0px"></img>
-				    <img id="tile" src="./assets/8-bit/tile.png" width="0px" height="0px"></img>
-
-				    <img id="mine" src="./assets/8-bit/mine.png" width="0px" height="0px"></img>
-				    <img id="head" src="./assets/head.png" width="0px" height="0px"></img>
-				    <img id="hair" src="./assets/hair.png" width="0px" height="0px"></img>
-
-				    <canvas id="canvas" width="800" height="600" style="width: 800px; height: 600px;">
-				    	Canvas not supported upgrade to evergreen browser
-				    </canvas>
-					
-				</div>
-				<div class="col card">
-					<div class="card-img">
-					<?php
-						if ( isset($_SESSION["registered-user"]) ) {
-						echo '
-							<div class="card-title">Rank: Private</div>
-							<canvas id="character">Canvas not supported upgrade to evergreen browser</canvas>
-						';
-						}else{
-							echo '
-							<h3 class="advert">Join to keep track of Rank</h3>
-							';
-						}
-					?>
+			    	<div>
+						<img id="boom" src="./assets/8-bit/explosion.png" width="0px" height="0px"></img>
+					    <img id="tile" src="./assets/8-bit/tile.png" width="0px" height="0px"></img>
+					    <img id="mine" src="./assets/8-bit/mine.png" width="0px" height="0px"></img>
+	
+					    <canvas id="canvas" width="800" height="600" style="width: 800px; height: 600px;">
+					    	Canvas not supported upgrade to evergreen browser
+					    </canvas>
 					</div>
-					<hr class="divider">
-					<div class="card-content">
-						<div class="row">
-							<div class="col" id="score-board">Score</div>
-							<div class="col" id="clock">000</div>
-						</div>
-						<hr class="divider">
+				</div>
+				<div class="col">
+					<div class="card">
+						<div class="card-img">
 						<?php
 							if ( isset($_SESSION["registered-user"]) ) {
-								echo '
-									<div>
-										<h5>styles</h5>
-										<div class="row">
-											<div class="col input-field">
-												<label>tile1</label>
-												<label>tile2</label>
-												<label>tile3</label>
-												<label>tile4</label>
-											</div>
-											<div class="col input-field">
-												<label>mine1</label>
-												<label>mine2</label>
-												<label>mine3</label>
-												<label>mine4</label>
-											</div>
-										</div>
-									</div>
-								';
+							echo '
+								<div class="card-title">Rank: Private</div>
+								<canvas id="character">Canvas not supported upgrade to evergreen browser</canvas>
+							';
 							}else{
 								echo '
-								<h3 class="advert">Login for extra Features</h3>
+								<h3 class="advert">Join to keep track of Rank</h3>
 								';
 							}
 						?>
-					</div>
-					<hr class="divider">
-					<div class="card-footer">
-						<div class="row">
-							<form>
-								<button class="btn" onclick="new">New Game</button>
-							</form>
+						</div>
+						<hr class="divider">
+						<div class="card-content">
+							<div class="row">
+								<div class="col" id="score-board">Score</div>
+								<div class="col" id="clock">000</div>
+							</div>
+							<hr class="divider">
+							<?php
+								if ( isset($_SESSION["registered-user"]) ) {
+									echo '
+										<div>
+											<h5>styles</h5>
+											<div class="row">
+												<div class="col input-field">
+													<label>tile1</label>
+													<label>tile2</label>
+													<label>tile3</label>
+													<label>tile4</label>
+												</div>
+												<div class="col input-field">
+													<label>mine1</label>
+													<label>mine2</label>
+													<label>mine3</label>
+													<label>mine4</label>
+												</div>
+											</div>
+										</div>
+									';
+								}else{
+									echo '
+									<h3 class="advert">Login for extra Features</h3>
+									';
+								}
+							?>
+						</div>
+						<hr class="divider">
+						<div class="card-footer">
+							<div class="row">
+								<form>
+									<button class="btn" onclick="new">New Game</button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div> 
+		<footer>
+			<div class="row">
+				<span>Made by Ivan Mucyo Ngabo and Danny Chalfoun</span>
+			</div>
+		</footer>
 	<?php
 		if ( isset($_SESSION["registered-user"]) ) {
 			echo '<script type="text/javascript">
@@ -210,24 +215,28 @@ if ( isset($_SESSION['registered-user']) ) {
 	    var timer = undefined;
 	    var canvas = undefined;
 	    var clock = undefined;
+	    var mine = undefined;
+	    var tile = undefined;
 	    var ctx = undefined;
-	    
 	    
     	document.addEventListener("loadend", function () {
 	    
 		    clock = document.getElementById("clock")
 		    canvas = document.getElementById("canvas");
+			mine = document.getElementById("mine");
+			tile = document.getElementById("tile");
 		    ctx = canvas.getContext('2d');
 			var count = 0;
 			
-		    var minesweeper = new MineSweeper(ctx);
-	
+		    var minesweeper = new MineSweeper( ctx );
+		
 			    if ( minesweeper ) {
 			        
 			        console.info("MineSweeper object created", minesweeper);
+			        minesweeper.CanvasElem.prototype.mine = mine;
 			        
 			        try {
-			            
+			        	
 			            Field = new minesweeper.Canvas(canvas);
 			            console.info("Canvas Object created", Field);
 			            
@@ -251,7 +260,9 @@ if ( isset($_SESSION['registered-user']) ) {
 			        try{
 			            
 			            minesweeper.setup(Field,seed);
-			            minesweeper.init(Field);
+			            tile.onload = function () {
+			            minesweeper.init(Field, tile);
+			            };
 			            console.info("Game setup and started created");
 			            
 			        }catch ( err ) {

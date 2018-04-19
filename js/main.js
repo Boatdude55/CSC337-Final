@@ -1,7 +1,7 @@
 'use strict';
 
 var MineSweeper = function ( ctx ) {
-    
+
     function Rules ( width, height, xTiles, yTiles, mineProp ) {
     
         this.tileWidth = (width/40);
@@ -182,6 +182,7 @@ var MineSweeper = function ( ctx ) {
         
     }
     CanvasElement.prototype = {
+        mine: undefined,
         draw: function ( func ) {
     
             func.call(this);
@@ -192,10 +193,11 @@ var MineSweeper = function ( ctx ) {
             if ( gameover ) {
                 
                 this.draw(function () {
-                    var img = document.getElementById("mine");
+                    
                     ctx.fillStyle = "red";
                     ctx.fillRect(this.x, this.y, this.dx, this.dy)
-                    ctx.drawImage(img,this.x+5, this.y+5, this.dx-10, this.dy-10);
+                    ctx.drawImage(this.mine,this.x+5, this.y+5, this.dx-10, this.dy-10);
+                    
                 });
                 
             }else{
@@ -292,7 +294,7 @@ var MineSweeper = function ( ctx ) {
         }
     }
     
-    function initGame ( Field ) {
+    function initGame ( Field, tile ) {
         
         for ( var i = 0; i < Field.children.length; i++ ) {
         
@@ -300,9 +302,7 @@ var MineSweeper = function ( ctx ) {
                 
                 try{
                     
-                    var img = document.getElementById("tile");
-                    
-                    ctx.drawImage(img,this.x, this.y, this.dx, this.dy);
+                    ctx.drawImage(tile,this.x, this.y, this.dx, this.dy);
                     
                 }catch ( err ) {
                     
