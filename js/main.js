@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 var MineSweeper = function ( ctx ) {
 
     function Rules ( width, height, xTiles, yTiles, mineProp ) {
@@ -327,7 +327,7 @@ var MineSweeper = function ( ctx ) {
     };
     
 };
-
+*/
 function timeController ( viewElem ) {
     
     this.id = undefined;
@@ -366,3 +366,51 @@ function ScoreController ( viewElem ) {
     this.scoreboard = viewElem.innerHTML;
     
 }
+
+function CanvasMap ( cols, rows ) {
+    
+    this.cols = cols | 40;
+    this.rows = rows | 30;
+    this.tileSize = 20;
+    this.layers = {
+        default: new Array( this.cols*this.rows )
+    };
+    
+}
+CanvasMap.prototype = {
+    addLayer: function ( key, size ) {
+        
+        size = size | this.cols * this.row;
+        
+        Object.defineProperty( this.layers, key, {
+            value: new Array( size ),
+            writable: true,
+            enumerable: true,
+            configurable: true
+        });
+        
+    },
+    removeLayer: function ( key ) {
+        
+        delete this.layers[key];
+        
+    },
+    getLayer: function ( key ) {
+        
+        return this.layers[key];
+        
+    },
+    getCoord: function ( key,x, y ) {
+        
+        return this.layers[key][y * this.cols + x];
+            
+    }
+};
+
+function MineSweeper () {
+    
+}
+
+Object.defineProperty(MineSweeper, {
+    
+});

@@ -124,11 +124,9 @@ if ( isset($_SESSION['registered-user']) ) {
 			    <div class="col">
 			    	<div>
 			    		<div class="hidden">
-							<img id="boom" src="./assets/8-bit/explosion.png" width="0px" height="0px"></img>
-						    <img id="tile" src="./assets/8-bit/tile.png" width="0px" height="0px"></img>
-						    <img id="mine" src="./assets/8-bit/mine.png" width="0px" height="0px"></img>
+							<img id="tileset" src="./assets/minesweeper-tileset.png"></img>
 						</div>
-					    <canvas id="canvas" width="800" height="600" style="width: 800px; height: 600px;">
+					    <canvas id="game" width="800" height="600" style="width: 800px; height: 600px;">
 					    	Canvas not supported upgrade to evergreen browser
 					    </canvas>
 					</div>
@@ -215,12 +213,24 @@ if ( isset($_SESSION['registered-user']) ) {
     	var Field = undefined;
 	    var seed = undefined;
 	    var timer = undefined;
-	    var canvas = undefined;
+	    var canvas = document.getElementById("game");
 	    var clock = undefined;
 	    var mine = undefined;
-	    var tile = undefined;
+	    var tiles = document.getElementById("tileset");
 	    var ctx = undefined;
 	    
+	    var MineSweeper = new MineSweeper();
+	    
+	    tiles.onload = function () {
+	    	
+	    	MineSweeper.init(tiles, canvas.width, canvas.height);
+	    	MineSweeper.start();
+	    	
+	    };
+	    
+	    canvas.addEventListener("click", MineSweeper.onClick );
+	    
+	    /*
     	document.addEventListener("loadend", function () {
 	    
 		    clock = document.getElementById("clock")
@@ -306,6 +316,7 @@ if ( isset($_SESSION['registered-user']) ) {
 			        
 			    }, true);
     	},true);
+    	*/
 	</script>
 	</body>
 </html>
