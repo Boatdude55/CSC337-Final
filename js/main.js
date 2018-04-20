@@ -9,7 +9,7 @@ var MineSweeper = function ( ctx ) {
         this.tilesPerRow = (width/this.tileWidth);
         this.tilesPerCol = (width/this.tileHeight);
         this.fieldSize = (this.tilesPerCol*this.tilesPerRow);
-        this.numOfMines = (Math.floor((this.fieldSize)/mineProp));
+        this.numOfMines = this.fieldSize/mineProp;
     }
 
     function CanvasClass ( canvas ) {
@@ -20,7 +20,6 @@ var MineSweeper = function ( ctx ) {
         this.children = [];
         
     }
-    
     CanvasClass.prototype = {
         broadcast: function ( neighborhood  ) {
             
@@ -250,11 +249,14 @@ var MineSweeper = function ( ctx ) {
             //Makes game too easy but is more consistent in result than probabilty implementation
             var randX = Math.floor(Math.random()*10)*seed.tileWidth;
             var randY = Math.floor(Math.random()*10)*seed.tileHeight;
-
-            if( x === randX || y === randY ) {
+            
+            var chance = seed.numOfMines/seed.fieldSize;
+            
+            if ( chance > Math.random() ) {
+            //if( x === randX || y === randY ) {
                 
                 mine = true;
-                seed.numOfMines-10;
+                seed.numOfMines--;
                 
             }
             

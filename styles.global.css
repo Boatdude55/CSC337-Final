@@ -1,172 +1,50 @@
 /*Base*/
-header{
-	margin: 0px;
-}
-
-.main{
-	margin: 0px;
-}
-
-footer{
-	margin: 0px;
-}
-
+	body {
+	  
+	}
+	header{
+		margin: 0px;
+	}
+	
+	.main{
+		margin: 0px;
+	}
+	
+	footer{
+		margin: 0px;
+	}
 /*Containers*/
-.container{
-	padding: 10px;
-}
-
-.row{
-	display: -ms-flex;
-	display: -webkit-flex;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: flex-start;
-}
-
-/*Nav Bar*/
-.nav-bar{
-	margin: 0px 0px 0px 60px;
-}
-
-/* top-left | top-right | bottom-right | bottom-left */
-.nav-item{
-	padding: 15px;
-	border-radius: 5px 5px 0px 0px;
-	border: none;
-	background-color: rgb(150,150,150);
-	color: rgb(255,255,255);
-	cursor: pointer;
-	font-family: sans-serif;
-	font-weight: bold;
-	transition: background-color .5s;
-}
-
-.nav-item:hover{
-	background-color: rgb(50,50,150);
-}
-/*Quote div*/
-
-.quote{
-	padding: 5px;
-}
+	.container{
+		padding: 10px;
+		display: flex;
+	  	flex-direction: column;
+	  	min-height: 100vh;
+	}
+	.footer {
+	  
+	}
+	.row{
+		display: -ms-flex;
+		display: -webkit-flex;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-around;
+		align-items: center;
+	}
+	
+	.col{
+		display: -ms-flex;
+		display: -webkit-flex;
+		display: flex;
+	}
 
 /*Card*/
-.card{
-	border: none;
-	box-shadow: 0px 0px 3px 2px rgb(150,150,150);
-}
-
-.card-title{
-	font-family: "Lucida Console", monospace;
-	font-size: 1.5em;	
-}
-
-.card-img{
-	height: 35%;
-}
-
-.card-content{
-	height: 50%;
-}
-
-.card-footer{
-	height: 10%;
-}
-.small{
-	width: 20%;
-	height: 20%;
-}
-
-.medium{
-	width: 40%;
-}
-
-.large{
-	width: 70%;
-}
-/*Forms*/
-.form{
-	padding: 5px;
-}
-
-input{
-	margin: 5px;
-}
-
-.input-field{
-    padding: 10px;
-    margin: 10px;
-}
-.input-field label{
-    float: left;
-    color: rgb(71, 73, 205,) !important;
-}
-.input-field input{
-    /* top | right | bottom | left */
-    border-width: 0px 0px 3px 0px;
-    border-color: rgb(215, 195, 131);
-    color: rgb(71, 73, 115,) !important;
-    background-color: inherit;
-    padding: 3px 0px 3px 3px;
-    text-align: center;
-}
-
-/* Buttons */
-.btn{
-	padding: 10px;
-	color: rbg(100, 100, 255);
-	background-color: rgb(215, 195, 131);
-	font-weight: bold;
-	cursor: pointer;
-	border: none;
-	border-radius: 5px;
-	margin: 0px 5px 0px 0px;
-}
-
-/* Special */
-.rating{
-	border: none;
-	width: 15px;
-	text-align: center;
-}
-
-.divider{
-	width: 90%;
-}
-
-.snow-white{
-	background-color: #FAF9F6 !important;
-}
-
-.error{
-	color: red;
-	font-style: italic;
-}
-
-img{
-    visibility: hidden;
-    display: none;
-}
-
-#score-board{
-    padding: 15px;
-}
-
-#clock{
-    font-size: 1.2em;
-    padding: 15px;
-    background-color: rgb(0,0,0);
-    color: rgb(255,0,0);
-}
-
-.right{
-	float: right;
-}
-
-#canvas{
-	border: solid 5px;
-	border-style: outset outset none none;
-}
+	.card{
+		border: none;
+		box-shadow: 0px 0px 3px 2px rgb(150,150,150);
+	}
+	.card-title{
+		font-family: "Lucida Console", monospace;
+		font-size: 1.5em;	
+	}

@@ -123,17 +123,18 @@ if ( isset($_SESSION['registered-user']) ) {
 			<div class="row">
 			    <div class="col">
 			    	<div>
-						<img id="boom" src="./assets/8-bit/explosion.png" width="0px" height="0px"></img>
-					    <img id="tile" src="./assets/8-bit/tile.png" width="0px" height="0px"></img>
-					    <img id="mine" src="./assets/8-bit/mine.png" width="0px" height="0px"></img>
-	
+			    		<div class="hidden">
+							<img id="boom" src="./assets/8-bit/explosion.png" width="0px" height="0px"></img>
+						    <img id="tile" src="./assets/8-bit/tile.png" width="0px" height="0px"></img>
+						    <img id="mine" src="./assets/8-bit/mine.png" width="0px" height="0px"></img>
+						</div>
 					    <canvas id="canvas" width="800" height="600" style="width: 800px; height: 600px;">
 					    	Canvas not supported upgrade to evergreen browser
 					    </canvas>
 					</div>
 				</div>
 				<div class="col">
-					<div class="card">
+					<div id="user-panel" class="card">
 						<div class="card-img">
 						<?php
 							if ( isset($_SESSION["registered-user"]) ) {
@@ -188,6 +189,7 @@ if ( isset($_SESSION['registered-user']) ) {
 							<div class="row">
 								<form>
 									<button class="btn" onclick="new">New Game</button>
+									<button class="btn" onclick="save">Save Score</button>
 								</form>
 							</div>
 						</div>
@@ -195,7 +197,7 @@ if ( isset($_SESSION['registered-user']) ) {
 				</div>
 			</div>
 		</div> 
-		<footer>
+		<footer class="footer">
 			<div class="row">
 				<span>Made by Ivan Mucyo Ngabo and Danny Chalfoun</span>
 			</div>
@@ -248,7 +250,7 @@ if ( isset($_SESSION['registered-user']) ) {
 			        
 			        try{
 			            
-			            seed = new minesweeper.rules(Field.canvas.width, Field.canvas.height, 30, 20, 1);
+			            seed = new minesweeper.rules(Field.canvas.width, Field.canvas.height, 30, 20, 4);
 			            console.info("Game seed created", seed);
 			            
 			        }catch ( err ) {
