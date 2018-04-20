@@ -38,7 +38,9 @@
 		display: -webkit-flex;
 		display: flex;
 	}
-
+	.hidden{
+		display: hidden;
+	}
 /*Card*/
 	.card{
 		border: none;

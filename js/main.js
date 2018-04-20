@@ -154,7 +154,7 @@ var MineSweeper = function ( ctx ) {
                         /**
                          * Property that triggers whatever happens for game over
                          * 
-                         * */
+                         * 
                         this.GameOver();
                         return true;
                     }else {
@@ -170,7 +170,8 @@ var MineSweeper = function ( ctx ) {
     
         }
     };
-    
+   
+ 
     function CanvasElement ( x, y, dx, dy ) {
 
         this.x = x;
@@ -327,7 +328,7 @@ var MineSweeper = function ( ctx ) {
     };
     
 };
-*/
+
 function timeController ( viewElem ) {
     
     this.id = undefined;
@@ -366,7 +367,47 @@ function ScoreController ( viewElem ) {
     this.scoreboard = viewElem.innerHTML;
     
 }
+*/
 
+function Recursion () {
+
+}
+
+Recursion.prototype = {
+    main: function (...) {
+        
+        for () {
+            for () {
+                this.recursive(...);
+                this.recursive(...);
+                this.recursive(...);
+                this.recursive(...);
+                this.recursive(...);
+                this.recursive(...);
+                this.recursive(...);
+                this.recursive(...);
+            }
+        }
+        
+    },
+    recursive: function () {
+        
+        if () {
+            return;
+        }
+        
+        if () {
+            return;
+        }
+        
+        if () {
+            return 1;
+        }else {
+            recurse
+        }
+    },
+    
+}
 function CanvasMap ( cols, rows ) {
     
     this.cols = cols | 40;
@@ -409,8 +450,34 @@ CanvasMap.prototype = {
 
 function MineSweeper () {
     
+    this.tiles = undefined;
+    this.ctx = undefined;
+    
 }
 
+MineSweeper.prototype = {
+    init: function ( imgs, context ) {
+        
+        this.tiles = imgs;
+        this.ctx = context;
+        
+    }
+};
+
 Object.defineProperty(MineSweeper, {
-    
+    Map:{
+        value: new CanvasMap(),
+        writable: true,
+        configurable: false,
+        enumerable: true
+    },
+});
+
+Object.defineProperty(MineSweeper, {
+    Algorithms:{
+        value: new Recursion(),
+        writable: true,
+        configurable: false,
+        enumerable: true
+    },
 });
