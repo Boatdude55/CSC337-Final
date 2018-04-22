@@ -13,23 +13,23 @@ session_start();
 		<link rel="stylesheet" type="text/css" href="./styles.global.css"></link>
 		<title>MineSweeper</title>
 	</head>
-	<body>
+	<body class="container">
 		<div class="hidden">
 		<img id="tileset" src="./assets/minesweeper-tileset.png"></img>
 	</div>
-		<header>
+		<header class="grey-light">
 			<nav class="nav-bar">
 	
-					<a class="nav-item" name="mode" href="./register.php">Register</a>
-					<a class="nav-item" name="mode" href="./login.php">Login</a>
-					<a class="nav-item" name="mode" href="./boards.php">Leader Boards</a>
+					<a class="nav-item text-green" name="mode" href="./register.php">Register</a>
+					<a class="nav-item text-green" name="mode" href="./login.php">Login</a>
+					<a class="nav-item text-green" name="mode" href="./boards.php">Leader Boards</a>
 					<?php 
 						if ( isset($_SESSION['registered-user']) ) {
 							
 							echo '
-							<a class="nav-item" name="mode" value="play" href="./edit.php">Edit Account</a>
+							<a class="nav-item text-gold" name="mode" value="play" href="./edit.php">Edit Account</a>
 							<form method="get" action="index.php">
-								<button class="btn right" type="submit" name="logout" value="logout">Logout</button>
+								<button class="btn right text-gold" type="submit" name="logout" value="logout">Logout</button>
 							</form>
 							';
 	 
@@ -56,19 +56,19 @@ session_start();
 			<div class="row">
 			    <div class="col">
 			    	<div>
-					    <canvas id="game" width="800" height="600" style="width: 800px; height: 600px;">
+					    <canvas class="card" id="game" width="800" height="600" style="width: 800px; height: 600px;">
                             Canvas not supported upgrade to evergreen browser
                         </canvas>
 					</div>
 				</div>
 				<div class="col">
-					<div id="user-panel" class="card">
+					<div id="user-panel" class="card green-light">
 						<div class="card-img">
 						<?php
 							if ( isset($_SESSION["registered-user"]) ) {
 							echo '
 								<div class="card-title">Rank: Private</div>
-								<canvas id="character">Canvas not supported upgrade to evergreen browser</canvas>
+								<div> Medal goes here </div>
 							';
 							}else{
 								echo '
@@ -80,7 +80,7 @@ session_start();
 						<hr class="divider">
 						<div class="card-content">
 							<div class="row">
-								<div class="col">SCORE: <span id="score-board">000</span></div>
+								<div class="col">SCORE:&nbsp<span id="score-board">0</span> PTS</div>
 								<div class="col" id="clock">000</div>
 							</div>
 							<hr class="divider">
@@ -104,14 +104,9 @@ session_start();
 						    					</div>
 						    					<div class="col input-field">
 						    					    <div class="vertical-menu">
-						        						<input type="button" value="green" class="green stylus">
-						                				<input type="button" value="orange" class="orange stylus">
-						                				<input type="button" value="red" class="red stylus">
-						                				<input type="button" value="black" class="black stylus">
-						                				<input type="button" value="blue" class="blue stylus">
-						                				<input type="button" value="purple" class="purple stylus">
-						                				<input type="button" value="grey" class="grey stylus">
-						                				<input type="button" value="light-blue" class="light-blue stylus">
+						        						<input type="button" value="Easy" class="difficulty">
+						                				<input type="button" value="Intermediate" class="difficulty">
+						                				<input type="button" value="Hard" class="difficulty">
 						            				</div>
 						    					</div>
 						    				</div>
@@ -129,8 +124,8 @@ session_start();
 						<div class="card-footer">
 							<div class="row">
 								<form>
-									<button class="btn" id="new-game" type="button">New Game</button>
-									<button class="btn" id="save-game" type="button">Save Score</button>
+									<button class="btn bdr-green text-green" id="new-game" type="button">New Game</button>
+									<button class="btn bdr-green text-green" id="save-game" type="button">Save Score</button>
 								</form>
 							</div>
 						</div>
@@ -203,7 +198,8 @@ session_start();
                 console.error(err);
                 
             }
-	</script>
+            
+		</script>
 		<?php
 			if ( isset($_SESSION["registered-user"]) ) {
 				echo '

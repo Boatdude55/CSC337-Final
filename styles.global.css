@@ -16,6 +16,7 @@
 		-webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
 		animation-name: fade-in-onload;
 		animation-duration: 3s;
+		font-family: "Lucida Console", monospace;
 	}
 	
 	header{
@@ -28,6 +29,7 @@
 	
 	footer{
 		margin: 0px;
+		padding: 20px;
 	}
 	
 /*Containers*/
@@ -36,9 +38,14 @@
 		display: flex;
 	  	flex-direction: column;
 	  	min-height: 100vh;
+	  	overflow: auto;
 	}
 	.footer {
-	  
+		position: fixed;
+	    left: 0;
+	    bottom: 0;
+	    width: 100%;
+	    text-align: center;
 	}
 	.row{
 		display: -ms-flex;
@@ -61,8 +68,9 @@
 /* Card */
 	.card{
 		border: none;
-		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
 		transition: 0.3s;
+		padding: 10px;
 	}
 	.card-title{
 		font-family: "Lucida Console", monospace;
@@ -71,13 +79,100 @@
 	
 	/* On mouse-over, add a deeper shadow */
 	.card:hover {
-	    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+	    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 	}
 
+	.card hr{
+		width: 80%;
+		border: solid 1px rgb(255,255,255);
+	}
+/* Nav-Bar */
+.nav-bar{
+	overflow: hidden;
+}
+.nav-item:hover {
+    background-color: rgb(112, 193, 9);
+    color: white;
+}
+.nav-item{
+	float: left;
+	padding: 10px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Colors */
+
+	/* Background Color */
+		.black-light{
+			background-color: rgb(49, 57, 60);
+		}
+		.green-light{
+			background-color: rgb(165, 204, 107);
+		}
+		.grey-light{
+			background-color: rgb(240, 239, 244);
+		}
+		.green{
+			background-color: rgb(112, 193, 9);
+		}
+		.gold{
+			background-color: rgb(237, 191, 43);
+		}
+	/* Text Color */
+		.text-black-light{
+			color: rgb(49, 57, 60);
+		}
+		.text-green-light{
+			color: rgb(109, 163, 77);
+		}
+		.text-grey-light{
+			color: rgb(240, 239, 244);
+		}
+		.text-green{
+			color: rgb(112, 193, 9);
+		}
+		.text-gold{
+			color: rgb(237, 191, 43);
+		}
+	/* Border Color */
+		.brd-green{
+			border-color: rgb(112, 193, 9);
+		}
+/* Buttons */
+	.btn{
+		border: 2px solid;
+	    padding: 10px;
+	    font-size: 16px;
+	    border-radius: 10px;
+	    cursor: pointer;	
+	}
+	
+	.btn:hover{
+		color: white;
+		background-color: rgb(112, 193, 9);
+	}
 /* Game related */	
     canvas{
         cursor: crosshair;
-    }	
+        padding: 0px !important;
+    }
+    
+    #clock{
+    	border: thick double rgb(255,255,255);
+    	padding: 10px;
+    	border-radius: 10px;
+    }
+    
+    #score-board{
+    	color: rgb(240,200,8);
+    	font-size: 2em;
+    }
+    
+    .difficulty{
+    	color: black;
+    	background-color: inherit;
+    }
     .orange{
         background-color: rgb(255,200,0);
     }
