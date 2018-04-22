@@ -39,7 +39,7 @@
 		display: flex;
 	}
 	.hidden{
-		display: hidden;
+		visibility: hidden;
 	}
 /*Card*/
 	.card{
@@ -50,3 +50,50 @@
 		font-family: "Lucida Console", monospace;
 		font-size: 1.5em;	
 	}
+	
+/* Game related */	
+    canvas{
+        cursor: crosshair;
+    }	
+    .orange{
+        background-color: rgb(255,200,0);
+    }
+    
+    .green{
+        background-color: rgb(0,255,0);
+    }
+    
+    .red{
+        background-color: rgb(255,0,0);
+    }
+    
+    .black{
+        background-color: rgb(0,0,0);
+    }
+    
+    .blue{
+        background-color: rgb(0,0,255);
+    }
+    
+    .grey{
+        background-color: rgb(150,150,150);
+    }
+    
+    .light-blue{
+        background-color: rgb(50,150,255);
+    }
+    .purple{
+        background-color: rgb(200,0,255);
+    }
+    
+    .stylus{
+        cursor: pointer;
+    }
+    
+    .vertical-menu input{
+        display: block;
+        font-weight: bold;
+        width: 100%;
+        color: rgb(255,255,255);
+        border:none;
+    }

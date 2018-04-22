@@ -14,121 +14,51 @@ session_start();
 		<title>MineSweeper</title>
 	</head>
 	<body>
-	<header>
-		<nav class="nav-bar">
-			<form method="get" action="index.php">
-				<button class="nav-item" type="submit" name="mode" value="register">Register</button>
-				<button class="nav-item" type="submit" name="mode" value="login">Login</button>
-				<button class="nav-item" type="submit" name="mode" value="boards">Leader Boards</button>
-				<?php 
-					if ( isset($_SESSION['registered-user']) ) {
-						
-						echo '
-						<button class="nav-item" type="submit" name="mode" value="play">Edit Account</button>
-						<button class="nav-item" type="submit" name="mode" value="play">Edit Field</button>
-						<button class="btn right" type="submit" name="logout" value="logout">Logout</button>
-						';
- 
+		<div class="hidden">
+		<img id="tileset" src="./assets/minesweeper-tileset.png"></img>
+	</div>
+		<header>
+			<nav class="nav-bar">
+	
+					<a class="nav-item" name="mode" href="./register.php">Register</a>
+					<a class="nav-item" name="mode" href="./login.php">Login</a>
+					<a class="nav-item" name="mode" href="./boards.php">Leader Boards</a>
+					<?php 
+						if ( isset($_SESSION['registered-user']) ) {
+							
+							echo '
+							<a class="nav-item" name="mode" value="play" href="./edit.php">Edit Account</a>
+							<form method="get" action="index.php">
+								<button class="btn right" type="submit" name="logout" value="logout">Logout</button>
+							</form>
+							';
+	 
+						}
+					?>
+	
+			</nav>
+		</header>
+			<?php
+
+				if ( isset($_SESSION['registered-user']) ) {
+					
+					if ( isset($_GET['logout']) ) {
+
+						session_unset();
+
+						header("Location: index.php");
+
 					}
-				?>
-			</form>
-		</nav>
-	</header>
-<?php
-
-if ( isset($_SESSION['registered-user']) ) {
-	
-	if ( isset($_GET['mode']) ) {
-		
-		$mode = $_GET['mode'];
-		
-		if ( $mode == 'register') {
-			
-			
-			//include("register.php");
-			//header("Location: register.php");
-			
-			//For Testing
-			echo '<h1>Elevated Register</h1>';
-		}
-		
-		if ( $mode == 'login' ) {
-			
-			
-			//include("login.php");
-			//header("Location: login.php");
-			
-			//For Testing
-			echo '<h1>Elevated Login</h1>';
-			
-		}
-		
-		if ( $mode == 'boards' ) {
-			
-			//For Testing
-			//echo '<h1>Elevated Leader Boards</h1>';
-		}
-
-	}
-
-	if ( isset($_GET['logout']) ) {
-		
-		session_unset();
-
-		header("Location: index.php");
-		
-	}
-}else {
-
-	if ( empty($_GET) ) {	
-	
-		
-	}else {
-		
-		if ( isset($_GET['mode']) ) {
-		
-				$mode = $_GET['mode'];
-				
-				if ( $mode == 'register') {
-					
-					//include("register.php");
-					header("Location: register.php");
-					
-					//For Testing
-					//echo '<h1>Register</h1>';
 				}
-				
-				if ( $mode == 'login' ) {
-					
-					//include("login.php");
-					header("Location: login.php");
-					
-					//For Testing
-					//echo '<h1>Login</h1>';
-				}
-				
-				if ( $mode == 'boards' ) {
 
-					//For Testing
-					echo '<h1>Leader Boards</h1>';
-				}
-			
-		}
-
-	}
-	
-}
-?>
+			?>
 		<div class="main container">
 			<div class="row">
 			    <div class="col">
 			    	<div>
-			    		<div class="hidden">
-							<img id="tileset" src="./assets/minesweeper-tileset.png"></img>
-						</div>
 					    <canvas id="game" width="800" height="600" style="width: 800px; height: 600px;">
-					    	Canvas not supported upgrade to evergreen browser
-					    </canvas>
+                            Canvas not supported upgrade to evergreen browser
+                        </canvas>
 					</div>
 				</div>
 				<div class="col">
@@ -158,23 +88,36 @@ if ( isset($_SESSION['registered-user']) ) {
 								if ( isset($_SESSION["registered-user"]) ) {
 									echo '
 										<div>
-											<h5>styles</h5>
-											<div class="row">
-												<div class="col input-field">
-													<label>tile1</label>
-													<label>tile2</label>
-													<label>tile3</label>
-													<label>tile4</label>
-												</div>
-												<div class="col input-field">
-													<label>mine1</label>
-													<label>mine2</label>
-													<label>mine3</label>
-													<label>mine4</label>
-												</div>
-											</div>
-										</div>
+						    				<h5>styles</h5>
+						    				<div class="row">
+						    					<div class="col input-field">
+						    					    <div id="styles" class="vertical-menu">
+						        						<input type="button" value="green" class="green stylus">
+						                				<input type="button" value="orange" class="orange stylus">
+						                				<input type="button" value="red" class="red stylus">
+						                				<input type="button" value="black" class="black stylus">
+						                				<input type="button" value="blue" class="blue stylus">
+						                				<input type="button" value="purple" class="purple stylus">
+						                				<input type="button" value="grey" class="grey stylus">
+						                				<input type="button" value="light-blue" class="light-blue stylus">
+						            				</div>
+						    					</div>
+						    					<div class="col input-field">
+						    					    <div class="vertical-menu">
+						        						<input type="button" value="green" class="green stylus">
+						                				<input type="button" value="orange" class="orange stylus">
+						                				<input type="button" value="red" class="red stylus">
+						                				<input type="button" value="black" class="black stylus">
+						                				<input type="button" value="blue" class="blue stylus">
+						                				<input type="button" value="purple" class="purple stylus">
+						                				<input type="button" value="grey" class="grey stylus">
+						                				<input type="button" value="light-blue" class="light-blue stylus">
+						            				</div>
+						    					</div>
+						    				</div>
+						    			</div>
 									';
+									
 								}else{
 									echo '
 									<h3 class="advert">Login for extra Features</h3>
@@ -186,8 +129,8 @@ if ( isset($_SESSION['registered-user']) ) {
 						<div class="card-footer">
 							<div class="row">
 								<form>
-									<button class="btn" onclick="new">New Game</button>
-									<button class="btn" onclick="save">Save Score</button>
+									<button class="btn" id="new-game" type="button">New Game</button>
+									<button class="btn" id="save-game" type="button">Save Score</button>
 								</form>
 							</div>
 						</div>
@@ -200,16 +143,69 @@ if ( isset($_SESSION['registered-user']) ) {
 				<span>Made by Ivan Mucyo Ngabo and Danny Chalfoun</span>
 			</div>
 		</footer>
-	<?php
-		if ( isset($_SESSION["registered-user"]) ) {
-			echo '<script type="text/javascript">
-			var character = document.getElementById("character");
-			
-			</script>';
-		}
-	?>
-	<script type="text/javascript">
-    
+		<script type="text/javascript">
+
+            var game = new MineSweeper();
+            var gameCanvas = undefined;
+            var newGameBtn = document.getElementById("new-game");
+            //var styler = document.getElementById("styles");
+            var tileSet = document.getElementById("tileset");
+
+            try{
+            	
+                gameCanvas = document.getElementById("game");
+                game.init(tileSet,gameCanvas);
+                /*
+                styler.addEventListener("click", function (e) {
+                    
+                    //console.info("styling");
+                    game.clear();
+                    game.setStyle(e.target.value);
+                    game.fillMap();
+                    game.drawMap();
+                    game.on = true;
+                    
+                }, false);
+                */
+                
+                newGameBtn.addEventListener("click", function () {
+                    
+                    //console.info("new game");
+                    game.clear();
+                    game.fillMap();
+                    game.drawMap();
+                    game.on = true;
+                    
+                }, false);
+                
+                gameCanvas.addEventListener("click", function clicked ( event ) {
+                    
+                    if ( game.on ) {
+                        
+                        //console.info("clicked");
+                        
+                        if ( game.onClick(event) ) {
+                            
+                            game.on = false;
+                            //console.info("game over");
+                            
+                        }else{
+                            
+                            //console.info("game on");
+                            
+                        }
+                        
+                    }
+                    
+                }, true);
+                
+            }catch(err){
+                
+                console.error(err);
+                
+            }
+	    /*
+	        
     	var Field = undefined;
 	    var seed = undefined;
 	    var timer = undefined;
@@ -230,7 +226,6 @@ if ( isset($_SESSION['registered-user']) ) {
 	    
 	    canvas.addEventListener("click", MineSweeper.onClick );
 	    
-	    /*
     	document.addEventListener("loadend", function () {
 	    
 		    clock = document.getElementById("clock")
@@ -318,5 +313,26 @@ if ( isset($_SESSION['registered-user']) ) {
     	},true);
     	*/
 	</script>
+		<?php
+			if ( isset($_SESSION["registered-user"]) ) {
+				echo '
+				<script type="text/javascript">
+				
+				    var styler = document.getElementById("styles");
+				    
+					styler.addEventListener("click", function (e) {
+			                
+			            //console.info("styling");
+			            game.clear();
+			            game.setStyle(e.target.value);
+			            game.fillMap();
+			            game.drawMap();
+			            game.on = true;
+			            
+			        }, false);
+			        
+				</script>';
+			}
+		?>
 	</body>
 </html>
