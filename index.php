@@ -80,7 +80,7 @@ session_start();
 						<hr class="divider">
 						<div class="card-content">
 							<div class="row">
-								<div class="col" id="score-board">Score</div>
+								<div class="col">SCORE: <span id="score-board">000</span></div>
 								<div class="col" id="clock">000</div>
 							</div>
 							<hr class="divider">
@@ -144,33 +144,26 @@ session_start();
 			</div>
 		</footer>
 		<script type="text/javascript">
-
+		
+			var clock = document.getElementById("clock");
+			var scoreBoard = document.getElementById("score-board");
             var game = new MineSweeper();
             var gameCanvas = undefined;
             var newGameBtn = document.getElementById("new-game");
-            //var styler = document.getElementById("styles");
             var tileSet = document.getElementById("tileset");
-
+            var timer = new timeController(clock);
+            
             try{
             	
                 gameCanvas = document.getElementById("game");
                 game.init(tileSet,gameCanvas);
-                /*
-                styler.addEventListener("click", function (e) {
-                    
-                    //console.info("styling");
-                    game.clear();
-                    game.setStyle(e.target.value);
-                    game.fillMap();
-                    game.drawMap();
-                    game.on = true;
-                    
-                }, false);
-                */
                 
                 newGameBtn.addEventListener("click", function () {
                     
                     //console.info("new game");
+                    scoreBoard.innerHTML = "0";
+                    timer.stop();
+                    clock.innerHTML = "000";
                     game.clear();
                     game.fillMap();
                     game.drawMap();
@@ -181,17 +174,23 @@ session_start();
                 gameCanvas.addEventListener("click", function clicked ( event ) {
                     
                     if ( game.on ) {
+                    	
+                    	if ( !timer.isOn ) {
+				            
+				            timer.start();
+				
+				        }
+				        
+                        var result = game.onClick(event);
                         
-                        //console.info("clicked");
-                        
-                        if ( game.onClick(event) ) {
+                        if ( result === true ) {
                             
                             game.on = false;
-                            //console.info("game over");
+                            timer.stop();
                             
                         }else{
                             
-                            //console.info("game on");
+                            scoreBoard.innerHTML = parseInt(scoreBoard.innerHTML,10) + result;
                             
                         }
                         
@@ -199,119 +198,11 @@ session_start();
                     
                 }, true);
                 
-            }catch(err){
+            }catch( err ){
                 
                 console.error(err);
                 
             }
-	    /*
-	        
-    	var Field = undefined;
-	    var seed = undefined;
-	    var timer = undefined;
-	    var canvas = document.getElementById("game");
-	    var clock = undefined;
-	    var mine = undefined;
-	    var tiles = document.getElementById("tileset");
-	    var ctx = undefined;
-	    
-	    var MineSweeper = new MineSweeper();
-	    
-	    tiles.onload = function () {
-	    	
-	    	MineSweeper.init(tiles, canvas.width, canvas.height);
-	    	MineSweeper.start();
-	    	
-	    };
-	    
-	    canvas.addEventListener("click", MineSweeper.onClick );
-	    
-    	document.addEventListener("loadend", function () {
-	    
-		    clock = document.getElementById("clock")
-		    canvas = document.getElementById("canvas");
-			mine = document.getElementById("mine");
-			tile = document.getElementById("tile");
-		    ctx = canvas.getContext('2d');
-			var count = 0;
-			
-		    var minesweeper = new MineSweeper( ctx );
-		
-			    if ( minesweeper ) {
-			        
-			        console.info("MineSweeper object created", minesweeper);
-			        minesweeper.CanvasElem.prototype.mine = mine;
-			        
-			        try {
-			        	
-			            Field = new minesweeper.Canvas(canvas);
-			            console.info("Canvas Object created", Field);
-			            
-			        }catch ( err ) {
-			            
-			            console.error("Error with CanvasClass constructor", err);
-			            
-			        }
-			        
-			        try{
-			            
-			            seed = new minesweeper.rules(Field.canvas.width, Field.canvas.height, 30, 20, 4);
-			            console.info("Game seed created", seed);
-			            
-			        }catch ( err ) {
-			            
-			            console.error("Error with rules constructor", err);
-			            
-			        }
-			        
-			        try{
-			            
-			            minesweeper.setup(Field,seed);
-			            tile.onload = function () {
-			            minesweeper.init(Field, tile);
-			            };
-			            console.info("Game setup and started created");
-			            
-			        }catch ( err ) {
-			            
-			            console.error("Error with setting up and starting game", err);
-			            
-			        }
-			        
-			        try{
-			
-			            timer = new timeController(clock);console.log(clock,timer);
-			            console.info("Timer created", timer);
-			            
-			        }catch ( err ) {
-			            
-			            console.error("Error with timeController constructor", err);
-			            
-			        }
-			        
-			    }else {
-			        
-			        console.error("Error instantiating MineSweeper object", minesweeper);
-			    }
-			    
-			    canvas.addEventListener("click", function onclick(event) {
-			        
-			        if ( !timer.isOn ) {
-			            
-			            timer.start();
-			
-			        }
-			            
-			        if ( Field.onClick(event) ) {
-			            
-			            event.target.removeEventListener("click", onclick,true);
-			            timer.stop();
-			            
-			        }
-			        
-			    }, true);
-    	},true);
-    	*/
 	</script>
 		<?php
 			if ( isset($_SESSION["registered-user"]) ) {

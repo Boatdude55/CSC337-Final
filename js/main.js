@@ -180,6 +180,8 @@ MineSweeper.prototype = {
     },
     drawMap: function ( start = true, layer = 'base', flags = true, end = false ) {
         
+        var count = 0;
+        
         for ( var i = 0 ;  i < this.map.cols ; i++ ) {
             
             for ( var j = 0 ;  j < this.map.rows ; j++ ) {
@@ -216,10 +218,13 @@ MineSweeper.prototype = {
                     this.map.tileSize, // target width
                     this.map.tileSize // target height
                 );
+                
+                count++;
+                
             }
         }
         
-        return;
+        return count;
         
     },
     getNeighbors: function ( x, y ) {
@@ -299,31 +304,31 @@ MineSweeper.prototype = {
 
     },
     onClick: function ( event ) {
-        
+
         this.eventLayer.eventHandler(event, this.map.cols, this.map.rows, event.target.offsetLeft, event.target.offsetTop);
-        
         this.map.clear("dynamic");
+
         var x, y;
 
-        //x = (Math.floor(this.eventLayer.coords[0].x / 20));
-        //y = (Math.floor(this.eventLayer.coords[0].y / 20));
         x = (Math.floor(this.eventLayer.coords[0].x));
         y = (Math.floor(this.eventLayer.coords[0].y));
         //console.info(this.eventLayer.coords,x,y);
+
         if ( this.eventLayer.shift ) {
-            
+
             var isFlagged = this.map.getValueAt(x,y,"flag") == 18 ? true : false;
-            
+
             if ( isFlagged ) {
-                
+
                 this.map.layers["flag"][(y * this.map.cols + x)] = this.blockKeys[this.styleBlock];
-                
+
             }else {
-                
+
                 this.map.layers["flag"][(y * this.map.cols + x)] = 18;
             }
-            
+
             this.drawMap(false,'flag');
+            return false; 
             
         }else{
 
@@ -342,7 +347,7 @@ MineSweeper.prototype = {
                     //console.info("has mines", x,y, hasMines);
                     this.map.putValueAt(x,y,true,"stack");
                     this.map.putValueAt(x,y,hasMines,"dynamic");
-                    
+
                 }else {
 
                     this.map.putValueAt(x,y,true,"stack");
@@ -352,8 +357,8 @@ MineSweeper.prototype = {
 
                 }
                 
-                this.drawMap(false, 'dynamic', false);
-                return false;
+                return this.drawMap(false, 'dynamic', false);
+                
             }
 
         }
@@ -370,3 +375,37 @@ MineSweeper.prototype = {
         
     }
 };
+
+function timeController ( viewElem ) {
+    
+    this.id = undefined;
+    var view = viewElem;
+    var count = 0;
+    this.isOn = false;
+    var mins = 0;
+    var secs = 0;
+    
+    this.start = function () {
+        
+        var id = setInterval(onChange, 1000);
+        this.id = id;
+        this.isOn = true;
+    }
+    
+    this.stop = function ( ) {
+        
+        if ( this.id ) {
+            
+            clearInterval(this.id);
+            this.isOn = false;
+            
+        }
+    }
+    
+    function onChange ( ) {
+        
+        view.innerHTML++;
+        
+    }
+    
+}
