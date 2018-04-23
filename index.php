@@ -165,7 +165,14 @@ session_start();
 			
 			var footer = document.getElementById("credits");
 			var help = document.getElementById("info");
-			
+			var clock = document.getElementById("clock");
+			var scoreBoard = document.getElementById("score-board");
+            var game = new MineSweeper();
+            var gameCanvas = undefined;
+            var newGameBtn = document.getElementById("new-game");
+            var tileSet = document.getElementById("tileset");
+            var timer = new timeController(clock);
+            
 			help.addEventListener("click", function ( event ) {
 				
 				var content = document.getElementById(event.target.dataset.target);
@@ -191,13 +198,7 @@ session_start();
 				
 			}, false);
 			
-			var clock = document.getElementById("clock");
-			var scoreBoard = document.getElementById("score-board");
-            var game = new MineSweeper();
-            var gameCanvas = undefined;
-            var newGameBtn = document.getElementById("new-game");
-            var tileSet = document.getElementById("tileset");
-            var timer = new timeController(clock);
+
             
             try{
             	
@@ -253,26 +254,9 @@ session_start();
 		</script>
 		<?php
 			if ( isset($_SESSION["registered-user"]) ) {
-				/*
-				echo '
-				<script type="text/javascript">
 				
-				    var styler = document.getElementById("styles");
-				    
-					styler.addEventListener("click", function (e) {
-			                
-			            //console.info("styling");
-			            game.clear();
-			            game.setStyle(e.target.value);
-			            game.fillMap();
-			            game.drawMap();
-			            game.on = true;
-			            
-			        }, false);
-			        
-				</script>';
-				*/
 				include dirname(__FILE__) . "/js/registered.php";
+				
 			}
 		?>
 	</body>
