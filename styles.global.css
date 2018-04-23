@@ -14,7 +14,7 @@
 		-webkit-animation-name: fade-in-onload; /* Safari 4.0 - 8.0 */
 		-webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
 		animation-name: fade-in-onload;
-		animation-duration: 2s;		
+		animation-duration: 1.5s;		
 	}
 /*Base*/
 	body {
@@ -105,6 +105,25 @@
 		width: 80%;
 		border: solid 1px rgb(255,255,255);
 	}
+	
+/*Forms*/
+	.form{
+		padding: 5px;
+	}
+	
+	input{
+		margin: 5px;
+	}
+	
+	.input-field{
+	    padding: 10px;
+	    margin: 10px;
+	}
+	.input-field label{
+	    float: left;
+	    color: rgb(71, 73, 205,) !important;
+	}
+	
 /* Nav-Bar and Menus */
 	.nav-bar{
 		overflow: hidden;

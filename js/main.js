@@ -62,7 +62,7 @@ CanvasEventGrid.prototype = {
             //Math.floor(y - bbox.top  * (height / bbox.height))
             
        return { x: Math.floor((x - offsetX) * (width  / bbox.width)),
-                y: Math.floor((y - offsetY)  * (height / bbox.height))
+                y: Math.floor((y - bbox.top)  * (height / bbox.height))
               };
               
     },
@@ -373,6 +373,14 @@ MineSweeper.prototype = {
         
         this.difficulty = difficulty;
         
+    },
+    getScore: function ( time, score ) {
+        
+        return {
+            score: score,
+            time: time,
+            rank: this.difficulty
+        };
     }
 };
 

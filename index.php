@@ -90,7 +90,7 @@ session_start();
 									echo '
 										<div>
 						    				<div class="row">
-						    					<div class="col input-field">
+						    					<div class="col">
 						    					    <div id="styles" class="vertical-menu">
 						    					    	<h5 class="header">Styles</h5>
 						        						<input type="button" value="green" class="green hover">
@@ -103,7 +103,7 @@ session_start();
 						                				<input type="button" value="light-blue" class="light-blue hover">
 						            				</div>
 						    					</div>
-						    					<div class="col input-field">
+						    					<div class="col">
 						    					    <div id="difficulty" class="vertical-menu">
 						    					    	<h5 class="header">Level</h5>
 						        						<input type="button" data-value="7" value="Easy" class="difficulty hover">
