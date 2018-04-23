@@ -12,18 +12,9 @@ class DatabaseController {
 		
 	}
 
-	public function getAllScores( $flagged ) {
+	public function getAllScores( $difficulty ) {
 		
-		if ( !$flagged ) {
-			
-			$criteria = "WHERE flagged > 0";
-			$quotes = $this->db->selectAllOrdered( $criteria );
-			
-		}else {
-			
-			$scores = $this->db->selectAllOrdered();
-			
-		}
+		$scores = $this->db->selectAllOrdered("", $difficulty);
 		return $scores;
 		
 	}

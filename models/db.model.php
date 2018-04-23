@@ -28,10 +28,9 @@ class DatabaseAdaptor {
 	   * @throws Error
 	   * @return array
 	   */
-	  public function selectAllOrdered ( $condition = "", $table = "quotations", $arrangers = "rating DESC, added", $order = "DESC" ) {
+	  public function selectAllOrdered ( $condition = "", $table = "EasyDifficulty", $arrangers = "highscore DESC, time_taken", $order = "DESC" ) {
 	  	
 	  	try{
-	  		//WHERE flagged > 0
 		  	$stmt = $this->DB->prepare( "SELECT * FROM $table $condition ORDER BY $arrangers $order" );
 		  	$stmt->execute ();
 		  	
@@ -204,9 +203,14 @@ class DatabaseAdaptor {
 // Testing code that should not be run when a part of MVC
 
 //Use whatever relevant credentials
+/*
 $db = "final";//test database I made: contains users table
 $ip = getenv('IP');
 $username = getenv('C9_USER');
+*/
+$db = "minesweeper_service";
+$ip = "127.0.0.1";
+$username = "root";
 
 $theDBA = new DatabaseAdaptor ($db, $ip, $username);
 
