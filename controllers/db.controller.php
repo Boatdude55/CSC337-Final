@@ -26,7 +26,7 @@ class DatabaseController {
 	
 	public function insertUser ( $user, $psd ) {
 		
-		$columns = array('username', 'hash');
+		$columns = array('name', 'password');
 		$hashed_psd = password_hash($psd, PASSWORD_DEFAULT);
 		
 		$values = array($user, $hashed_psd );

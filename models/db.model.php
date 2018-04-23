@@ -96,14 +96,14 @@ class DatabaseAdaptor {
 		}
 	}
 	
-	public function insertInto ( $cols, $values, $table = 'users') {
+	public function insertInto ( $cols, $values, $table = 'User') {
 
 		try{
 			
-			$formatedCols = $this->insertColSyntax($cols);
-			$formatedValues = $this->insertValueSyntax($values);
+			$formattedCols = $this->insertColSyntax($cols);
+			$formattedValues = $this->insertValueSyntax($values);
 			
-			$stmt = $this->DB->prepare( "INSERT INTO $table ($formatedCols) values ($formatedValues)" );
+			$stmt = $this->DB->prepare( "INSERT INTO $table ($formattedCols) values ($formattedValues)" );
 			$stmt->execute ();
 
 			return true;
@@ -181,15 +181,15 @@ class DatabaseAdaptor {
 		
 		$success = 0;
 		
-		$stmt = $this->DB->prepare( "SELECT * FROM users where username = '$username'" );
+		$stmt = $this->DB->prepare( "SELECT * FROM User where name = '$username'" );
 		$stmt->execute ();
 		
 		$result = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 
-		if ( isset($result[0]['username']) ) {
+		if ( isset($result[0]['name']) ) {
 			
-			$password_test = password_verify( $password , $result[0]['hash']) ? 1 : 0;
-			$username_test = $result[0]['username'] == $username ? 1 : 0;
+			$password_test = password_verify( $password , $result[0]['password']) ? 1 : 0;
+			$username_test = $result[0]['name'] == $username ? 1 : 0;
 			
 			$success = $username_test + $password_test;
 			

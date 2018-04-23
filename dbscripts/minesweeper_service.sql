@@ -1,7 +1,7 @@
 CREATE DATABASE minesweeper_service;
 USE minesweeper_service;
 CREATE TABLE User (
-	ID int,
+	ID int unsigned AUTO_INCREMENT,
 	name varchar(20),
 	password varchar(255),
 	PRIMARY KEY (ID)
