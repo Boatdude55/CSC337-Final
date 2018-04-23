@@ -33,7 +33,7 @@
 	
 	footer{
 		margin: 0px;
-		padding: 10px;
+		padding: 5px;
 	}
 	
 /*Containers*/
@@ -122,6 +122,16 @@
 	.input-field label{
 	    float: left;
 	    color: rgb(71, 73, 205,) !important;
+	}
+	
+	.input-field input{
+	    /* top | right | bottom | left */
+	    border-width: 0px 0px 3px 0px;
+	    border-color: rgb(215, 195, 131);
+	    color: rgb(71, 73, 115,) !important;
+	    background-color: inherit;
+	    padding: 3px 0px 3px 3px;
+	    text-align: center;
 	}
 	
 /* Nav-Bar and Menus */
@@ -239,15 +249,29 @@
     	margin-bottom: 10px;
     	text-align: left;
     }
+    
+    .no-cursor{
+    	cursor: none;
+    }
+    
     #clock{
     	border: thick double rgb(255,255,255);
+    	color: rgb( 255,255,255);
     	padding: 10px;
     	border-radius: 10px;
+    	background-color: inherit;
+    	width: 40%;
+    	font-size: 1em;
+    	text-align: right;
+    	margin-left: 5%;
     }
     
     #score-board{
+    	border: none;
+    	background-color: inherit;
     	color: rgb(240,200,8);
     	font-size: 2em;
+    	width: 30%;
     }
     
     .orange{

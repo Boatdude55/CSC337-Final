@@ -1,4 +1,4 @@
-		<?php
+<?php
 // File Name: index.php
 //URL:  https://project-euler-boatrider.c9users.io/CSC337-Final/index.php
 
@@ -27,7 +27,6 @@ session_start();
 						if ( isset($_SESSION['registered-user']) ) {
 							
 							echo '
-							<a class="nav-item text-gold" name="mode" value="play" href="./edit.php">Edit Account</a>
 							<form method="get" action="index.php">
 								<button class="btn text-gold" type="submit" name="logout" value="logout">Logout</button>
 							</form>
@@ -81,8 +80,8 @@ session_start();
 						<hr class="divider">
 						<div class="card-content">
 							<div class="row">
-								<div class="col">SCORE:&nbsp<span id="score-board">0</span> PTS</div>
-								<div class="col" id="clock">000</div>
+								<div class="col no-cursor">SCORE:&nbsp<input class=" no-cursor" type="text" form="save" id="score-board" name="pts" value="0" readonly> PTS</div>
+								<div class="col no-cursor"><input class=" no-cursor" type="text" form="save" id="clock" name="time" value="000" readonly></div>
 							</div>
 							<hr class="divider">
 							<?php
@@ -125,9 +124,9 @@ session_start();
 						<hr class="divider">
 						<div class="card-footer">
 							<div class="row">
-								<form>
-									<button class="btn bdr-green text-green" id="new-game" type="button">New Game</button>
-									<button class="btn bdr-green text-green" id="save-game" type="button">Save Score</button>
+								<button class="btn bdr-green text-green" id="new-game" type="button">New Game</button>
+								<form id="save" method="post" action="js/registered.php" onsubmit="saveScore(event)">
+									<button class="btn bdr-green text-green" id="save-game" type="submit">Save Score</button>
 								</form>
 							</div>
 						</div>
@@ -208,9 +207,9 @@ session_start();
                 newGameBtn.addEventListener("click", function () {
                     
                     //console.info("new game");
-                    scoreBoard.innerHTML = "0";
+                    scoreBoard.value = "0";
                     timer.stop();
-                    clock.innerHTML = "000";
+                    clock.value = "000";
                     game.clear();
                     game.fillMap();
                     game.drawMap();
@@ -237,7 +236,7 @@ session_start();
                             
                         }else{
                             
-                            scoreBoard.innerHTML = parseInt(scoreBoard.innerHTML,10) + result;
+                            scoreBoard.value = parseInt(scoreBoard.value,10) + result;
                             
                         }
                         

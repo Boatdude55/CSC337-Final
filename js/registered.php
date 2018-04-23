@@ -1,24 +1,42 @@
+<?php
+    
+    if ( isset($_POST) ) {
+        /*
+        print("<pre>".print_r($_POST,true)."</pre>");
+        */
+    }
+?>
 <script type="text/javascript">
 'use strict';
 
 var styler = document.getElementById("styles");
 var difficulty = document.getElementById("difficulty");
-var saveScore = document.getElementById("save-game");
 
 styler.addEventListener("click", function (e) {
         
-    //console.info("styling");
-    game.clear();
-    game.setStyle(e.target.value);
-    game.fillMap();
-    game.drawMap();
-    game.on = true;
+    //console.info("styling: ", e.target.value);
+    var style = e.target.value;
+    
+    if ( style !== undefined ) {
+    
+        game.clear();
+        game.setStyle(style);
+        game.fillMap();
+        game.drawMap();
+        game.on = true;
+        
+    }else {
+        
+        var msg = "Undefined color: click directly on button";
+        console.info(msg);
+    }
     
 }, false);
 
 difficulty.addEventListener("click", function (e) {
         
-    //console.info("changing difficulty");
+    //console.info("changing difficulty",e.target.dataset.value);
+    
     game.clear();
     game.setDifficulty(e.target.dataset.value);
     game.fillMap();
@@ -27,19 +45,23 @@ difficulty.addEventListener("click", function (e) {
     
 }, false);
 
-saveScore.addEventListener("click", function (e) {
+function saveScore ( event ) {
     
-    //console.info("saving score");
+    event.preventDefault();
+    
+    var form = event.target;
+    //Values being sent
+    //console.log(form[0], form[1], form[2]);
+    
     game.clear();
-    game.setDifficulty(e.target.dataset.value);
     game.fillMap();
     game.drawMap();
     game.on = true;
-    var score = scoreBoard.innerHTML;
-    score.innerHTML = "0";
-    var difficulty = game.difficulty;
-    console.log(score);
-    console.log(difficulty);
     
-}, false);
+    form.submit();
+    
+    scoreBoard.value = "0";
+    clock.value = "000";
+    
+}
 </script>

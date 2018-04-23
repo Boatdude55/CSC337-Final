@@ -412,7 +412,7 @@ function timeController ( viewElem ) {
     
     function onChange ( ) {
         
-        view.innerHTML++;
+        view.value++;
         
     }
     
