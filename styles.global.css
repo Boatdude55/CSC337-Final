@@ -261,4 +261,20 @@
     .purple{
         background-color: rgb(200,0,255) !important;
     }
-    
+    .vertical-menu input{
+        display: block;
+        font-weight: bold;
+        width: 100%;
+        color: rgb(255,255,255);
+        border:none;
+    }
+/* Related to Boards */
+.scoreDiv {
+	border: 1px solid black;
+	float: left;
+	width: 30%;
+	margin-left: 3%;
+}
+.scoreDiv h3 {
+	text-align: center;
+}

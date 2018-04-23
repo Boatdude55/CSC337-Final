@@ -12,18 +12,9 @@ class DatabaseController {
 		
 	}
 
-	public function getAllScores( $flagged ) {
+	public function getAllScores( $difficulty ) {
 		
-		if ( !$flagged ) {
-			
-			$criteria = "WHERE flagged > 0";
-			$quotes = $this->db->selectAllOrdered( $criteria );
-			
-		}else {
-			
-			$scores = $this->db->selectAllOrdered();
-			
-		}
+		$scores = $this->db->selectAllOrdered("", $difficulty);
 		return $scores;
 		
 	}
@@ -35,7 +26,7 @@ class DatabaseController {
 	
 	public function insertUser ( $user, $psd ) {
 		
-		$columns = array('username', 'hash');
+		$columns = array('name', 'password');
 		$hashed_psd = password_hash($psd, PASSWORD_DEFAULT);
 		
 		$values = array($user, $hashed_psd );

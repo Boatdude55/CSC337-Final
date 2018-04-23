@@ -31,31 +31,6 @@ class ViewController{
 	}
 	
 	/**
-	 * remove this one
-	 * 
-	 * */
-	public function renderIndex ( $priveledge, $data ) {
-		
-		$header = ''; $main = '';
-		
-		if ( $priveledge ) {
-			
-			$head = $this->views['index']['head-content']['admin'];
-			
-		}else{
-			
-			$head = $this->views['index']['head-content']['default'];
-			
-		}
-		
-		
-		$main = implode('', array($this->views['index']['main-content']['head'], $data, $this->views['index']['main-content']['tail']));
-
-		return $head . $main;
-		
-	}
-	
-	/**
 	 * Here my case for why I think its useful
 	 * All you have to do is change the key names and the html in head and tail
 	 * @param array $data

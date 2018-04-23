@@ -28,10 +28,9 @@ class DatabaseAdaptor {
 	   * @throws Error
 	   * @return array
 	   */
-	  public function selectAllOrdered ( $condition = "", $table = "quotations", $arrangers = "rating DESC, added", $order = "DESC" ) {
+	  public function selectAllOrdered ( $condition = "", $table = "EasyDifficulty", $arrangers = "highscore DESC, time_taken", $order = "DESC" ) {
 	  	
 	  	try{
-	  		//WHERE flagged > 0
 		  	$stmt = $this->DB->prepare( "SELECT * FROM $table $condition ORDER BY $arrangers $order" );
 		  	$stmt->execute ();
 		  	
@@ -97,14 +96,14 @@ class DatabaseAdaptor {
 		}
 	}
 	
-	public function insertInto ( $cols, $values, $table = 'users') {
+	public function insertInto ( $cols, $values, $table = 'User') {
 
 		try{
 			
-			$formatedCols = $this->insertColSyntax($cols);
-			$formatedValues = $this->insertValueSyntax($values);
+			$formattedCols = $this->insertColSyntax($cols);
+			$formattedValues = $this->insertValueSyntax($values);
 			
-			$stmt = $this->DB->prepare( "INSERT INTO $table ($formatedCols) values ($formatedValues)" );
+			$stmt = $this->DB->prepare( "INSERT INTO $table ($formattedCols) values ($formattedValues)" );
 			$stmt->execute ();
 
 			return true;
@@ -182,15 +181,15 @@ class DatabaseAdaptor {
 		
 		$success = 0;
 		
-		$stmt = $this->DB->prepare( "SELECT * FROM users where username = '$username'" );
+		$stmt = $this->DB->prepare( "SELECT * FROM User where name = '$username'" );
 		$stmt->execute ();
 		
 		$result = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 
-		if ( isset($result[0]['username']) ) {
+		if ( isset($result[0]['name']) ) {
 			
-			$password_test = password_verify( $password , $result[0]['hash']) ? 1 : 0;
-			$username_test = $result[0]['username'] == $username ? 1 : 0;
+			$password_test = password_verify( $password , $result[0]['password']) ? 1 : 0;
+			$username_test = $result[0]['name'] == $username ? 1 : 0;
 			
 			$success = $username_test + $password_test;
 			
@@ -204,9 +203,14 @@ class DatabaseAdaptor {
 // Testing code that should not be run when a part of MVC
 
 //Use whatever relevant credentials
+/*
 $db = "final";//test database I made: contains users table
 $ip = getenv('IP');
 $username = getenv('C9_USER');
+*/
+$db = "minesweeper_service";
+$ip = "127.0.0.1";
+$username = "root";
 
 $theDBA = new DatabaseAdaptor ($db, $ip, $username);
 

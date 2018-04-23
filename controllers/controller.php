@@ -71,6 +71,11 @@ class Controller {
 		$this->dbController->insertValue( $quote, $author );
 		
 	}
+	
+	public function getScores ( $difficulty ) {
+		$scoreArray = $this->dbController->getAllScores ( $difficulty );
+		return $scoreArray;
+	}
 }
 
 $controller = new Controller( $dbController, $viewController );
