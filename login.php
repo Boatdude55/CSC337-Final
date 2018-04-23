@@ -30,7 +30,7 @@ if ( isset( $_POST['username']) ) {
 		<link rel="stylesheet" type="text/css" href="./styles.global.css"></link>
 		<title>MineSweeper</title>
 	</head>
-	<body>
+	<body class="fade-in">
 <header>
 	<h3>Login</h3>
 </header>

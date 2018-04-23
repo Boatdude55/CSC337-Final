@@ -24,7 +24,7 @@
 		<link rel="stylesheet" type="text/css" href="./styles.global.css"></link>
 		<title>Quotation Service</title>
 	</head>
-	<body>
+	<body class="fade-in">
 <header>
 <header>
 	<h3>Register</h3>

@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="./styles.global.css"></link>
     </head>
-    <div>
-        <h1>Edit Account</h1>
-    </div>
+    <body class="fade-in">
+        <div>
+            <h1>Edit Account</h1>
+        </div>
+    </body>
 </html>

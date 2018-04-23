@@ -10,17 +10,21 @@
 	    to {opacity: 1;}
 	}
 	
-/*Base*/
-	body {
+	.fade-in{
 		-webkit-animation-name: fade-in-onload; /* Safari 4.0 - 8.0 */
 		-webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
 		animation-name: fade-in-onload;
-		animation-duration: 3s;
+		animation-duration: 2s;		
+	}
+/*Base*/
+	body {
 		font-family: "Lucida Console", monospace;
 	}
 	
 	header{
 		margin: 0px;
+		font-size: larger;
+		padding: 20px;
 	}
 	
 	.main{
@@ -29,7 +33,7 @@
 	
 	footer{
 		margin: 0px;
-		padding: 20px;
+		padding: 10px;
 	}
 	
 /*Containers*/
@@ -38,7 +42,6 @@
 		display: flex;
 	  	flex-direction: column;
 	  	min-height: 100vh;
-	  	overflow: auto;
 	}
 	.footer {
 		position: fixed;
@@ -46,6 +49,7 @@
 	    bottom: 0;
 	    width: 100%;
 	    text-align: center;
+	    font-size: large;
 	}
 	.row{
 		display: -ms-flex;
@@ -64,6 +68,21 @@
 	}
 	.hidden{
 		visibility: hidden;
+		display: none;
+	}
+/* Positioning */
+	.left{
+		float: left;
+	}
+	
+	.right{
+		float: right;
+	}
+	
+	.fixed{
+		position: fixed;
+		top: 0;
+		width: inherit;
 	}
 /* Card */
 	.card{
@@ -86,21 +105,37 @@
 		width: 80%;
 		border: solid 1px rgb(255,255,255);
 	}
-/* Nav-Bar */
-.nav-bar{
-	overflow: hidden;
-}
-.nav-item:hover {
-    background-color: rgb(112, 193, 9);
-    color: white;
-}
-.nav-item{
-	float: left;
-	padding: 10px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
+/* Nav-Bar and Menus */
+	.nav-bar{
+		overflow: hidden;
+	}
+	.nav-item:hover {
+	    background-color: rgb(112, 193, 9);
+	    color: white;
+	}
+	.nav-item{
+		float: left;
+		padding: 10px;
+	    text-decoration: none;
+	    font-size: 17px;
+		font-size: inherit;
+	}
+	
+	.logo{
+		font-size: 30px;
+		font-weight: bold;
+	}
+    .vertical-menu input{
+        display: block;
+        font-weight: bold;
+        width: 100%;
+        color: rgb(255,255,255);
+        border: thick double white;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        background-color: inherit;
+        cursor: pointer;
+    }
 /* Colors */
 
 	/* Background Color */
@@ -152,12 +187,39 @@
 		color: white;
 		background-color: rgb(112, 193, 9);
 	}
+	
+	.hover:hover{
+        background-color:rgba(0, 0, 0, 0.4) !important;
+    }
 /* Game related */	
     canvas{
         cursor: crosshair;
         padding: 0px !important;
     }
     
+    .header{
+    	text-decoration: underline;
+    	font-size: 1.2em;
+    }
+    
+	#info{
+		float: right;
+		padding: 5px;
+		font-size: 1.2em;
+		cursor: pointer;
+	}
+	
+	#info:hover{
+		color: white;
+		background-color: rgb(0,0,0);
+	}
+    #instruction-set{
+    	padding-bottom: 40px;
+    }
+    #instruction-set li{
+    	margin-bottom: 10px;
+    	text-align: left;
+    }
     #clock{
     	border: thick double rgb(255,255,255);
     	padding: 10px;
@@ -169,49 +231,34 @@
     	font-size: 2em;
     }
     
-    .difficulty{
-    	color: black;
-    	background-color: inherit;
-    }
     .orange{
-        background-color: rgb(255,200,0);
+        background-color: rgb(255,200,0) !important;
     }
     
     .green{
-        background-color: rgb(0,255,0);
+        background-color: rgb(0,255,0) !important;
     }
     
     .red{
-        background-color: rgb(255,0,0);
+        background-color: rgb(255,0,0) !important;
     }
     
     .black{
-        background-color: rgb(0,0,0);
+        background-color: rgb(0,0,0) !important;
     }
     
     .blue{
-        background-color: rgb(0,0,255);
+        background-color: rgb(0,0,255) !important;
     }
     
     .grey{
-        background-color: rgb(150,150,150);
+        background-color: rgb(150,150,150) !important;
     }
     
     .light-blue{
-        background-color: rgb(50,150,255);
+        background-color: rgb(50,150,255) !important;
     }
     .purple{
-        background-color: rgb(200,0,255);
+        background-color: rgb(200,0,255) !important;
     }
     
-    .stylus{
-        cursor: pointer;
-    }
-    
-    .vertical-menu input{
-        display: block;
-        font-weight: bold;
-        width: 100%;
-        color: rgb(255,255,255);
-        border:none;
-    }
