@@ -34,7 +34,7 @@ if ( isset( $_POST['username']) ) {
 <header>
 	<h3>Login</h3>
 </header>
-<div class="card medium">
+<div class="card medium center">
 	<form class="form" method="post" action="login.php">
 		<div class="input-field">
 			<label>Username</label>

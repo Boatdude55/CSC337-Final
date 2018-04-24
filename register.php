@@ -28,7 +28,7 @@
 <header>
 	<h3>Register</h3>
 </header>
-<div class="card medium">
+<div class="card medium center">
 	<form class="form" method="post" action="register.php">
 		<div class="input-field">
 			<label>Username</label>

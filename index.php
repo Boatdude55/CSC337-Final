@@ -58,6 +58,14 @@ session_start();
 					    <canvas class="card" id="game" width="800" height="600" style="width: 800px; height: 600px;">
                             Canvas not supported upgrade to evergreen browser
                         </canvas>
+                        <div id="game-result" class="modal">
+                        	<div class="modal-container zoom-in">
+                        		<span id="close" class="close">&times;</span>
+                        		<header></header>
+                        		<section class="fade-in">GAME OVER</section>
+                        		<footer></footer>
+                        	</div>
+                        </div>
 					</div>
 				</div>
 				<div class="col">
@@ -80,7 +88,7 @@ session_start();
 						<hr class="divider">
 						<div class="card-content">
 							<div class="row">
-								<div class="col no-cursor">SCORE:&nbsp<input class=" no-cursor" type="text" form="save" id="score-board" name="pts" value="0" readonly> PTS</div>
+								<div class="col no-cursor">SCORE:&nbsp;<input class=" no-cursor" type="text" form="save" id="score-board" name="pts" value="0" readonly> PTS</div>
 								<div class="col no-cursor"><input class=" no-cursor" type="text" form="save" id="clock" name="time" value="000" readonly></div>
 							</div>
 							<hr class="divider">
@@ -136,7 +144,7 @@ session_start();
 			<div id="instructions" class="row"><h2 class="header">Instructions</h2></div>
 			<div class="row">
 				<div class="col">
-					<div id="rules">
+					<div class="instruction-set" id="rules">
 						<h2 class="header">Rules</h2>
 						<ol>
 							<li>Clicking a square which doesn't have a mine reveals the number of neighbouring squares containing mines.</li>
@@ -145,7 +153,7 @@ session_start();
 					</div>
 				</div>
 				<div class="col">
-					<div id="instructions">
+					<div class="instruction-set">
 						<h2 class="header">How to Play</h2>
 						<ol>
 							<li>To open a square, point at the square and left-click on it.</li>
@@ -162,42 +170,64 @@ session_start();
 		</footer>
 		<script type="text/javascript">
 			
-			var footer = document.getElementById("credits");
-			var help = document.getElementById("info");
+			/* Global UI */
 			var clock = document.getElementById("clock");
+			var timer = new timeController(clock);
 			var scoreBoard = document.getElementById("score-board");
+			var modal = document.getElementById("game-result");
+			var modalBtn = document.getElementById("close");
+			
+				/* Events */
+				modalBtn.addEventListener("click", function ( event ) {
+					
+					modal.style.display = "none";
+				});
+				
+				window.addEventListener("click", function ( event ) {
+					if ( event.target == modal ) {
+						modal.style.display = "none";
+					}
+				});
+				
+            var newGameBtn = document.getElementById("new-game");
+            
+            /* Footer and Instructions */
+			var help = document.getElementById("info");
+			var footer = document.getElementById("credits");
+				/* Events */
+				help.addEventListener("click", function ( event ) {
+					
+					var content = document.getElementById(event.target.dataset.target);
+					
+					console.log(content);
+					window.scrollTo(0,content.offsetTop);
+				}, false);
+				
+				window.addEventListener("scroll", function ( event ) {
+					
+					//Firefox implementation doesn't work on Chrome
+					//var scrollPos = event.pageY;
+					//var max = event.target.scrollingElement.scrollTopMax;
+					
+					//if ( scrollPos == max ) {
+					
+					//Chrome implementation
+					if ( (event.target.scrollingElement.scrollHeight - event.target.scrollingElement.scrollTop) === event.target.scrollingElement.clientHeight ) {
+						
+						footer.className = "footer gold fade-in";
+						
+					}else {
+						
+						footer.className = "footer gold hidden";
+						
+					}
+					
+				}, false);
+				
+			/* Game */
             var game = new MineSweeper();
             var gameCanvas = undefined;
-            var newGameBtn = document.getElementById("new-game");
             var tileSet = document.getElementById("tileset");
-            var timer = new timeController(clock);
-            
-			help.addEventListener("click", function ( event ) {
-				
-				var content = document.getElementById(event.target.dataset.target);
-				
-				console.log(content);
-				window.scrollTo(0,content.offsetTop);
-			}, false);
-			
-			window.addEventListener("scroll", function ( event ) {
-				
-				var scrollPos = event.pageY;
-				var max = event.originalTarget.scrollingElement.scrollTopMax;
-				
-				if ( scrollPos == max ) {
-					
-					footer.className = "footer gold fade-in";
-					
-				}else {
-					
-					footer.className = "footer gold hidden";
-					
-				}
-				
-			}, false);
-			
-
             
             try{
             	
@@ -218,7 +248,7 @@ session_start();
                 }, false);
                 
                 gameCanvas.addEventListener("click", function clicked ( event ) {
-                    console.log(event);
+
                     if ( game.on ) {
                     	
                     	if ( !timer.isOn ) {
@@ -233,7 +263,8 @@ session_start();
                             
                             game.on = false;
                             timer.stop();
-                            
+                            modal.style.display = "block";
+                            console.log(modal.style.display);
                         }else{
                             
                             scoreBoard.value = parseInt(scoreBoard.value,10) + result;

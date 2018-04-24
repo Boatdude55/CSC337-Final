@@ -18,7 +18,10 @@ styler.addEventListener("click", function (e) {
     var style = e.target.value;
     
     if ( style !== undefined ) {
-    
+        
+        scoreBoard.value = "0";
+        timer.stop();
+        clock.value = "000";
         game.clear();
         game.setStyle(style);
         game.fillMap();
@@ -36,7 +39,9 @@ styler.addEventListener("click", function (e) {
 difficulty.addEventListener("click", function (e) {
         
     //console.info("changing difficulty",e.target.dataset.value);
-    
+    scoreBoard.value = "0";
+    timer.stop();
+    clock.value = "000";    
     game.clear();
     game.setDifficulty(e.target.dataset.value);
     game.fillMap();
