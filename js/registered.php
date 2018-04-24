@@ -1,20 +1,42 @@
 <?php
-    
-    if ( isset($_POST) ) {
+
+    if ( isset($_POST["rank"]) ) {
+        
+        /* Values */
         /*
-        print("<pre>".print_r($_POST,true)."</pre>");
+        echo json_encode($_POST["score"]) .
+        json_encode($_POST["time"]) .
+        json_encode($_POST["rank"]);
         */
+        
+        if ( isset($_SESSION["registered-user"]) ) {
+            
+            //Put Save service here
+            
+            echo "saved";
+            exit();//So the rest of the page is served as part of ajax response
+            
+        }else{
+            
+            echo "Login to Save Scores";
+            exit();//So the rest of the page is served as part of ajax response
+        }
+        
+         $_POST = array();//To avoid wierdness while I was testing, might be permanent
+         
     }
 ?>
+
+<!-- Functuons Only for registered and logged in users-->
 <script type="text/javascript">
 'use strict';
-
+console.log("priveledged");
 var styler = document.getElementById("styles");
 var difficulty = document.getElementById("difficulty");
 
 styler.addEventListener("click", function (e) {
-        
-    //console.info("styling: ", e.target.value);
+    
+    console.info("changing style");
     var style = e.target.value;
     
     if ( style !== undefined ) {
@@ -37,8 +59,7 @@ styler.addEventListener("click", function (e) {
 }, false);
 
 difficulty.addEventListener("click", function (e) {
-        
-    //console.info("changing difficulty",e.target.dataset.value);
+    console.info("setting difficulty");
     scoreBoard.value = "0";
     timer.stop();
     clock.value = "000";    
@@ -50,23 +71,4 @@ difficulty.addEventListener("click", function (e) {
     
 }, false);
 
-function saveScore ( event ) {
-    
-    event.preventDefault();
-    
-    var form = event.target;
-    //Values being sent
-    //console.log(form[0], form[1], form[2]);
-    
-    game.clear();
-    game.fillMap();
-    game.drawMap();
-    game.on = true;
-    
-    form.submit();
-    
-    scoreBoard.value = "0";
-    clock.value = "000";
-    
-}
 </script>

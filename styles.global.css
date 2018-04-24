@@ -1,10 +1,10 @@
 /* Animations */
+
 	@-webkit-keyframes fade-in-onload {
 	    from {opacity: 0;}
 	    to {opacity: 1;}
 	}
 	
-	/* Standard syntax */
 	@keyframes fade-in-onload {
 	    from {opacity: 0;}
 	    to {opacity: 1;}
@@ -28,7 +28,6 @@
 	    }
 	}
 	
-	/* Standard syntax */
 	@keyframes zoom-in-onchange {
 	  	0%{
 	    	transform: scale(0.0);
@@ -45,9 +44,10 @@
 		-webkit-animation-timing-function: ease-in;
 		animation-name: zoom-in-onchange;
 		animation-duration: 1.5s;
-		animation-timing-function: ease-in;
+		animation-timing-function: ease;
 	}
 /*Base*/
+
 	body {
 		font-family: "Lucida Console", monospace;
 	}
@@ -68,12 +68,14 @@
 	}
 	
 /*Containers*/
+
 	.container{
 		padding: 10px;
 		display: flex;
 	  	flex-direction: column;
 	  	min-height: 100vh;
 	}
+	
 	.footer {
 		position: fixed;
 	    left: 0;
@@ -82,6 +84,7 @@
 	    text-align: center;
 	    font-size: large;
 	}
+	
 	.row{
 		display: -ms-flex;
 		display: -webkit-flex;
@@ -97,11 +100,14 @@
 		display: -webkit-flex;
 		display: flex;
 	}
+	
 	.hidden{
 		visibility: hidden;
 		display: none;
 	}
+	
 /* Positioning */
+
 	.left{
 		float: left;
 	}
@@ -110,28 +116,24 @@
 		float: right;
 	}
 	
-	.fixed{
-		position: fixed;
-		top: 0;
-		width: inherit;
-	}
-	
 	.center{
 		margin: 0px auto;
 	}
+	
 /* Card */
+
 	.card{
 		border: none;
 		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
 		transition: 0.3s;
 		padding: 10px;
 	}
+	
 	.card-title{
 		font-family: "Lucida Console", monospace;
 		font-size: 1.5em;	
 	}
 	
-	/* On mouse-over, add a deeper shadow */
 	.card:hover {
 	    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 	}
@@ -144,7 +146,9 @@
 	.card.medium{
 		width: 40%;
 	}
+	
 /*Forms*/
+
 	.form{
 		padding: 5px;
 	}
@@ -172,7 +176,9 @@
 	    text-align: center;
 	    font-size: large;
 	}
+	
 /* Modal */
+
 	.modal{
 		display: none;
 		position: fixed;
@@ -183,7 +189,7 @@
 		height: 100%;
 		overflow: hidden;
 		background-color: rgb(0,0,0);
-		background-color: rgba(0,0,0,0);
+		background-color: rgba(0,0,0,0.3);
 	}
 	
 	.modal-container{
@@ -212,7 +218,9 @@
 		text-decoration: none;
 		cursor: pointer;
 	}
+	
 /* Nav-Bar and Menus */
+
 	.nav-bar{
 		overflow: hidden;
 	}
@@ -243,6 +251,7 @@
         background-color: inherit;
         cursor: pointer;
     }
+    
 /* Colors */
 
 	/* Background Color */
@@ -282,6 +291,7 @@
 			border-color: rgb(112, 193, 9) !important;
 		}
 /* Buttons */
+
 	.btn{
 		border: 2px solid;
 	    padding: 10px;
@@ -298,7 +308,9 @@
 	.hover:hover{
         background-color:rgba(0, 0, 0, 0.4) !important;
     }
-/* Game related */	
+    
+/* Game related */
+
     canvas{
         cursor: crosshair;
         padding: 0px !important;
@@ -383,20 +395,15 @@
     .purple{
         background-color: rgb(200,0,255) !important;
     }
-    .vertical-menu input{
-        display: block;
-        font-weight: bold;
-        width: 100%;
-        color: rgb(255,255,255);
-        border:none;
-    }
+    
 /* Related to Boards */
-.scoreDiv {
-	border: 1px solid black;
-	float: left;
-	width: 30%;
-	margin-left: 3%;
-}
-.scoreDiv h3 {
-	text-align: center;
-}
+
+	.scoreDiv {
+		border: 1px solid black;
+		float: left;
+		width: 30%;
+		margin-left: 3%;
+	}
+	.scoreDiv h3 {
+		text-align: center;
+	}

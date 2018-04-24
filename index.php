@@ -1,6 +1,4 @@
 <?php
-// File Name: index.php
-//URL:  https://project-euler-boatrider.c9users.io/CSC337-Final/index.php
 
 session_start();
 
@@ -16,6 +14,12 @@ session_start();
 	<body class="container fade-in">
 		<div class="hidden">
 			<img id="tileset" src="./assets/minesweeper-tileset.png"></img>
+		</div>
+		<div id="ui-modal" class="modal">
+			<div class="modal-container zoom-in">
+				<span id="close" class="close">&times;</span>
+				<section id="ui-modal-content" class="fade-in">GAME OVER</section>
+			</div>
 		</div>
 		<header class="grey-light">
 			<span class="logo right">MineSweeper</span>
@@ -54,19 +58,9 @@ session_start();
 		<div class="main container">
 			<div class="row">
 			    <div class="col">
-			    	<div>
-					    <canvas class="card" id="game" width="800" height="600" style="width: 800px; height: 600px;">
-                            Canvas not supported upgrade to evergreen browser
-                        </canvas>
-                        <div id="game-result" class="modal">
-                        	<div class="modal-container zoom-in">
-                        		<span id="close" class="close">&times;</span>
-                        		<header></header>
-                        		<section class="fade-in">GAME OVER</section>
-                        		<footer></footer>
-                        	</div>
-                        </div>
-					</div>
+				    <canvas class="card" id="game" width="800" height="600" style="width: 800px; height: 600px;">
+                        Canvas not supported upgrade to evergreen browser
+                    </canvas>
 				</div>
 				<div class="col">
 					<div id="user-panel" class="card green-light">
@@ -133,7 +127,7 @@ session_start();
 						<div class="card-footer">
 							<div class="row">
 								<button class="btn bdr-green text-green" id="new-game" type="button">New Game</button>
-								<form id="save" method="post" action="js/registered.php" onsubmit="saveScore(event)">
+								<form id="save" method="post" action="js/registered.php">
 									<button class="btn bdr-green text-green" id="save-game" type="submit">Save Score</button>
 								</form>
 							</div>
@@ -170,14 +164,18 @@ session_start();
 		</footer>
 		<script type="text/javascript">
 			
-			/* Global UI */
-			var clock = document.getElementById("clock");
-			var timer = new timeController(clock);
-			var scoreBoard = document.getElementById("score-board");
-			var modal = document.getElementById("game-result");
-			var modalBtn = document.getElementById("close");
-			
-				/* Events */
+			/* Game UI */
+				var clock = document.getElementById("clock");
+				var timer = new timeController(clock);
+				var scoreBoard = document.getElementById("score-board");
+				var newGameBtn = document.getElementById("new-game");
+				var saveScore = document.getElementById("save");
+				
+			/* Modals */
+				var modal = document.getElementById("ui-modal");
+				var modalBtn = document.getElementById("close");
+				var modalContent = document.getElementById("ui-modal-content");
+				
 				modalBtn.addEventListener("click", function ( event ) {
 					
 					modal.style.display = "none";
@@ -188,12 +186,11 @@ session_start();
 						modal.style.display = "none";
 					}
 				});
-				
-            var newGameBtn = document.getElementById("new-game");
             
             /* Footer and Instructions */
-			var help = document.getElementById("info");
-			var footer = document.getElementById("credits");
+				var help = document.getElementById("info");
+				var footer = document.getElementById("credits");
+				
 				/* Events */
 				help.addEventListener("click", function ( event ) {
 					
@@ -224,62 +221,110 @@ session_start();
 					
 				}, false);
 				
-			/* Game */
-            var game = new MineSweeper();
-            var gameCanvas = undefined;
-            var tileSet = document.getElementById("tileset");
-            
-            try{
-            	
-                gameCanvas = document.getElementById("game");
-                game.init(tileSet,gameCanvas);
-                
-                newGameBtn.addEventListener("click", function () {
-                    
-                    //console.info("new game");
-                    scoreBoard.value = "0";
-                    timer.stop();
-                    clock.value = "000";
-                    game.clear();
-                    game.fillMap();
-                    game.drawMap();
-                    game.on = true;
-                    
-                }, false);
-                
-                gameCanvas.addEventListener("click", function clicked ( event ) {
+			/* Game Events*/
+	            var game = new MineSweeper();
+	            var gameCanvas = undefined;
+	            var tileSet = document.getElementById("tileset");
+	            
+	            try{
+	            	
+	                gameCanvas = document.getElementById("game");
+	                game.init(tileSet,gameCanvas);
+	                
+	                newGameBtn.addEventListener("click", function () {
+	                    
+	                    //console.info("new game");
+	                    scoreBoard.value = "0";
+	                    timer.stop();
+	                    clock.value = "000";
+	                    game.clear();
+	                    game.fillMap();
+	                    game.drawMap();
+	                    game.on = true;
+	                    
+	                }, false);
+	                
+	                saveScore.addEventListener("submit", function ( event ) {
+	                	
+	                	event.preventDefault();
+	                	
+	                	var data = game.getScore( parseInt(scoreBoard.value,10), parseInt(clock.value,10) ).join('&');
+	                	/*
+		                	console.info("Saving data");
+		                	console.group("save-event");
+		                	console.log("form",event.target);
+		                	console.log("data", data.join('&'));
+		                	console.groupEnd();
+	                	*/
+						
+					    var xhr = new XMLHttpRequest();
+					    
+					    xhr.open("POST", "./js/registered.php", true);
+					    
+					    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					    
+					    xhr.onreadystatechange = function () {
+					        
+					        if ( this.readyState == 4 && this.status == 200 ) {
+					        	/* Values
+						            console.group("ajax post response");
+						            console.log(this.response);
+						            console.groupEnd();
+					            */
+					            
+					            if ( this.responseText !== "saved" ) {
+					            	
+					            	modalContent.innerHTML = this.responseText;
+					            	modalContent.style.color = "rgb(100,255,100)";
+					            	modal.style.display = "block";
+					            	
+					            }
+					            
+					        }else{
+					        	
+					            console.group("ajax post error");
+					            console.error(this.response);
+					            console.groupEnd();
+					        }
+					    };
+					    
+					    xhr.send(encodeURI(data));
 
-                    if ( game.on ) {
-                    	
-                    	if ( !timer.isOn ) {
-				            
-				            timer.start();
-				
-				        }
-				        
-                        var result = game.onClick(event);
-                        
-                        if ( result === true ) {
-                            
-                            game.on = false;
-                            timer.stop();
-                            modal.style.display = "block";
-                            console.log(modal.style.display);
-                        }else{
-                            
-                            scoreBoard.value = parseInt(scoreBoard.value,10) + result;
-                            
-                        }
-                        
-                    }
-                    
-                }, true);
-                
-            }catch( err ){
-                
-                console.error(err);
-                
-            }
+	                });
+	                
+	                gameCanvas.addEventListener("click", function clicked ( event ) {
+	
+	                    if ( game.on ) {
+	                    	
+	                    	if ( !timer.isOn ) {
+					            
+					            timer.start();
+					
+					        }
+					        
+	                        var result = game.onClick(event);
+	                        
+	                        if ( result === true ) {
+	                            
+	                            game.on = false;
+	                            timer.stop();
+	                            modal.style.display = "block";
+	                            
+	                        }else{
+	                            console.log(scoreBoard.value);
+	                            scoreBoard.value = parseInt(scoreBoard.value,10) + result;
+	                            console.log(scoreBoard.value);
+	                        }
+	                        
+	                    }
+	                    
+	                }, true);
+	                
+	            }catch( err ){
+	                
+	                console.error(err);
+	                
+	            }
             
 		</script>
 		<?php

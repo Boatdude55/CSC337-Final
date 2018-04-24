@@ -8,7 +8,7 @@ function CanvasMap ( width, height ) {
     this.layers = {
         'base':new Array( (this.cols*this.rows) ),
         'flag': new Array( (this.cols*this.rows) ),
-        'dynamic': new Array( (this.cols*this.rows) ),
+        'heap': new Array( (this.cols*this.rows) ),
         'stack': new Array( (this.cols*this.rows) )
     };
     
@@ -22,22 +22,35 @@ CanvasMap.prototype = {
     getValueAt: function ( x, y, layer = 'base' ) {
         
         if ( x >= this.cols || x < 0 || y >= this.cols || y < 0 ) {
+            
             return undefined;
+            
         }else {
+            
             return this.layers[layer][x + (this.cols*y)];
-        }    
+            
+        }
+        
     },
     putValueAt: function ( x, y, value , layer = 'base' ) {
         
         try {
-            if ( x >= this.cols || y >= this.rows) {
-                console.log("Range Error");
+            
+            if ( x >= this.cols || x < 0 || y >= this.cols || y < 0 ) {
+                
+                throw new RangeError("Index is out of range: Equation = x + (this.cols*y)");
+                
             }else {
+                
                 this.layers[layer][x + (this.cols*y)] = value;
+                
             }
         }catch (err) {
+            
             console.error(err);
-        }   
+            
+        }
+
     },
     clear: function ( layer ) {
         
@@ -61,7 +74,7 @@ CanvasEventGrid.prototype = {
             //Math.floor(x - bbox.left * (width  / bbox.width))
             //Math.floor(y - bbox.top  * (height / bbox.height))
             
-       return { x: Math.floor((x - offsetX) * (width  / bbox.width)),
+       return { x: Math.floor((x - bbox.left) * (width  / bbox.width)),
                 y: Math.floor((y - bbox.top)  * (height / bbox.height))
               };
               
@@ -98,7 +111,7 @@ function MineSweeper () {
     this.map = undefined;
     this.eventLayer = undefined;
     
-    this.difficulty = 3;
+    this.difficulty = 4;
     this.styleBlock = 'blue';
     this.styleMine = 'mine';
     this.blockKeys = {
@@ -127,28 +140,32 @@ function MineSweeper () {
         15,
         16
     ];
+    this.difficultyDict = {
+            '7': "easy",
+            '4': "medium",
+            '2': "hard"
+    };
 
 }
 MineSweeper.prototype = {
     init: function ( imgs, canvas ) {
-
+        
         this.tiles = imgs;
         this.ctx = canvas.getContext("2d");
         this.eventLayer = new CanvasEventGrid();
         this.map = new CanvasMap( canvas.width, canvas.height );
         this.fillMap();
         this.drawMap();
-
+        
     },
     clear: function () {
         
-        //console.info("clearing");
         this.map.clear("base");
         this.map.clear("stack");
-        this.map.clear("dynamic");
+        this.map.clear("heap");
         this.map.clear("flag");
         this.ctx.clearRect(0,0,(this.map.cols*this.map.tileSize),(this.map.rows*this.map.tileSize));
-        
+
     },
     end: function () {
         
@@ -289,14 +306,14 @@ MineSweeper.prototype = {
         }else if ( mines > 8 ) {
 
             this.map.putValueAt(x,y,true,"stack");
-            this.map.putValueAt(x,y,mines,"dynamic");
+            this.map.putValueAt(x,y,mines,"heap");
             //console.info("mines near: ", x,y,mines);
             return;
             
         }else{
             
             this.map.putValueAt(x,y,true,"stack");
-            this.map.putValueAt(x,y,mines,"dynamic");
+            this.map.putValueAt(x,y,mines,"heap");
             //console.info("is blank at: ", x,y,mines);
             this.reveal(x,y);
 
@@ -306,7 +323,7 @@ MineSweeper.prototype = {
     onClick: function ( event ) {
 
         this.eventLayer.eventHandler(event, this.map.cols, this.map.rows, event.target.offsetLeft, event.target.offsetTop);
-        this.map.clear("dynamic");
+        this.map.clear("heap");
 
         var x, y;
 
@@ -346,41 +363,41 @@ MineSweeper.prototype = {
 
                     //console.info("has mines", x,y, hasMines);
                     this.map.putValueAt(x,y,true,"stack");
-                    this.map.putValueAt(x,y,hasMines,"dynamic");
+                    this.map.putValueAt(x,y,hasMines,"heap");
 
                 }else {
 
                     this.map.putValueAt(x,y,true,"stack");
-                    this.map.putValueAt(x,y,hasMines,"dynamic");
+                    this.map.putValueAt(x,y,hasMines,"heap");
                     //console.info("begining recursion",x,y);
                     this.reveal( x, y );
 
                 }
                 
-                return this.drawMap(false, 'dynamic', false);
+                return this.drawMap(false, 'heap', false);
                 
             }
 
         }
 
     },
-    setStyle: function ( block, mine = "mine") {
+    setStyle: function ( block ) {
             
             this.styleBlock = block;
-            this.styleMine = mine;
+            
     },
     setDifficulty: function ( difficulty ) {
         
         this.difficulty = difficulty;
         
     },
-    getScore: function ( time, score ) {
+    getScore: function ( score, time ) {
         
-        return {
-            score: score,
-            time: time,
-            rank: this.difficulty
-        };
+        return [
+            "score="+score,
+            "time="+time,
+            "rank="+ this.difficultyDict[this.difficulty]
+        ];
     }
 };
 
