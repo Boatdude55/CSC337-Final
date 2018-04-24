@@ -94,22 +94,22 @@ session_start();
 						    					<div class="col">
 						    					    <div id="styles" class="vertical-menu">
 						    					    	<h5 class="header">Styles</h5>
-						        						<input type="button" value="green" class="green hover">
-						                				<input type="button" value="orange" class="orange hover">
-						                				<input type="button" value="red" class="red hover">
-						                				<input type="button" value="black" class="black hover">
-						                				<input type="button" value="blue" class="blue hover">
-						                				<input type="button" value="purple" class="purple hover">
-						                				<input type="button" value="grey" class="grey hover">
-						                				<input type="button" value="light-blue" class="light-blue hover">
+						    					    	<button type="button" data-value="green"  class="green hover">green</button>
+						                				<button type="button" data-value="orange"  class="orange hover">orange</button>
+						                				<button type="button" data-value="red"  class="red hover">red</button>
+						                				<button type="button" data-value="black"  class="black hover">black</button>
+						                				<button type="button" data-value="blue"  class="blue hover">blue</button>
+						                				<button type="button" data-value="purple"  class="purple hover">purple</button>
+						                				<button type="button" data-value="grey"  class="grey hover">grey</button>
+						                				<button type="button" data-value="light-blue"  class="light-blue hover">light-blue</button>
 						            				</div>
 						    					</div>
 						    					<div class="col">
 						    					    <div id="difficulty" class="vertical-menu">
 						    					    	<h5 class="header">Level</h5>
-						        						<input type="button" data-value="7" value="Easy" class="difficulty hover">
-						                				<input type="button" data-value="4" value="Intermediate" class="difficulty hover">
-						                				<input type="button" data-value="2" value="Hard" class="difficulty hover">
+						    					    	<button type="button" data-value="7" class="hover green-light">Easy</button>
+						                				<button type="button" data-value="3" class="hover green-light">Intermediate</button>
+						                				<button type="button" data-value="2" class="hover green-light">Hard</button>
 						            				</div>
 						    					</div>
 						    				</div>
@@ -222,6 +222,20 @@ session_start();
 				}, false);
 				
 			/* Game Events*/
+			
+				/* Function */
+				function NewGame () {
+					
+					//console.info("new game");
+                    scoreBoard.value = "0";
+                    timer.stop();
+                    clock.value = "000";
+                    game.clear();
+                    game.fillMap();
+                    game.drawMap();
+                    game.on = true;
+				}
+				
 	            var game = new MineSweeper();
 	            var gameCanvas = undefined;
 	            var tileSet = document.getElementById("tileset");
@@ -311,9 +325,9 @@ session_start();
 	                            modal.style.display = "block";
 	                            
 	                        }else{
-	                            console.log(scoreBoard.value);
+	                        	
 	                            scoreBoard.value = parseInt(scoreBoard.value,10) + result;
-	                            console.log(scoreBoard.value);
+	                            
 	                        }
 	                        
 	                    }

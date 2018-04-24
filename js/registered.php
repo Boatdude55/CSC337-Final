@@ -29,46 +29,74 @@
 
 <!-- Functuons Only for registered and logged in users-->
 <script type="text/javascript">
+
 'use strict';
-console.log("priveledged");
+function dynamicList ( elems, activeCSS, defaultCSS, func,cb ) {
+    
+    var list = elems;
+    var destClass = activeCSS;
+    var srcClass = defaultCSS;
+    var targetMethod = func;
+    var callback = cb;
+    
+    function deActivate () {
+        
+        var regex = new RegExp(destClass,"gi");
+        
+        for ( var i = 0; i < list.length; i++ ) {
+                
+            if ( regex.test(list[i].className) ) {
+                
+                var temp = list[i].className.replace( regex, srcClass );
+                list[i].className = temp;
+                temp = '';
+            }
+            
+        }
+    }
+    
+    this.change = function ( event ) {
+        
+        deActivate();
+        
+        var regex = new RegExp(srcClass, "gi");
+        var temp = event.target.className;
+        var data = event.target.dataset.value;
+        
+        event.target.className = temp.replace(regex, destClass);
+        
+        temp = '';
+        
+        targetMethod( data );
+        callback();
+        
+    };
+    
+}
+
 var styler = document.getElementById("styles");
 var difficulty = document.getElementById("difficulty");
 
-styler.addEventListener("click", function (e) {
-    
-    console.info("changing style");
-    var style = e.target.value;
+var styleSiblings = styler.children;
+var styleHandler = new dynamicList(styleSiblings, "active", "hover",
+function ( style ) {
     
     if ( style !== undefined ) {
-        
-        scoreBoard.value = "0";
-        timer.stop();
-        clock.value = "000";
-        game.clear();
         game.setStyle(style);
-        game.fillMap();
-        game.drawMap();
-        game.on = true;
-        
-    }else {
-        
-        var msg = "Undefined color: click directly on button";
-        console.info(msg);
     }
     
-}, false);
+    return;
+}
+, NewGame );
+styler.addEventListener("click",styleHandler.change);
 
-difficulty.addEventListener("click", function (e) {
-    console.info("setting difficulty");
-    scoreBoard.value = "0";
-    timer.stop();
-    clock.value = "000";    
-    game.clear();
-    game.setDifficulty(e.target.dataset.value);
-    game.fillMap();
-    game.drawMap();
-    game.on = true;
-    
-}, false);
+var diffSiblings = difficulty.children;
+var difficultyHandler = new dynamicList(diffSiblings, "active", "hover",
+function ( difficulty ) {
+    game.setDifficulty(difficulty);
+    return;
+}
+, NewGame );
+difficulty.addEventListener("click",difficultyHandler.change);
 
 </script>

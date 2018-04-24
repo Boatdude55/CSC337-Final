@@ -240,7 +240,7 @@
 		font-size: 30px;
 		font-weight: bold;
 	}
-    .vertical-menu input{
+    .vertical-menu button{
         display: block;
         font-weight: bold;
         width: 100%;
@@ -248,7 +248,6 @@
         border: thick double white;
         border-radius: 10px;
         margin-bottom: 10px;
-        background-color: inherit;
         cursor: pointer;
     }
     
@@ -272,7 +271,7 @@
 		}
 	/* Text Color */
 		.text-black-light{
-			color: rgb(49, 57, 60);
+			color: rgb(49, 57, 60) !important;
 		}
 		.text-green-light{
 			color: rgb(109, 163, 77);
@@ -303,6 +302,11 @@
 	.btn:hover{
 		color: white;
 		background-color: rgb(112, 193, 9);
+	}
+	
+	.active{
+		color: rgba(0, 0, 0, 0.4);
+		background-color:rgba(255, 255, 255, 0.6) !important;
 	}
 	
 	.hover:hover{
@@ -337,8 +341,9 @@
     }
     .instruction-set li{
     	margin-top: 20px;
-    	margin-bottom: 10px;
+    	margin-bottom: 20px;
     	text-align: left;
+    	font-weight: bold;
     }
     
     .no-cursor{
@@ -366,34 +371,34 @@
     }
     
     .orange{
-        background-color: rgb(255,200,0) !important;
+        background-color: rgb(255,200,0);
     }
     
     .green{
-        background-color: rgb(0,255,0) !important;
+        background-color: rgb(0,255,0);
     }
     
     .red{
-        background-color: rgb(255,0,0) !important;
+        background-color: rgb(255,0,0);
     }
     
     .black{
-        background-color: rgb(0,0,0) !important;
+        background-color: rgb(0,0,0);
     }
     
     .blue{
-        background-color: rgb(0,0,255) !important;
+        background-color: rgb(0,0,255);
     }
     
     .grey{
-        background-color: rgb(150,150,150) !important;
+        background-color: rgb(150,150,150);
     }
     
     .light-blue{
-        background-color: rgb(50,150,255) !important;
+        background-color: rgb(50,150,255);
     }
     .purple{
-        background-color: rgb(200,0,255) !important;
+        background-color: rgb(200,0,255);
     }
     
 /* Related to Boards */
