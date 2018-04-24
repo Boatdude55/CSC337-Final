@@ -38,13 +38,14 @@ if ( isset( $_POST['username']) ) {
 	<form class="form" method="post" action="login.php">
 		<div class="input-field">
 			<label>Username</label>
-			<input pattern=".{4,}" title="Minimum 4 characters" type="text" name="username" required>
+			<input class="text-black-light" pattern=".{4,}" title="Minimum 4 characters" type="text" name="username" required>
 		</div>
+		
 		<div class="input-field">
 			<label>Password</label>
-			<input pattern=".{6,}" title="Minimum 6 characters"" type="password" name="password" require>
+			<input class="text-black-light" minlength="6" pattern=".{6,}" title="Minimum 6 characters" type="password" name="password" required>
 		</div>
-		<input type="submit" class="btn" value="Login">
+		<input type="submit" class="btn brd-green" value="Login">
 	</form>
 	<div class="error">
 		<?php 

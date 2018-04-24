@@ -132,6 +132,7 @@
 	    background-color: inherit;
 	    padding: 3px 0px 3px 3px;
 	    text-align: center;
+	    font-size: large;
 	}
 	
 /* Nav-Bar and Menus */
@@ -201,7 +202,7 @@
 		}
 	/* Border Color */
 		.brd-green{
-			border-color: rgb(112, 193, 9);
+			border-color: rgb(112, 193, 9) !important;
 		}
 /* Buttons */
 	.btn{

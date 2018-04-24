@@ -32,13 +32,13 @@
 	<form class="form" method="post" action="register.php">
 		<div class="input-field">
 			<label>Username</label>
-			<input minlength="4" pattern=".{6,}" title="Minimum 6 characters" type="text" name="username" required>
+			<input class="text-black-light" minlength="4" pattern=".{4,}" title="Minimum 4 characters" type="text" name="username" required>
 		</div>
 		<div class="input-field">
 			<label>Password</label>
-			<input minlength="6" pattern=".{4,}" title="Minimum 4 characters" type="password" name="password" required>
+			<input class="text-black-light" minlength="6" pattern=".{6,}" title="Minimum 6 characters" type="password" name="password" required>
 		</div>
-		<!--<button type="submit" class="btn">Register</button>--><input type="submit" class="btn" value="Register">
+		<input type="submit" class="btn brd-green" value="Register">
 	</form>
 	<div class="error">
 		<?php 
