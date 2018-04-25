@@ -97,21 +97,33 @@ class DatabaseAdaptor {
 	  	
 	  }
 	  
-	  public function update ( $case, $value, $column = "rating", $test = "id", $table = "quotations" ){
+	  public function updateScore ( $case, $value, $test, $table, $date, $time ){
 		
 		try{
 			
-			$validatedValue = $this->typeValidation($value);
-			$stmt = $this->DB->prepare( "UPDATE $table SET $column = $validatedValue  WHERE $test = $case"  );
+			//$validatedValue = $this->typeValidation($value);
+			$scoreInsert = (int)($value);
+			$stmt = $this->DB->prepare( "UPDATE $table SET highscore = $scoreInsert, date_achieved = '$date', time_taken = $time WHERE $test = $case AND highscore < $scoreInsert"  );
+			//The second AND condition takes care of only updating highscores when they're beaten
 			$stmt->execute ();
-			
-			return true;
 			
 		}catch ( Error $err ) {
 			
 			$msg = "Error updating table data: " . $err->getMessage() . " | Code: " .$err->getCode();
 			throw new Error($msg);
 			
+		}
+	}
+	
+	public function checkScore ( $id, $difficultyTable ) {
+		$stmt = $this->DB->prepare( "SELECT * FROM $difficultyTable WHERE uID = $id"  );
+		$stmt->execute ();
+		
+		$result = $stmt->fetchAll ( PDO::FETCH_ASSOC);
+		if(count($result) >= 1) { //should never be greater than 1, but just in case
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
@@ -143,8 +155,6 @@ class DatabaseAdaptor {
 			
 			$stmt = $this->DB->prepare( "INSERT INTO $table ($formattedCols) VALUES ($formattedValues)" );
 			$stmt->execute ();
-			
-			return true;
 			
 		} catch (Error $err) {
 			

@@ -68,7 +68,7 @@ class DatabaseController {
 	
 	public function insertScore ( $user, $difficulty, $score, $time ) {
 		$difficultyTable = "";
-		if($difficulty == 3 || $difficulty == 4) {
+		if($difficulty == 4) {
 			$difficultyTable = "MediumDifficulty";
 		} else if ($difficulty == 2) {
 			$difficultyTable = "HardDifficulty";
@@ -76,16 +76,20 @@ class DatabaseController {
 			//Implies difficulty is 7
 			$difficultyTable = "EasyDifficulty";
 		}
-	
+		
 		$userID = $this->db->getID($user);
 		$date = date("Y-m-d H:i:s");
-	
-		$columns = array('uID', 'highscore', 'date_achieved', 'time_taken');
-		$values = array($userID, $score, $date, $time);
-	
-		$retVal = $this->db->insertScoreDB($columns, $values, $difficultyTable);
+		
+		$alreadyExists = $this->db->checkScore($userID, $difficultyTable);
+		if($alreadyExists) {
+			$this->db->updateScore($userID, $score, "uID", $difficultyTable, $date, $time);
+		} else {
+			$columns = array('uID', 'highscore', 'date_achieved', 'time_taken');
+			$values = array($userID, $score, $date, $time);
+			
+			$this->db->insertScoreDB($columns, $values, $difficultyTable);
+		}
 	}
-	
 }
 $dbController = new DataBaseController( $theDBA );
 
