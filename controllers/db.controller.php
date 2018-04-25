@@ -68,7 +68,7 @@ class DatabaseController {
 	
 	public function insertScore ( $user, $difficulty, $score, $time ) {
 		$difficultyTable = "";
-		if($difficulty == 3 || $difficulty == 4) {
+		if($difficulty == 4) {
 			$difficultyTable = "MediumDifficulty";
 		} else if ($difficulty == 2) {
 			$difficultyTable = "HardDifficulty";
