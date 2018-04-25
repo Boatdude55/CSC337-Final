@@ -398,6 +398,9 @@ MineSweeper.prototype = {
             "time="+time,
             "rank="+ this.difficultyDict[this.difficulty]
         ];
+    },
+    getDifficulty: function () {
+    	return this.difficulty;
     }
 };
 

@@ -101,9 +101,13 @@ class DatabaseAdaptor {
 		try{
 			
 			$formattedCols = $this->insertColSyntax($cols);
-			$formattedValues = $this->insertValueSyntax($values);
+			if($table == 'MediumDifficulty' || $table == 'EasyDifficulty') {
+				$formattedValues = "(" . $values[0] . ", " . $values[1] . ", '" . $values[2] . "', " . $values[3] . ")";
+			} else {
+				$formattedValues = $this->insertValueSyntax($values);
+			}
 			
-			$stmt = $this->DB->prepare( "INSERT INTO $table ($formattedCols) values ($formattedValues)" );
+			$stmt = $this->DB->prepare( "INSERT INTO $table ($formattedCols) VALUES $formattedValues" );
 			$stmt->execute ();
 
 			return true;
@@ -197,6 +201,14 @@ class DatabaseAdaptor {
 		
 		return $success;
 		
+	}
+	
+	public function getId($userName) {
+		$stmt = $this->DB->prepare( "SELECT * FROM User where name = '$userName'" );
+		$stmt->execute ();
+	
+		$result = $stmt->fetchAll ( PDO::FETCH_ASSOC );
+		return $results[0]['ID']; //I don't need to do any error checking becaues I know the user I am looking for exists (and only once)
 	}
 } // End class DatabaseAdaptor
 

@@ -127,9 +127,7 @@ session_start();
 						<div class="card-footer">
 							<div class="row">
 								<button class="btn bdr-green text-green" id="new-game" type="button">New Game</button>
-								<form id="save" method="post" action="js/registered.php">
-									<button class="btn bdr-green text-green" id="save-game" type="submit">Save Score</button>
-								</form>
+								<button class="btn bdr-green text-green" id="save-game" type="button">Save Score</button>
 							</div>
 						</div>
 					</div>
@@ -169,7 +167,6 @@ session_start();
 				var timer = new timeController(clock);
 				var scoreBoard = document.getElementById("score-board");
 				var newGameBtn = document.getElementById("new-game");
-				var saveScore = document.getElementById("save");
 				
 			/* Modals */
 				var modal = document.getElementById("ui-modal");
@@ -257,7 +254,8 @@ session_start();
 	                    game.on = true;
 	                    
 	                }, false);
-	                
+
+	                /*
 	                saveScore.addEventListener("submit", function ( event ) {
 	                	
 	                	event.preventDefault();
@@ -269,7 +267,7 @@ session_start();
 		                	console.log("form",event.target);
 		                	console.log("data", data.join('&'));
 		                	console.groupEnd();
-	                	*/
+	                	*
 						
 					    var xhr = new XMLHttpRequest();
 					    
@@ -284,7 +282,7 @@ session_start();
 						            console.group("ajax post response");
 						            console.log(this.response);
 						            console.groupEnd();
-					            */
+					            *
 					            
 					            if ( this.responseText !== "saved" ) {
 					            	
@@ -305,6 +303,7 @@ session_start();
 					    xhr.send(encodeURI(data));
 
 	                });
+	                */
 	                
 	                gameCanvas.addEventListener("click", function clicked ( event ) {
 	
@@ -344,6 +343,7 @@ session_start();
 		<?php
 			if ( isset($_SESSION["registered-user"]) ) {
 				
+				//Because of this!
 				include dirname(__FILE__) . "/js/registered.php";
 				
 			}

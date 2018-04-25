@@ -1,5 +1,6 @@
 <?php
 
+	/*
     if ( isset($_POST["rank"]) ) {
         
         /* Values */
@@ -7,7 +8,7 @@
         echo json_encode($_POST["score"]) .
         json_encode($_POST["time"]) .
         json_encode($_POST["rank"]);
-        */
+        *
         
         if ( isset($_SESSION["registered-user"]) ) {
             
@@ -25,9 +26,10 @@
          $_POST = array();//To avoid wierdness while I was testing, might be permanent
          
     }
+    */
 ?>
 
-<!-- Functuons Only for registered and logged in users-->
+<!-- Functions Only for registered and logged in users-->
 <script type="text/javascript">
 
 'use strict';
@@ -76,6 +78,7 @@ function dynamicList ( elems, activeCSS, defaultCSS, func,cb ) {
 
 var styler = document.getElementById("styles");
 var difficulty = document.getElementById("difficulty");
+var saveScore = document.getElementById("save-game");
 
 var styleSiblings = styler.children;
 var styleHandler = new dynamicList(styleSiblings, "active", "hover",
@@ -98,5 +101,40 @@ function ( difficulty ) {
 }
 , NewGame );
 difficulty.addEventListener("click",difficultyHandler.change);
+
+//Save score handler
+saveScore.addEventListener("click", function (e) {
+    
+    game.clear();
+    game.fillMap();
+    game.drawMap();
+    game.on = true;
+    
+    var difficulty = game.getDifficulty();
+    //4 or 3 = Intermediate, 7 = Easy, 2 = Hard
+    var score = scoreBoard.value;
+    var time = clock.value;
+
+    var ajax = new XMLHttpRequest();
+	ajax.open("GET", "test.php?difficulty=" + difficulty + "&score=" + score + "&time=" + time, true); //Cannot be done with POST
+	ajax.send();
+
+	
+	ajax.onreadystatechange = function() {
+		if (ajax.readyState == 4 && ajax.status == 200) {
+			console.log(ajax.responseText);
+		}
+	}
+
+	/*
+    console.log("Score: " + scoreBoard.value);
+    console.log("Time: " + clock.value);
+    console.log("Difficulty: " + difficulty);
+    */
+    
+    scoreBoard.value = "0";
+    clock.value = "000";
+
+}, false);
 
 </script>

@@ -66,6 +66,26 @@ class DatabaseController {
 		
 	}
 	
+	public function insertScore ( $user, $difficulty, $score, $time ) {
+		$difficultyTable = "";
+		if($difficulty == 3 || $difficulty == 4) {
+			$difficultyTable = "MediumDifficulty";
+		} else if ($difficulty == 2) {
+			$difficultyTable = "HardDifficulty";
+		} else {
+			//Implies difficulty is 7
+			$difficultyTable = "EasyDifficulty";
+		}
+	
+		$userID = $this->db->getID($user);
+		$date = date("Y-m-d H:i:s");
+	
+		$columns = array('uID', 'highscore', 'date_achieved', 'time_taken');
+		$values = array($userID, $score, $date, $time);
+	
+		$this->db->insertInto($columns, $values, $difficultyTable);
+	}
+	
 }
 $dbController = new DataBaseController( $theDBA );
 

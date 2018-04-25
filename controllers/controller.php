@@ -66,9 +66,9 @@ class Controller {
 		$this->dbController->updateFlag( $id, $value, $all );
 	}
 	
-	public function insertQuote ( $quote, $author ) {
+	public function insertScore ( $user, $difficulty, $score, $time ) {
 		
-		$this->dbController->insertValue( $quote, $author );
+		$this->dbController->insertScore( $user, $difficulty, $score, $time );
 		
 	}
 	
