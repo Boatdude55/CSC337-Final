@@ -271,6 +271,8 @@ session_start();
 	                            
 	                            game.on = false;
 	                            timer.stop();
+	                            modalContent.innerHTML = "GAME OVER";
+								modalContent.style.color = "rgb(255,0,0)";
 	                            modal.style.display = "block";
 	                            
 	                        }else{

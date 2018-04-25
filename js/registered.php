@@ -75,11 +75,7 @@ difficulty.addEventListener("click",difficultyHandler.change);
 saveScore.addEventListener("click", function (e) {
     
     var difficulty = game.getDifficulty();
-<<<<<<< HEAD
     
-=======
-    //4 = Intermediate, 7 = Easy, 2 = Hard
->>>>>>> d1818af74a42f494ccecf188b4162f59844084e9
     var score = scoreBoard.value;
     var time = clock.value;
     NewGame();
