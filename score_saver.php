@@ -11,5 +11,4 @@ if (isset($_GET['difficulty']) && isset($_GET['score']) && isset($_GET['time']))
 	$controller->insertScore($_SESSION['user-name'], $_GET['difficulty'], $_GET['score'], $_GET['time']);
 	header('Location: index.php');
 }
-
 ?>
