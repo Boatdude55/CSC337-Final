@@ -115,28 +115,6 @@ if(!isset($_SESSION['language'])) {
 				<div class="col">
 					<div id="user-panel" class="card green-light">
 						<span id="info" data-target="instructions">?</span>
-						<div class="card-img">
-						<?php
-							if ( isset($_SESSION["registered-user"]) ) {
-								if($_SESSION['language'] == "English") {
-									echo '
-										<div class="card-title">Rank: Private</div>
-										<div> Medal goes here </div>
-									';
-								} else {
-									echo '
-										<div class="card-title">ランク: プライベート</div>
-										<!--<div> メダルはこちらへ </div>-->
-									';
-								}
-							
-							}else{
-								echo '
-								<h3 class="advert">Join to keep track of Rank</h3>
-								';
-							}
-						?>
-						</div>
 						<hr class="divider">
 						<div class="card-content">
 							<div class="row">
