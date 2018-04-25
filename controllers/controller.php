@@ -1,16 +1,13 @@
 <?php
 include "db.controller.php";
-include "view.controller.php";
 
 class Controller {
 	
 	private $dbController = NULL;
-	private  $viewController = NULL;
 	
-	public function __construct( DatabaseController $db, ViewController $view) {
+	public function __construct( DatabaseController $db) {
 		
 		$this->dbController = $db;
-		$this->viewController = $view;
 		
 	}
 	
@@ -55,12 +52,6 @@ class Controller {
 		}
 	}
 	
-	public function changeRating ( $id, $rating ) {
-		
-		$this->dbController->updateRating($id, $rating);
-		
-	}
-	
 	public function toggleFlag ( $id, $value, $all = false ) {
 		
 		$this->dbController->updateFlag( $id, $value, $all );
@@ -78,7 +69,7 @@ class Controller {
 	}
 }
 
-$controller = new Controller( $dbController, $viewController );
+$controller = new Controller( $dbController );
 
 //Tests
 //	$str = $controller->getIndex( true );

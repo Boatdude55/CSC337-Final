@@ -2,14 +2,27 @@
 
 session_start();
 
+if(!isset($_SESSION['language'])) {
+	$_SESSION['language'] = "English";
+}
+
 ?>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script type="text/javascript" src="./js/main.js"></script>
 		<link rel="stylesheet" type="text/css" href="./styles.global.css"></link>
-		<title>MineSweeper</title>
+		<?php 
+		
+		if($_SESSION['language'] == "English") {
+			echo "<title>Minesweeper</title>";
+		} else {
+			echo "<title>マインスイーパー</title>";
+		}
+		
+		?>
 	</head>
 	<body class="container fade-in">
 		<div class="hidden">
@@ -22,22 +35,59 @@ session_start();
 			</div>
 		</div>
 		<header class="grey-light">
-			<span class="logo right">MineSweeper</span>
+			<?php 
+			
+			if($_SESSION['language'] == "English") {
+				echo '<span class="logo right">MineSweeper</span>';
+			} else {
+				echo '<span class="logo right">マインスイーパー</span>';
+			}
+			
+			?>
+			
 			<nav class="nav-bar">
-					<a class="nav-item text-green" name="mode" href="./register.php">Register</a>
-					<a class="nav-item text-green" name="mode" href="./login.php">Login</a>
-					<a class="nav-item text-green" name="mode" href="./boards.php">Leader Boards</a>
-					<?php 
-						if ( isset($_SESSION['registered-user']) ) {
-							
+				<?php 
+				
+				if($_SESSION['language'] == "English") {
+					echo '<a class="nav-item text-green" name="mode" href="./register.php">Register</a>';
+					echo '<a class="nav-item text-green" name="mode" href="./login.php">Login</a>';
+					echo '<a class="nav-item text-green" name="mode" href="./boards.php">Leader Boards</a>';
+				} else {
+					echo '<a class="nav-item text-green" name="mode" href="./register.php">アカウントを作成</a>';
+					echo '<a class="nav-item text-green" name="mode" href="./login.php">ログイン</a>';
+					echo '<a class="nav-item text-green" name="mode" href="./boards.php">リーダーボード</a>';
+				}
+				
+					if ( isset($_SESSION['registered-user']) ) {
+						
+						if($_SESSION['language'] == "English") {
 							echo '
 							<form method="get" action="index.php">
 								<button class="btn text-gold" type="submit" name="logout" value="logout">Logout</button>
 							</form>
 							';
-	 
+						} else {
+							echo '
+							<form method="get" action="index.php">
+								<button class="btn text-gold" type="submit" name="logout" value="logout">ログアウト</button>
+							</form>
+							';
 						}
-					?>
+						
+						
+						if($_SESSION['language'] == "English") {
+							echo '<h4>Welcome, ' . $_SESSION['user-name'] . "</h4>";
+						} else {
+							echo '<h4>ようこそ, ' . $_SESSION['user-name'] . "</h4>";
+						}
+ 
+						if($_SESSION['language'] == "English") {
+							echo '<img id="lang-toggle" class="lang-button" src="assets/japanese.png" alt="日本語" height="32" width="32">';
+						} else {
+							echo '<img id="lang-toggle" class="lang-button" src="assets/english.png" alt="English" height="32" width="32">';
+						}
+					}
+				?>
 	
 			</nav>
 		</header>
@@ -68,10 +118,18 @@ session_start();
 						<div class="card-img">
 						<?php
 							if ( isset($_SESSION["registered-user"]) ) {
-							echo '
-								<div class="card-title">Rank: Private</div>
-								<div> Medal goes here </div>
-							';
+								if($_SESSION['language'] == "English") {
+									echo '
+										<div class="card-title">Rank: Private</div>
+										<div> Medal goes here </div>
+									';
+								} else {
+									echo '
+										<div class="card-title">ランク: プライベート</div>
+										<div> メダルはこちらへ </div>
+									';
+								}
+							
 							}else{
 								echo '
 								<h3 class="advert">Join to keep track of Rank</h3>
@@ -82,13 +140,23 @@ session_start();
 						<hr class="divider">
 						<div class="card-content">
 							<div class="row">
-								<div class="col no-cursor">SCORE:&nbsp;<input class=" no-cursor" type="text" form="save" id="score-board" name="pts" value="0" readonly> PTS</div>
+								<?php 
+								
+								if($_SESSION['language'] == "English") {
+									echo '<div class="col no-cursor">SCORE:&nbsp;<input class=" no-cursor" type="text" form="save" id="score-board" name="pts" value="0" readonly> PTS</div>';
+								} else {
+									echo '<div class="col no-cursor">スコア:&nbsp;<input class=" no-cursor" type="text" form="save" id="score-board" name="pts" value="0" readonly> ポイント</div>';
+								}
+								
+								?>
+								
 								<div class="col no-cursor"><input class=" no-cursor" type="text" form="save" id="clock" name="time" value="000" readonly></div>
 							</div>
 							<hr class="divider">
 							<?php
 								if ( isset($_SESSION["registered-user"]) ) {
-									echo '
+									if($_SESSION['language'] == "English") {
+										echo '
 										<div>
 						    				<div class="row">
 						    					<div class="col">
@@ -115,7 +183,35 @@ session_start();
 						    				</div>
 						    			</div>
 									';
-									
+									} else {
+										echo '
+										<div>
+						    				<div class="row">
+						    					<div class="col">
+						    					    <div id="styles" class="vertical-menu">
+						    					    	<h5 class="header">スタイル</h5>
+						    					    	<button type="button" data-value="green"  class="green hover">緑</button>
+						                				<button type="button" data-value="orange"  class="orange hover">オレンジ</button>
+						                				<button type="button" data-value="red"  class="red hover">赤</button>
+						                				<button type="button" data-value="black"  class="black hover">黒</button>
+						                				<button type="button" data-value="blue"  class="blue hover">青</button>
+						                				<button type="button" data-value="purple"  class="purple hover">紫</button>
+						                				<button type="button" data-value="grey"  class="grey hover">グレー</button>
+						                				<button type="button" data-value="light-blue"  class="light-blue hover">水色</button>
+						            				</div>
+						    					</div>
+						    					<div class="col">
+						    					    <div id="difficulty" class="vertical-menu">
+						    					    	<h5 class="header">レベル</h5>
+						    					    	<button type="button" data-value="7" class="hover green-light">下級</button>
+						                				<button type="button" data-value="4" class="hover green-light">中級</button>
+						                				<button type="button" data-value="2" class="hover green-light">上級</button>
+						            				</div>
+						    					</div>
+						    				</div>
+						    			</div>
+									';
+									}
 								}else{
 									echo '
 									<h3 class="advert">Login for extra Features</h3>
@@ -126,38 +222,84 @@ session_start();
 						<hr class="divider">
 						<div class="card-footer">
 							<div class="row">
-								<button class="btn bdr-green text-green" id="new-game" type="button">New Game</button>
-								<button class="btn bdr-green text-green" id="save-game" type="button">Save Score</button>
+								<?php 
+								
+								if($_SESSION['language'] == "English") {
+									echo '<button class="btn bdr-green text-green" id="new-game" type="button">New Game</button>';
+									echo '<button class="btn bdr-green text-green" id="save-game" type="button">Save Score</button>';
+								} else {
+									echo '<button class="btn bdr-green text-green" id="new-game" type="button">再開する</button>';
+									echo '<button class="btn bdr-green text-green" id="save-game" type="button">スコアを保存する</button>';
+								}
+								
+								?>
+								
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="instructions" class="row"><h2 class="header">Instructions</h2></div>
-			<div class="row">
-				<div class="col">
-					<div class="instruction-set" id="rules">
-						<h2 class="header">Rules</h2>
-						<ol>
-							<li>Clicking a square which doesn't have a mine reveals the number of neighbouring squares containing mines.</li>
-							<li>If the square has no mines near by it reveals other squares, else the number of mines near by replaces the square.</li>
-						</ol>
-					</div>
-				</div>
-				<div class="col">
-					<div class="instruction-set">
-						<h2 class="header">How to Play</h2>
-						<ol>
-							<li>To open a square, point at the square and left-click on it.</li>
-							<li>To place a flag on a square you think is a bomb, point, hold shift and left-click.</li>
-						</ol>
-					</div>
-				</div>
-			</div>
+			<?php 
+			
+			if($_SESSION['language'] == "English") {
+				echo '<div id="instructions" class="row"><h2 class="header">Instructions</h2></div>
+					<div class="row">
+						<div class="col">
+							<div class="instruction-set" id="rules">
+								<h2 class="header">Rules</h2>
+								<ol>
+									<li>Clicking a square which doesn\'t have a mine reveals the number of neighbouring squares containing mines.</li>
+									<li>If the square has no mines near by it reveals other squares, else the number of mines near by replaces the square.</li>
+								</ol>
+							</div>
+						</div>
+						<div class="col">
+							<div class="instruction-set">
+								<h2 class="header">How to Play</h2>
+								<ol>
+									<li>To open a square, point at the square and left-click on it.</li>
+									<li>To place a flag on a square you think is a bomb, point, hold shift and left-click.</li>
+								</ol>
+							</div>
+						</div>
+					</div>';
+			} else {
+				echo '<div id="instructions" class="row"><h2 class="header">やり方</h2></div>
+					<div class="row">
+						<div class="col">
+							<div class="instruction-set" id="rules">
+								<h2 class="header">ルール</h2>
+								<ol>
+									<li>周りにマインがあるタイルを押したら、いくつあるか、そのタイルが発表します。</li>
+									<li>もし、周りにマインがない場合は、そのタイルと周りにマインがないタイルとともに消えます。</li>
+								</ol>
+							</div>
+						</div>
+						<div class="col">
+							<div class="instruction-set">
+								<h2 class="header">プレーやり方</h2>
+								<ol>
+									<li>タイルを消す為に、マウスでクリックします。</li>
+									<li>爆弾だと思うタイルの上に旗を張る為に、SHIFTを押しながらマウスでクリックします。</li>
+								</ol>
+							</div>
+						</div>
+					</div>';
+			}
+			?>
+			
 		</div> 
 		<footer id="credits" class="footer gold hidden">
 			<div class="row">
-				<span>Made by Ivan Mucyo Ngabo and Danny Chalfoun</span>
+				<?php 
+				
+				if($_SESSION['language'] == "English") {
+					echo '<span>Made by Ivan Mucyo Ngabo and Danny Chalfoun</span>';
+				} else {
+					echo '<span>Ivan Mucyo Ngabo　と　Danny Chalfoun　が作ったサイトです</span>';
+				}
+				
+				?>
 			</div>
 		</footer>
 		<script type="text/javascript">

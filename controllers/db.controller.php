@@ -37,33 +37,12 @@ class DatabaseController {
 		
 	}
 	
-	public function updateRating ( $id, $value ) {
-		
-		return $this->db->update($id,$value);
-	}
-	
 	public function updateScore ( $id, $value ) {
 		//public function update ( $case, $value, string $column = "rating", string $table = "quotations" )
 
 		$subject;
 		return $this->db->update($id,$value, $subject);
 
-	}
-	
-	public function updateUserName ( $id, $value ) {
-		//public function update ( $case, $value, string $column = "rating", string $table = "quotations" )
-		
-		$subject;
-		return $this->db->update($id,$value, $subject);
-		
-	}
-	
-	public function updateHash ( $id, $value ) {
-		//public function update ( $case, $value, string $column = "rating", string $table = "quotations" )
-		
-		$subject;
-		return $this->db->update($id,$value, $subject);
-		
 	}
 	
 	public function insertScore ( $user, $difficulty, $score, $time ) {

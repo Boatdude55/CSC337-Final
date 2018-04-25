@@ -105,4 +105,16 @@ saveScore.addEventListener("click", function (e) {
 	
 }, false);
 
+//Language features
+var langButton = document.getElementById("lang-toggle");
+langButton.addEventListener("click", function (e) {
+
+	var ajax = new XMLHttpRequest();
+	ajax.open("GET", "score_saver.php?language=changeme");
+	ajax.send();
+
+	location.reload();
+	
+}, false);
+
 </script>
