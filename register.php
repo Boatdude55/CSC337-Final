@@ -10,7 +10,7 @@ if ( isset( $_POST['username']) ) {
 	
 	include dirname(__FILE__) . "/controllers/controller.php";
 
-	$registrationStatus = $controller->registerUser( $_POST['username'], $_POST['password']);
+	$registrationStatus = $controller->registerUser( htmlspecialchars($_POST['username']), htmlspecialchars($_POST['password']));
 	
 	if ( $registrationStatus !== true ) {
 		

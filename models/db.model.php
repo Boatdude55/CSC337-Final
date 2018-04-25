@@ -21,6 +21,15 @@ class DatabaseAdaptor {
 	  }
 	  
 	  /**
+	   * TODO: Add bindParam()
+	   * This worked when I tested
+	   * $stmt = $this->DB->prepare( "INSERT INTO `$table` (name,password) VALUES (:name,:password)" );
+			$stmt->bindParam ( ':name', $values[0] );
+			$stmt->bindParam ( ':password', $values[1] );
+	   * 
+	   * */
+	   
+	  /**
 	   * 
 	   * @param string $table
 	   * @param string $arrangers

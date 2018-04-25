@@ -11,7 +11,7 @@ if ( isset( $_POST['username']) ) {
 	
 	include dirname(__FILE__) . "/controllers/controller.php";
 	
-	$loginStatus = $controller->loginUser( $_POST['username'], $_POST['password']);
+	$loginStatus = $controller->loginUser( htmlspecialchars($_POST['username']), htmlspecialchars($_POST['password']));
 	
 	if ( $loginStatus !== true ) {
 
