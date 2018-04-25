@@ -14,7 +14,7 @@ class DatabaseController {
 
 	public function getAllScores( $difficulty ) {
 		
-		$scores = $this->db->selectAllOrdered("", $difficulty);
+		$scores = $this->db->selectScoreUserJoin("", $difficulty);
 		return $scores;
 		
 	}

@@ -404,11 +404,24 @@
 /* Related to Boards */
 
 	.scoreDiv {
-		border: 1px solid black;
 		float: left;
 		width: 30%;
 		margin-left: 3%;
 	}
-	.scoreDiv h3 {
+	.scoreDiv h2 {
 		text-align: center;
+	}
+	
+	.scoreDiv table {
+		width: 100%;
+		text-align: center;
+		border-collapse: collapse;
+	}
+	
+	.scoreDiv th {
+		font-size: 16pt;
+	}
+	
+	.scoreDiv tr:nth-child(even) {
+		background: #BBB;
 	}

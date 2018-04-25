@@ -116,7 +116,7 @@ saveScore.addEventListener("click", function (e) {
     var time = clock.value;
 
     var ajax = new XMLHttpRequest();
-	ajax.open("GET", "test.php?difficulty=" + difficulty + "&score=" + score + "&time=" + time, true); //Cannot be done with POST
+	ajax.open("GET", "score_saver.php?difficulty=" + difficulty + "&score=" + score + "&time=" + time, true); //Cannot be done with POST
 	ajax.send();
 
 	/*

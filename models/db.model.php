@@ -47,6 +47,25 @@ class DatabaseAdaptor {
 	  	
 	  }
 	  
+	  public function selectScoreUserJoin ( $condition = "", $table = "EasyDifficulty", $arrangers = "highscore DESC, time_taken", $order = "DESC" ) {
+	  
+	  	try{
+	  		$stmt = $this->DB->prepare( "SELECT * FROM $table JOIN User ON ($table.uID = User.ID) $condition ORDER BY $arrangers $order" );
+	  		$stmt->execute ();
+	  		 
+	  		$rows = $stmt->fetchAll ( PDO::FETCH_ASSOC );
+	  
+	  		return $rows;
+	  	  
+	  	}catch ( Error $err ) {
+	  	  
+	  		$msg = "Error fetching Database rows: " . $err->getMessage() . " | Code: " .$err->getCode();
+	  		throw new Error($msg);
+	  	  
+	  	}
+	  
+	  }
+	  
 	/**
 	 * 
 	 * @param unknown $case
