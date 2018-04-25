@@ -244,6 +244,7 @@
 		font-size: 30px;
 		font-weight: bold;
 	}
+	
     .vertical-menu button{
         display: block;
         font-weight: bold;
@@ -255,40 +256,40 @@
         cursor: pointer;
     }
     
+    .vertical-menu button:hover{
+		background-color:rgb(100, 100, 100);
+		background-color:rgba(0, 0, 0, 0.4);
+    }
+    
+    .vertical-menu button:focus{
+    	color: rgb(50,50,50);
+    	color: rgba(0, 0, 0, 0.4);
+    	background-color:rgb(220, 220, 220);
+		background-color:rgba(255, 255, 255, 0.6);
+    }
 /* Colors */
 
 	/* Background Color */
-		.black-light{
-			background-color: rgb(49, 57, 60);
-		}
+	
 		.green-light{
 			background-color: rgb(165, 204, 107);
 		}
 		.grey-light{
 			background-color: rgb(240, 239, 244);
 		}
-		.green{
-			background-color: rgb(112, 193, 9);
-		}
 		.gold{
 			background-color: rgb(237, 191, 43);
 		}
+		
 	/* Text Color */
-		.text-black-light{
-			color: rgb(49, 57, 60) !important;
-		}
-		.text-green-light{
-			color: rgb(109, 163, 77);
-		}
-		.text-grey-light{
-			color: rgb(240, 239, 244);
-		}
+	
 		.text-green{
 			color: rgb(112, 193, 9);
 		}
 		.text-gold{
 			color: rgb(237, 191, 43);
 		}
+		
 	/* Border Color */
 		.brd-green{
 			border-color: rgb(112, 193, 9) !important;
@@ -308,15 +309,6 @@
 		background-color: rgb(112, 193, 9);
 	}
 	
-	.active{
-		color: rgba(0, 0, 0, 0.4);
-		background-color:rgba(255, 255, 255, 0.6) !important;
-	}
-	
-	.hover:hover{
-        background-color:rgba(0, 0, 0, 0.4) !important;
-    }
-    
 /* Game related */
 
     canvas{

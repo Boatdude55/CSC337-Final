@@ -2,82 +2,36 @@
 <script type="text/javascript">
 
 'use strict';
-function dynamicList ( elems, activeCSS, defaultCSS, func,cb ) {
-    
-    var list = elems;
-    var destClass = activeCSS;
-    var srcClass = defaultCSS;
-    var targetMethod = func;
-    var callback = cb;
-    
-    function deActivate () {
-        
-        var regex = new RegExp(destClass,"gi");
-        
-        for ( var i = 0; i < list.length; i++ ) {
-                
-            if ( regex.test(list[i].className) ) {
-                
-                var temp = list[i].className.replace( regex, srcClass );
-                list[i].className = temp;
-                temp = '';
-            }
-            
-        }
-    }
-    
-    this.change = function ( event ) {
-        
-        deActivate();
-        
-        var regex = new RegExp(srcClass, "gi");
-        var temp = event.target.className;
-        var data = event.target.dataset.value;
-        
-        event.target.className = temp.replace(regex, destClass);
-        
-        temp = '';
-        
-        targetMethod( data );
-        callback();
-        
-    };
-    
-}
 
 var styler = document.getElementById("styles");
 var difficulty = document.getElementById("difficulty");
 var saveScore = document.getElementById("save-game");
 
-var styleSiblings = styler.children;
-var styleHandler = new dynamicList(styleSiblings, "active", "hover",
-function ( style ) {
+styler.addEventListener("click", function (e) {
+    
+    var style = e.target.dataset.value;
     
     if ( style !== undefined ) {
         game.setStyle(style);
     }
     
-    return;
-}
-, NewGame );
-styler.addEventListener("click",styleHandler.change);
+    NewGame();
+});
 
-var diffSiblings = difficulty.children;
-var difficultyHandler = new dynamicList(diffSiblings, "active", "hover",
-function ( difficulty ) {
-    game.setDifficulty(difficulty);
-    return;
-}
-, NewGame );
-difficulty.addEventListener("click",difficultyHandler.change);
+difficulty.addEventListener("click", function (e) {
+    
+    var diff = e.target.dataset.value;
+    
+    if ( diff !== undefined ) {
+        game.setDifficulty(diff);
+    }
+    NewGame();
+});
 
 //Save score handler
 saveScore.addEventListener("click", function (e) {
     
     var difficulty = game.getDifficulty();
-    console.log("Difficulty: " + difficulty);
-
-    return;
     
     var score = scoreBoard.value;
     var time = clock.value;

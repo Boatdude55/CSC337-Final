@@ -400,7 +400,7 @@ MineSweeper.prototype = {
         ];
     },
     getDifficulty: function () {
-        this.difficulty;
+        return this.difficulty;
     }
 };
 

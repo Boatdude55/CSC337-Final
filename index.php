@@ -126,7 +126,7 @@ if(!isset($_SESSION['language'])) {
 								} else {
 									echo '
 										<div class="card-title">ランク: プライベート</div>
-										<div> メダルはこちらへ </div>
+										<!--<div> メダルはこちらへ </div>-->
 									';
 								}
 							
@@ -175,9 +175,9 @@ if(!isset($_SESSION['language'])) {
 						    					<div class="col">
 						    					    <div id="difficulty" class="vertical-menu">
 						    					    	<h5 class="header">Level</h5>
-						    					    	<button type="button" data-value="7" class="hover green-light">Easy</button>
-						                				<button type="button" data-value="4" class="hover green-light">Intermediate</button>
-						                				<button type="button" data-value="2" class="hover green-light">Hard</button>
+						    					    	<button type="button" data-value="7" class="green-light">Easy</button>
+						                				<button type="button" data-value="4" class="green-light">Intermediate</button>
+						                				<button type="button" data-value="2" class="green-light">Hard</button>
 						            				</div>
 						    					</div>
 						    				</div>
@@ -330,24 +330,17 @@ if(!isset($_SESSION['language'])) {
 				var help = document.getElementById("info");
 				var footer = document.getElementById("credits");
 				
-				/* Events */
+				/* Footer Events */
 				help.addEventListener("click", function ( event ) {
 					
 					var content = document.getElementById(event.target.dataset.target);
 					
-					console.log(content);
 					window.scrollTo(0,content.offsetTop);
+					
 				}, false);
 				
 				window.addEventListener("scroll", function ( event ) {
 					
-					//Firefox implementation doesn't work on Chrome
-					//var scrollPos = event.pageY;
-					//var max = event.target.scrollingElement.scrollTopMax;
-					
-					//if ( scrollPos == max ) {
-					
-					//Chrome implementation
 					if ( (event.target.scrollingElement.scrollHeight - event.target.scrollingElement.scrollTop) === event.target.scrollingElement.clientHeight ) {
 						
 						footer.className = "footer gold fade-in";
@@ -362,10 +355,9 @@ if(!isset($_SESSION['language'])) {
 				
 			/* Game Events*/
 			
-				/* Function */
+				/* Function for rendering new game*/
 				function NewGame () {
 					
-					//console.info("new game");
                     scoreBoard.value = "0";
                     timer.stop();
                     clock.value = "000";
@@ -379,59 +371,54 @@ if(!isset($_SESSION['language'])) {
 	            var gameCanvas = undefined;
 	            var tileSet = document.getElementById("tileset");
 	            
-	            try{
-	            	
-	                gameCanvas = document.getElementById("game");
-	                game.init(tileSet,gameCanvas);
-	                
-	                newGameBtn.addEventListener("click", function () {
-	                    
-	                    //console.info("new game");
-	                    scoreBoard.value = "0";
-	                    timer.stop();
-	                    clock.value = "000";
-	                    game.clear();
-	                    game.fillMap();
-	                    game.drawMap();
-	                    game.on = true;
-	                    
-	                }, false);
-	                
-	                gameCanvas.addEventListener("click", function clicked ( event ) {
-	
-	                    if ( game.on ) {
-	                    	
-	                    	if ( !timer.isOn ) {
-					            
-					            timer.start();
-					
-					        }
-					        
-	                        var result = game.onClick(event);
-	                        
-	                        if ( result === true ) {
-	                            
-	                            game.on = false;
-	                            timer.stop();
-	                            modalContent.innerHTML = "GAME OVER";
-								modalContent.style.color = "rgb(255,0,0)";
-	                            modal.style.display = "block";
-	                            
-	                        }else{
-	                        	
-	                            scoreBoard.value = parseInt(scoreBoard.value,10) + result;
-	                            
-	                        }
-	                        
-	                    }
-	                    
-	                }, true);
-	                
-	            }catch( err ){
-	                
-	                console.error(err);
-	                
-	            }
+	            if ( tileSet.complete ) {
+
+		            try{
+		            	
+		                gameCanvas = document.getElementById("game");
+		                game.init(tileSet,gameCanvas);
+		                NewGame();
+		                /* New Game Event */
+		                newGameBtn.addEventListener("click", NewGame, true);
+		                
+		                /* Main Game Event */
+		                gameCanvas.addEventListener("click", function clicked ( event ) {
+		
+		                    if ( game.on ) {
+		                    	
+		                    	if ( !timer.isOn ) {
+						            
+						            timer.start();
+						
+						        }
+						        
+		                        var result = game.onClick(event);
+		                        
+		                        if ( result === true ) {
+		                            
+		                            game.on = false;
+		                            timer.stop();
+		                            modalContent.innerHTML = "GAME OVER";
+									modalContent.style.color = "rgb(255,0,0)";
+		                            modal.style.display = "block";
+		                            
+		                        }else{
+		                        	
+		                            scoreBoard.value = parseInt(scoreBoard.value,10) + result;
+		                            
+		                        }
+		                        
+		                    }
+		                    
+		                }, true);
+		                
+		            }catch( err ){
+		                
+		                console.error(err);
+		                
+		            }
+		            
+	            };
             
 		</script>
 		<?php
