@@ -111,7 +111,7 @@ function MineSweeper () {
     this.map = undefined;
     this.eventLayer = undefined;
     
-    this.difficulty = 3;
+    this.difficulty = 4;
     this.styleBlock = 'blue';
     this.styleMine = 'mine';
     this.blockKeys = {
@@ -400,7 +400,7 @@ MineSweeper.prototype = {
         ];
     },
     getDifficulty: function () {
-    	return this.difficulty;
+        this.difficulty;
     }
 };
 

@@ -9,7 +9,8 @@ session_start();
 if (isset($_GET['difficulty']) && isset($_GET['score']) && isset($_GET['time'])) {
 	include dirname(__FILE__) . "/controllers/controller.php";
 	$controller->insertScore($_SESSION['user-name'], $_GET['difficulty'], $_GET['score'], $_GET['time']);
-	header('Location: index.php');
+	//header('Location: index.php');
+	echo "Saved";
 }
 
 ?>

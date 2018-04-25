@@ -108,7 +108,7 @@ session_start();
 						    					    <div id="difficulty" class="vertical-menu">
 						    					    	<h5 class="header">Level</h5>
 						    					    	<button type="button" data-value="7" class="hover green-light">Easy</button>
-						                				<button type="button" data-value="3" class="hover green-light">Intermediate</button>
+						                				<button type="button" data-value="4" class="hover green-light">Intermediate</button>
 						                				<button type="button" data-value="2" class="hover green-light">Hard</button>
 						            				</div>
 						    					</div>
@@ -254,56 +254,6 @@ session_start();
 	                    game.on = true;
 	                    
 	                }, false);
-
-	                /*
-	                saveScore.addEventListener("submit", function ( event ) {
-	                	
-	                	event.preventDefault();
-	                	
-	                	var data = game.getScore( parseInt(scoreBoard.value,10), parseInt(clock.value,10) ).join('&');
-	                	/*
-		                	console.info("Saving data");
-		                	console.group("save-event");
-		                	console.log("form",event.target);
-		                	console.log("data", data.join('&'));
-		                	console.groupEnd();
-	                	*
-						
-					    var xhr = new XMLHttpRequest();
-					    
-					    xhr.open("POST", "./js/registered.php", true);
-					    
-					    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-					    
-					    xhr.onreadystatechange = function () {
-					        
-					        if ( this.readyState == 4 && this.status == 200 ) {
-					        	/* Values
-						            console.group("ajax post response");
-						            console.log(this.response);
-						            console.groupEnd();
-					            *
-					            
-					            if ( this.responseText !== "saved" ) {
-					            	
-					            	modalContent.innerHTML = this.responseText;
-					            	modalContent.style.color = "rgb(100,255,100)";
-					            	modal.style.display = "block";
-					            	
-					            }
-					            
-					        }else{
-					        	
-					            console.group("ajax post error");
-					            console.error(this.response);
-					            console.groupEnd();
-					        }
-					    };
-					    
-					    xhr.send(encodeURI(data));
-
-	                });
-	                */
 	                
 	                gameCanvas.addEventListener("click", function clicked ( event ) {
 	

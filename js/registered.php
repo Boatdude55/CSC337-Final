@@ -1,34 +1,3 @@
-<?php
-
-	/*
-    if ( isset($_POST["rank"]) ) {
-        
-        /* Values */
-        /*
-        echo json_encode($_POST["score"]) .
-        json_encode($_POST["time"]) .
-        json_encode($_POST["rank"]);
-        *
-        
-        if ( isset($_SESSION["registered-user"]) ) {
-            
-            //Put Save service here
-            
-            echo "saved";
-            exit();//So the rest of the page is served as part of ajax response
-            
-        }else{
-            
-            echo "Login to Save Scores";
-            exit();//So the rest of the page is served as part of ajax response
-        }
-        
-         $_POST = array();//To avoid wierdness while I was testing, might be permanent
-         
-    }
-    */
-?>
-
 <!-- Functions Only for registered and logged in users-->
 <script type="text/javascript">
 
@@ -105,36 +74,35 @@ difficulty.addEventListener("click",difficultyHandler.change);
 //Save score handler
 saveScore.addEventListener("click", function (e) {
     
-    game.clear();
-    game.fillMap();
-    game.drawMap();
-    game.on = true;
-    
     var difficulty = game.getDifficulty();
-    //4 or 3 = Intermediate, 7 = Easy, 2 = Hard
+    
     var score = scoreBoard.value;
     var time = clock.value;
-
+    NewGame();
+    
     var ajax = new XMLHttpRequest();
 	ajax.open("GET", "score_saver.php?difficulty=" + difficulty + "&score=" + score + "&time=" + time, true); //Cannot be done with POST
 	ajax.send();
 
-	/*
-	ajax.onreadystatechange = function() {
-		if (ajax.readyState == 4 && ajax.status == 200) {
-			console.log(ajax.responseText);
-		}
-	}
-
 	
-    console.log("Score: " + scoreBoard.value);
-    console.log("Time: " + clock.value);
-    console.log("Difficulty: " + difficulty);
-    */
-    
-    scoreBoard.value = "0";
-    clock.value = "000";
-
+	ajax.onreadystatechange = function() {
+	    
+		if (ajax.readyState == 4 && ajax.status == 200) {
+		    
+			modalContent.innerHTML = this.responseText;
+			modalContent.style.color = "rgb(100,255,100)";
+			modal.style.display = "block";
+			
+		}else {
+		    
+		    modalContent.innerHTML = "Error saving file";
+			modalContent.style.color = "rgb(255,0,0)";
+			modal.style.display = "block";
+			
+		}
+		
+	};
+	
 }, false);
 
 </script>
