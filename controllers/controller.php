@@ -68,7 +68,7 @@ class Controller {
 	
 	public function insertScore ( $user, $difficulty, $score, $time ) {
 		
-		$this->dbController->insertScore( $user, $difficulty, $score, $time );
+		$retVall = $this->dbController->insertScore( $user, $difficulty, $score, $time );
 		
 	}
 	

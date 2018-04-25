@@ -101,13 +101,9 @@ class DatabaseAdaptor {
 		try{
 			
 			$formattedCols = $this->insertColSyntax($cols);
-			if($table == 'MediumDifficulty' || $table == 'EasyDifficulty') {
-				$formattedValues = "(" . $values[0] . ", " . $values[1] . ", '" . $values[2] . "', " . $values[3] . ")";
-			} else {
-				$formattedValues = $this->insertValueSyntax($values);
-			}
+			$formattedValues = $this->insertValueSyntax($values);
 			
-			$stmt = $this->DB->prepare( "INSERT INTO $table ($formattedCols) VALUES $formattedValues" );
+			$stmt = $this->DB->prepare( "INSERT INTO $table ($formattedCols) VALUES ($formattedValues)" );
 			$stmt->execute ();
 
 			return true;
@@ -118,6 +114,26 @@ class DatabaseAdaptor {
 			throw new Error($msg);
 			
 		}
+	}
+	
+	public function insertScoreDB ( $cols, $values, $table ) {
+		
+		try {
+			$formattedCols = $this->insertColSyntax($cols);
+			$formattedValues = $values[0] . ", " . $values[1] . ", '" . $values[2] . "', " . $values[3];
+			
+			$stmt = $this->DB->prepare( "INSERT INTO $table ($formattedCols) VALUES ($formattedValues)" );
+			$stmt->execute ();
+			
+			return true;
+			
+		} catch (Error $err) {
+			
+			$msg = "Error updating table data: " . $err->getMessage() . " | Code: " .$err->getCode();
+			throw new Error($msg);
+			
+		}
+		
 	}
 	
 	/* Helpers */
@@ -204,16 +220,15 @@ class DatabaseAdaptor {
 	}
 	
 	public function getId($userName) {
-		$stmt = $this->DB->prepare( "SELECT * FROM User where name = '$userName'" );
+		$stmt = $this->DB->prepare( "SELECT * FROM User WHERE name = '$userName'" );
 		$stmt->execute ();
 	
 		$result = $stmt->fetchAll ( PDO::FETCH_ASSOC );
-		return $results[0]['ID']; //I don't need to do any error checking becaues I know the user I am looking for exists (and only once)
+		return $result[0]['ID']; //I don't need to do any error checking becaues I know the user I am looking for exists (and only once)
 	}
 } // End class DatabaseAdaptor
 
 // Testing code that should not be run when a part of MVC
-
 //Use whatever relevant credentials
 /*
 $db = "final";//test database I made: contains users table

@@ -119,14 +119,14 @@ saveScore.addEventListener("click", function (e) {
 	ajax.open("GET", "test.php?difficulty=" + difficulty + "&score=" + score + "&time=" + time, true); //Cannot be done with POST
 	ajax.send();
 
-	
+	/*
 	ajax.onreadystatechange = function() {
 		if (ajax.readyState == 4 && ajax.status == 200) {
 			console.log(ajax.responseText);
 		}
 	}
 
-	/*
+	
     console.log("Score: " + scoreBoard.value);
     console.log("Time: " + clock.value);
     console.log("Difficulty: " + difficulty);

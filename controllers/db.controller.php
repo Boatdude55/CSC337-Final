@@ -83,7 +83,7 @@ class DatabaseController {
 		$columns = array('uID', 'highscore', 'date_achieved', 'time_taken');
 		$values = array($userID, $score, $date, $time);
 	
-		$this->db->insertInto($columns, $values, $difficultyTable);
+		$retVal = $this->db->insertScoreDB($columns, $values, $difficultyTable);
 	}
 	
 }

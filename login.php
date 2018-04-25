@@ -16,6 +16,7 @@ if ( isset( $_POST['username']) ) {
 	}else{
 
 		$_SESSION['registered-user'] = "true";
+		$_SESSION['user-name'] = $_POST['username'];
 		header("Location: index.php");
 
 
