@@ -376,7 +376,11 @@ if(!isset($_SESSION['language'])) {
 		                            
 		                            game.on = false;
 		                            timer.stop();
-		                            modalContent.innerHTML = "GAME OVER";
+		                            if('<%Session["language"] == "English" %>') {
+		                            	modalContent.innerHTML = "GAME OVER";
+		                            } else {
+		                            	modalContent.innerHTML = "ゲームオーバ";
+		                            }
 									modalContent.style.color = "rgb(255,0,0)";
 		                            modal.style.display = "block";
 		                            

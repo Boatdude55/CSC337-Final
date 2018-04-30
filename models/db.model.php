@@ -20,46 +20,11 @@ class DatabaseAdaptor {
 	    }
 	  }
 	  
-	  /**
-	   * TODO: Add bindParam()
-	   * This worked when I tested
-	   * $stmt = $this->DB->prepare( "INSERT INTO `$table` (name,password) VALUES (:name,:password)" );
-			$stmt->bindParam ( ':name', $values[0] );
-			$stmt->bindParam ( ':password', $values[1] );
-	   * 
-	   * */
-	   
-	  /**
-	   * 
-	   * @param string $table
-	   * @param string $arrangers
-	   * @param string $order
-	   * @throws Error
-	   * @return array
-	   */
-	  public function selectAllOrdered ( $condition = "", $table = "EasyDifficulty", $arrangers = "highscore DESC, time_taken", $order = "DESC" ) {
-	  	
-	  	try{
-		  	$stmt = $this->DB->prepare( "SELECT * FROM $table $condition ORDER BY $arrangers $order" );
-		  	$stmt->execute ();
-		  	
-		  	$rows = $stmt->fetchAll ( PDO::FETCH_ASSOC );
-	  	
-	  		return $rows;
-	  		
-	  	}catch ( Error $err ) {
-	  		
-	  		$msg = "Error fetching Database rows: " . $err->getMessage() . " | Code: " .$err->getCode();
-	  		throw new Error($msg);
-	  		
-	  	}
-	  	
-	  }
-	  
-	  public function selectScoreUserJoin ( $condition = "", $table = "EasyDifficulty", $arrangers = "highscore DESC, time_taken", $order = "DESC" ) {
+	  public function selectScoreUserJoin ( $table = "EasyDifficulty" ) {
 	  
 	  	try{
-	  		$stmt = $this->DB->prepare( "SELECT * FROM $table JOIN User ON ($table.uID = User.ID) $condition ORDER BY $arrangers $order" );
+	  		$stmt = $this->DB->prepare( "SELECT * FROM $table JOIN User ON ($table.uID = User.ID) ORDER BY highscore DESC, time_taken DESC" );
+	  		//Not from Rick 4/30/2018: Because this query breaks when attempting to use bindParam, not necessary to use. Don't need to have on all queries
 	  		$stmt->execute ();
 	  		 
 	  		$rows = $stmt->fetchAll ( PDO::FETCH_ASSOC );
@@ -75,42 +40,10 @@ class DatabaseAdaptor {
 	  
 	  }
 	  
-	/**
-	 * 
-	 * @param unknown $case
-	 * @param string $table
-	 * @param string $column
-	 * @param string $test
-	 * @throws Error
-	 * @return array
-	 */
-	  public function selectWhere ( $case, $table = "users", $column = "username", $test = "=" ) {
-	  	
-	  	try{
-	  		
-	  		
-	  		//$rows = "SELECT $column FROM $table WHERE $column $test '$case'";
-	  		$stmt = $this->DB->prepare( "SELECT $column FROM $table where $column $test " . $this->typeValidation($case));
-	  		$stmt->execute ();
-	  		
-	  		$rows = $stmt->fetchAll ( PDO::FETCH_ASSOC);
-	  		
-	  		return $rows;
-	  		
-	  	}catch ( Error $err ) {
-	  		
-	  		$msg = "Error fetching Database rows: " . $err->getMessage() . " | Code: " .$err->getCode();
-	  		throw new Error($msg);
-	  		
-	  	}
-	  	
-	  }
-	  
 	  public function updateScore ( $case, $value, $test, $table, $date, $time ){
 		
 		try{
 			
-			//$validatedValue = $this->typeValidation($value);
 			$scoreInsert = (int)($value);
 			$stmt = $this->DB->prepare( "UPDATE $table SET highscore = $scoreInsert, date_achieved = '$date', time_taken = $time WHERE $test = $case AND highscore < $scoreInsert"  );
 			//The second AND condition takes care of only updating highscores when they're beaten
@@ -239,7 +172,8 @@ class DatabaseAdaptor {
 		
 		$success = 0;
 		
-		$stmt = $this->DB->prepare( "SELECT * FROM User where name = '$username'" );
+		$stmt = $this->DB->prepare( "SELECT * FROM User where name = :username" );
+		$stmt->bindParam(':username', $username);
 		$stmt->execute ();
 		
 		$result = $stmt->fetchAll ( PDO::FETCH_ASSOC );

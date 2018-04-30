@@ -14,7 +14,7 @@ class DatabaseController {
 
 	public function getAllScores( $difficulty ) {
 		
-		$scores = $this->db->selectScoreUserJoin("", $difficulty);
+		$scores = $this->db->selectScoreUserJoin($difficulty);
 		return $scores;
 		
 	}
@@ -35,14 +35,6 @@ class DatabaseController {
 		
 		return $status;
 		
-	}
-	
-	public function updateScore ( $id, $value ) {
-		//public function update ( $case, $value, string $column = "rating", string $table = "quotations" )
-
-		$subject;
-		return $this->db->update($id,$value, $subject);
-
 	}
 	
 	public function insertScore ( $user, $difficulty, $score, $time ) {

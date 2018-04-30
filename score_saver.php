@@ -13,7 +13,7 @@ if (isset($_GET['difficulty']) && isset($_GET['score']) && isset($_GET['time']))
 	if($_SESSION['language'] == "English") {
 		echo "Saved";
 	} else {
-		echo "保存完了";
+		echo "保存済み";
 	}
 	
 }
