@@ -153,9 +153,9 @@ if(!isset($_SESSION['language'])) {
 						    					<div class="col">
 						    					    <div id="difficulty" class="vertical-menu">
 						    					    	<h5 class="header">Level</h5>
-						    					    	<button type="button" data-value="7" class="green-light">Easy</button>
-						                				<button type="button" data-value="4" class="green-light">Intermediate</button>
-						                				<button type="button" data-value="2" class="green-light">Hard</button>
+						    					    	<button type="button" data-value="7" class="bronze-medal">Easy</button>
+						                				<button type="button" data-value="4" class="silver-medal">Intermediate</button>
+						                				<button type="button" data-value="2" class="gold-medal">Hard</button>
 						            				</div>
 						    					</div>
 						    				</div>

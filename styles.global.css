@@ -70,9 +70,11 @@
 /*Containers*/
 
 	.container{
-		padding: 10px;
+		display: -webkit-flex;
 		display: flex;
+		padding: 10px;
 	  	flex-direction: column;
+	  	-webkit-flex-direction: column;
 	  	min-height: 100vh;
 	}
 	
@@ -86,17 +88,20 @@
 	}
 	
 	.row{
-		display: -ms-flex;
 		display: -webkit-flex;
 		display: flex;
+		-webkit-flex-direction: row;
+		-webkit-flex-wrap: nowrap;
+		-webkit-justify-content: space-around;
+		-webkit-align-items: center;
 		flex-direction: row;
 		flex-wrap: nowrap;
 		justify-content: space-around;
 		align-items: center;
+
 	}
 	
 	.col{
-		display: -ms-flex;
 		display: -webkit-flex;
 		display: flex;
 	}
@@ -144,7 +149,7 @@
 	}
 	
 	.card.medium{
-		width: 40%;
+		width: 30%;
 	}
 	
 /*Forms*/
@@ -153,20 +158,20 @@
 		padding: 5px;
 	}
 	
-	input{
+	.form > input{
 		margin: 5px;
 	}
 	
-	.input-field{
+	.form > .input-field{
 	    padding: 10px;
 	    margin: 10px;
 	}
-	.input-field label{
+	.form > .input-field > label{
 	    float: left;
 	    color: rgb(71, 73, 205,) !important;
 	}
 	
-	.input-field input{
+	.form > .input-field > input{
 	    /* top | right | bottom | left */
 	    border-width: 0px 0px 3px 0px;
 	    border-color: rgb(215, 195, 131);
@@ -197,14 +202,14 @@
 		margin: 15% auto;
 		border: none;
 		border-radius: 2%;
-		width: 30%;
+		width: 25%;
 		height: 25%;
 	}
 	
 	.modal-container > .ui-modal-content{
 		margin: auto 25%;
 		color: red;
-		font-size: 2.0em;
+		font-size: 1.5em;
 		font-weight: 900;
 		height: 80%;
 	}
@@ -254,11 +259,13 @@
 	}
 	
     .vertical-menu button{
+    	padding: 5px;
         display: block;
         font-weight: bold;
         width: 100%;
         color: rgb(255,255,255);
         border: none;
+        border-radius: 1px;
         margin-bottom: 10px;
         cursor: pointer;
     }
@@ -356,6 +363,7 @@
     #clock{
     	color: rgb( 255,0,0);
     	padding: 10px;
+    	border: none;
     	border-radius: 5px;
     	background-color: rgb(0,0,0);
     	width: 40%;
@@ -372,6 +380,18 @@
     	width: 30%;
     }
     
+    /* Metal colors */
+    .gold-medal{
+    	background-color: rgb(201,137,16);
+    }
+    .silver-medal{
+    	background-color: rgb(168,168,168);
+    }
+    .bronze-medal{
+    	background-color: rgb(150,90,56);
+    }
+    
+    /* Board colors */ 
     .orange{
         background-color: rgb(255,200,0);
     }
