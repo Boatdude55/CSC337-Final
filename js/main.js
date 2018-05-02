@@ -1,10 +1,32 @@
 'use strict';
 
+/**
+ * Creates CanvasMap
+ * @constructor
+ * @description Object for canvas data
+ * @param {Number} width
+ * @param {Number} height
+ * */
 function CanvasMap ( width, height ) {
-
+    /**
+     * @member {Number} tileSize
+     * */
     this.tileSize = 20;
+    
+    /**
+     * @member {Number} cols
+     * */
     this.cols = width/this.tileSize;
+    
+    /**
+     * @member {Number} rows
+     * */
     this.rows = height/this.tileSize;
+    
+    /**
+     * @namespace layers
+     * @member {Object} layers
+     * */
     this.layers = {
         'base':new Array( (this.cols*this.rows) ),
         'flag': new Array( (this.cols*this.rows) ),
@@ -13,13 +35,27 @@ function CanvasMap ( width, height ) {
     };
     
 }
-CanvasMap.prototype = {
-    getLayer: function ( layer ) {
+
+/**
+* @memberof CanvasMap
+* @function getLayer
+* @param {String} layer
+* */
+CanvasMap.prototype.getLayer = function ( layer ) {
         
         return this.layers[layer];
         
-    },
-    getValueAt: function ( x, y, layer = 'base' ) {
+    };
+
+/**
+* @memberof CanvasMap
+* @function getValueAt
+* @param {Number} x
+* @param {Number} y
+* @param {String} layer
+* @returns {Object} array from layers
+* */    
+CanvasMap.prototype.getValueAt = function ( x, y, layer = 'base' ) {
         
         if ( x >= this.cols || x < 0 || y >= this.cols || y < 0 ) {
             
@@ -31,8 +67,17 @@ CanvasMap.prototype = {
             
         }
         
-    },
-    putValueAt: function ( x, y, value , layer = 'base' ) {
+    };
+    
+/**
+* @memberof CanvasMap
+* @function putValueAt
+* @param {Number} x
+* @param {Number} y
+* @param {Number} value
+* @param {String} layer
+* */     
+CanvasMap.prototype.putValueAt = function ( x, y, value , layer = 'base' ) {
         
         try {
             
@@ -51,35 +96,75 @@ CanvasMap.prototype = {
             
         }
 
-    },
-    clear: function ( layer ) {
+    };
+    
+/**
+* @memberof CanvasMap
+* @function clear
+* @param {String} layer
+* */      
+CanvasMap.prototype.clear = function ( layer ) {
         
         this.layers[layer].fill(undefined);
         
         return;
         
-    }
-};
+    };
 
+/**
+* @constructor
+* @description Object incharge of handling/processing canvas event data
+* */
 function CanvasEventGrid () {
     
+    /**
+     * @member {Boolean} leftClick
+     * */
     this.leftClick = false;
+    
+    /**
+     * @member {Boolean} shift
+     * */
     this.shift = false;
-    this.coords = undefined;
+    
+    /**
+     * @member {Object} coords
+     * */
+    this.coords = null;
     
 }
-CanvasEventGrid.prototype = {
-    mapWindowToCanvas: function ( bbox, x, y, width, height, offsetX, offsetY ) {
-        
-            //Math.floor(x - bbox.left * (width  / bbox.width))
-            //Math.floor(y - bbox.top  * (height / bbox.height))
-            
+
+/**
+* @memberof CanvasEventGrid
+* @function mapWindowToCanvas
+* @param {Object} bbox
+* @param {Number} y
+* @param {Number} x
+* @param {Number} width
+* @param {Number} height
+* @param {Number} offsetX
+* @param {Number} offsetY
+* @returns {Object} x,y coords mapped to map area
+* */ 
+CanvasEventGrid.prototype.mapWindowToCanvas = function ( bbox, x, y, width, height, offsetX, offsetY ) {
+    
        return { x: Math.floor((x - bbox.left) * (width  / bbox.width)),
                 y: Math.floor((y - bbox.top)  * (height / bbox.height))
               };
               
-    },
-    eventHandler: function ( event, cols, rows, offsetX, offsetY ) {
+    };
+
+/**
+* @memberof CanvasEventGrid
+* @function eventHandler
+* @param {Object} event
+* @param {Number} cols
+* @param {Number} rows
+* @param {Number} offsetX
+* @param {Number} offsetY
+* @returns undefined
+* */    
+CanvasEventGrid.prototype.eventHandler = function ( event, cols, rows, offsetX, offsetY ) {
         
         this.coords = [];
         
@@ -100,20 +185,70 @@ CanvasEventGrid.prototype = {
         this.coords.push( coords );
         
         return;
-    }
 };
 
+/**
+* @constructor
+* @description Object Implements Mine sweeper game
+* */
 function MineSweeper () {
-
-    this.on = true;
-    this.tiles = undefined;
-    this.ctx = undefined;
-    this.map = undefined;
-    this.eventLayer = undefined;
     
+    /**
+     * @member {Boolean} on
+     * @description Keeps track of whether the game is running or not
+     * */
+    this.on = true;
+    
+    /**
+     * @member {Object} tiles
+     * @description reference to the images used to render the game
+     * */
+    this.tiles = null;
+    
+    /**
+     * @member {Object} ctx
+     * @description An instance of a canvas context used to render the game
+     * */
+    this.ctx = null;
+    
+    /**
+     * @member {Object} map
+     * @constructs CanvasMap
+     * @description An instance of CanvasMap
+     * */
+    this.map = null;
+    
+    /**
+     * @member {Object} eventLayer
+     * @constructs CanvasEventGrid
+     * @description An instance of CanvasEventGrid
+     * */
+    this.eventLayer = null;
+    
+    /**
+     * @member {Number} difficulty
+     * @description The current difficulty of the game
+     * */
     this.difficulty = 4;
+    
+    /**
+     * @member {String} styleBlock
+     * @description The image used to render the game tile
+     * */
     this.styleBlock = 'blue';
+    
+    /**
+     * @member {String} styleMine
+     * @description The image used to render the game mine
+     * */
     this.styleMine = 'mine';
+    
+    /**
+     * @member {Number} blockKeys
+     * @enum {Number}
+     * @readonly
+     * @description Namespace for all tile types for rendering
+     * */
     this.blockKeys = {
                     'blue': 0,
                     'black': 1,
@@ -124,11 +259,25 @@ function MineSweeper () {
                     'red': 6,
                     'purple': 7
                 };
+                
+    /**
+     * @member {Object} actionKeys
+     * @enum {Number}
+     * @readonly
+     * @description Namespace for all special tiles for rendering
+     * */
     this.actionKeys = {
         'mine': 17,
         'flag': 18,
         'end': 19
     };
+    
+    /**
+     * @member {Object} neighnorHoodKeys
+     * @description Map indexes of tiles to value of neighbors
+     * @example Example: (neighbors = 0) => tile[8]
+     * OR (neighbors = 8) => tile[16]
+     * */
     this.neighnorHoodKeys = [
         8,
         9,
@@ -140,6 +289,12 @@ function MineSweeper () {
         15,
         16
     ];
+    
+    /**
+     * @member {Object} difficultyDict
+     * @enum {String}
+     * @description Namespace for difficulty levels
+     * */
     this.difficultyDict = {
             '7': "easy",
             '4': "medium",
@@ -147,18 +302,40 @@ function MineSweeper () {
     };
 
 }
-MineSweeper.prototype = {
-    init: function ( imgs, canvas ) {
+
+/**
+* @memberof MineSweeper
+* @function init
+* @param {Object} imgs
+* @param {Object} canvas
+* @description Initializes variables for gameplay
+* */ 
+MineSweeper.prototype.init = function ( imgs, canvas ) {
         
         this.tiles = imgs;
-        this.ctx = canvas.getContext("2d");
+        
+        
+        this.ctx = canvas.getContext("2d",{
+            alpha: false
+        });
         this.eventLayer = new CanvasEventGrid();
         this.map = new CanvasMap( canvas.width, canvas.height );
         this.fillMap();
         this.drawMap();
         
-    },
-    clear: function () {
+    };
+
+/**
+* @memberof MineSweeper
+* @function clear
+* @param {Object} event
+* @param {Number} cols
+* @param {Number} rows
+* @param {Number} offsetX
+* @param {Number} offsetY
+* @returns undefined
+* */ 
+MineSweeper.prototype.clear = function () {
         
         this.map.clear("base");
         this.map.clear("stack");
@@ -166,15 +343,32 @@ MineSweeper.prototype = {
         this.map.clear("flag");
         this.ctx.clearRect(0,0,(this.map.cols*this.map.tileSize),(this.map.rows*this.map.tileSize));
 
-    },
-    end: function () {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function end
+* @param {Object} event
+* @param {Number} cols
+* @param {Number} rows
+* @param {Number} offsetX
+* @param {Number} offsetY
+* @returns undefined
+* */ 
+MineSweeper.prototype.end = function () {
         
         this.drawMap(false,"base",true,true);
         
         return true;
         
-    },
-    fillMap: function () {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function fillMap
+* @description Fills the base layer with pseudo random values
+* */ 
+MineSweeper.prototype.fillMap = function () {
         
         var numOfMines = (this.map.layers['base'].length / this.difficulty);
         
@@ -194,8 +388,18 @@ MineSweeper.prototype = {
             }
         }
         
-    },
-    drawMap: function ( start = true, layer = 'base', flags = true, end = false ) {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function drawMap
+* @param {Boolean} start
+* @param {String} layer
+* @param {Boolean} flags
+* @param {Boolean} end
+* @returns {Number} count
+* */ 
+MineSweeper.prototype.drawMap = function ( start = true, layer = 'base', flags = true, end = false ) {
         
         var count = 0;
         
@@ -243,8 +447,16 @@ MineSweeper.prototype = {
         
         return count;
         
-    },
-    getNeighbors: function ( x, y ) {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function getNeighbors
+* @param {Number} x
+* @param {Number} y
+* @returns undefined
+* */ 
+MineSweeper.prototype.getNeighbors = function ( x, y ) {
 
         var mines = 0;
         
@@ -266,8 +478,15 @@ MineSweeper.prototype = {
         //console.log("mines rnd 8? ", mines);
         return Math.round(( mines / this.actionKeys[this.styleMine]) + this.neighnorHoodKeys[0]);
         
-    },
-    reveal: function ( x, y ) {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function reveal
+* @param {Number} x
+* @param {Number} y
+* */ 
+MineSweeper.prototype.reveal = function ( x, y ) {
 
             this.recursiveReveal(x - 1,y - 1);
             this.recursiveReveal(x,y - 1);
@@ -278,8 +497,16 @@ MineSweeper.prototype = {
             this.recursiveReveal(x,y + 1);
             this.recursiveReveal(x + 1,y + 1);
 
-    },
-    recursiveReveal: function ( x, y ) {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function recursiveReveal
+* @param {Number} x
+* @param {Number} y
+* @returns undefined
+* */ 
+MineSweeper.prototype.recursiveReveal = function ( x, y ) {
         
         var mines = 0;
 
@@ -319,8 +546,14 @@ MineSweeper.prototype = {
 
         }
 
-    },
-    onClick: function ( event ) {
+    };
+/**
+* @memberof MineSweeper
+* @function onClick
+* @param {Object} event
+* @returns {Number|Boolean}
+* */ 
+MineSweeper.prototype.onClick = function ( event ) {
 
         this.eventLayer.eventHandler(event, this.map.cols, this.map.rows, event.target.offsetLeft, event.target.offsetTop);
         this.map.clear("heap");
@@ -380,46 +613,96 @@ MineSweeper.prototype = {
 
         }
 
-    },
-    setStyle: function ( block ) {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function setStyle
+* @param {String} block
+* */ 
+MineSweeper.prototype.setStyle = function ( block ) {
             
             this.styleBlock = block;
             
-    },
-    setDifficulty: function ( difficulty ) {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function setDifficulty
+* @param {Number} difficulty
+* */ 
+MineSweeper.prototype.setDifficulty = function ( difficulty ) {
         
         this.difficulty = parseInt(difficulty,10);
         
-    },
-    getScore: function ( score, time ) {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function getScore
+* @param {Number} score
+* @param {Number} time
+* @returns {Object} Score
+* */ 
+MineSweeper.prototype.getScore = function ( score, time ) {
         
         return [
             "score="+score,
             "time="+time,
             "rank="+ this.difficultyDict[this.difficulty]
         ];
-    },
-    getDifficulty: function () {
+    };
+    
+/**
+* @memberof MineSweeper
+* @function getDifficulty
+* @returns {Number} difficulty
+* */ 
+MineSweeper.prototype.getDifficulty = function () {
         return this.difficulty;
-    }
+
 };
 
+/**
+ * Creates A Stop watch
+ * @constructor
+ * @description Object that implements a stop watch
+ * @param {Object} viewElem
+ * */
 function timeController ( viewElem ) {
     
-    this.id = undefined;
+    /**
+     * @member {Object}
+     * @private
+     * */
     var view = viewElem;
-    var count = 0;
-    this.isOn = false;
-    var mins = 0;
-    var secs = 0;
     
+    /**
+     * @member {String}
+     * @public
+     * */
+    this.id = undefined;
+    
+    /**
+     * @member {Boolean}
+     * @public
+     * */
+    this.isOn = false;
+    
+    /**
+     * @member {Function} start
+     * @function start
+     * */
     this.start = function () {
         
-        var id = setInterval(onChange, 1000);
-        this.id = id;
+        this.id = setInterval(onChange, 1000);
         this.isOn = true;
     }
     
+    /**
+     * @member {Function} stop
+     * @function stop
+     * */
     this.stop = function ( ) {
         
         if ( this.id ) {
@@ -430,6 +713,10 @@ function timeController ( viewElem ) {
         }
     }
     
+    /**
+     * @member {Function} onChange
+     * @function onChange
+     * */
     function onChange ( ) {
         
         view.value++;

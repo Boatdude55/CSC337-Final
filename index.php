@@ -30,8 +30,8 @@ if(!isset($_SESSION['language'])) {
 		</div>
 		<div id="ui-modal" class="modal">
 			<div class="modal-container zoom-in">
-				<span id="close" class="close">&times;</span>
-				<section id="ui-modal-content" class="fade-in">GAME OVER</section>
+				<div class="ui-modal-head" id="ui-modal-head"><span id="close" class="close text-gold">&times;</span></div>
+				<div class="ui-modal-content" id="ui-modal-content" class="fade-in">GAME OVER</div>
 			</div>
 		</div>
 		<header class="grey-light">
@@ -123,7 +123,7 @@ if(!isset($_SESSION['language'])) {
 								if($_SESSION['language'] == "English") {
 									echo '<div class="col no-cursor">SCORE:&nbsp;<input class=" no-cursor" type="text" form="save" id="score-board" name="pts" value="0" readonly> PTS</div>';
 								} else {
-									echo '<div class="col no-cursor">スコア:&nbsp;<input class=" no-cursor" type="text" form="save" id="score-board" name="pts" value="0" readonly> ポイント</div>';
+									echo '<div class="col no-cursor">スコア:&nbsp;<input class=" no-cursor" type="text" form="save" id="clock" name="pts" value="0" readonly> ポイント</div>';
 								}
 								
 								?>
