@@ -204,7 +204,7 @@ function MineSweeper () {
      * @description reference to the images used to render the game
      * */
     this.tiles = null;
-    
+    this.powerups = null;
     /**
      * @member {Object} ctx
      * @description An instance of a canvas context used to render the game
@@ -272,6 +272,11 @@ function MineSweeper () {
         'end': 19
     };
     
+    this.powerKeys = {
+        'food': 20,
+        'tool': 21
+    };
+    
     /**
      * @member {Object} neighnorHoodKeys
      * @description Map indexes of tiles to value of neighbors
@@ -311,10 +316,9 @@ function MineSweeper () {
 * @description Initializes variables for gameplay
 * */ 
 MineSweeper.prototype.init = function ( imgs, canvas ) {
-        
+
         this.tiles = imgs;
-        
-        
+
         this.ctx = canvas.getContext("2d",{
             alpha: false
         });
@@ -371,14 +375,23 @@ MineSweeper.prototype.end = function () {
 MineSweeper.prototype.fillMap = function () {
         
         var numOfMines = (this.map.layers['base'].length / this.difficulty);
-        
+
         for ( var i = 0 ;  i < this.map.layers['base'].length ; i++ ) {
         
             var chance = (numOfMines / this.map.layers['base'].length);
             
             if ( chance  > Math.random() ) {
-                
-                this.map.layers['base'][i] = this.actionKeys[this.styleMine];
+
+                if ( (Math.random() * 10) < 2 ) {
+
+                    this.map.layers['base'][i] = this.actionKeys[this.styleMine];
+
+                }else{
+                    
+                    this.map.layers['base'][i] = ( Math.round( Math.random() + 20 ) );
+
+                }
+
                 numOfMines--;
                 
             }else {
@@ -406,7 +419,7 @@ MineSweeper.prototype.drawMap = function ( start = true, layer = 'base', flags =
         for ( var i = 0 ;  i < this.map.cols ; i++ ) {
             
             for ( var j = 0 ;  j < this.map.rows ; j++ ) {
-            
+                
                 var curr = this.map.getValueAt( i, j, layer );
                 curr = start === true ? this.blockKeys[this.styleBlock] : curr;
                 
@@ -420,7 +433,7 @@ MineSweeper.prototype.drawMap = function ( start = true, layer = 'base', flags =
                 
                 if ( end == false && curr == 17 ) {
                     continue;
-                } else if ( end == true && curr !== 17) {
+                } else if ( end == true && curr < 17 ) {
                     continue;
                 }
                 
@@ -459,7 +472,7 @@ MineSweeper.prototype.drawMap = function ( start = true, layer = 'base', flags =
 MineSweeper.prototype.getNeighbors = function ( x, y ) {
 
         var mines = 0;
-        
+
         mines += this.map.getValueAt((x - 1),(y - 1)) | 0;
         //console.log("mines rnd 1? ", mines);
         mines += this.map.getValueAt(x,(y - 1)) | 0;
@@ -477,7 +490,7 @@ MineSweeper.prototype.getNeighbors = function ( x, y ) {
         mines += this.map.getValueAt((x + 1),(y + 1)) | 0;
         //console.log("mines rnd 8? ", mines);
         return Math.round(( mines / this.actionKeys[this.styleMine]) + this.neighnorHoodKeys[0]);
-        
+
     };
     
 /**
@@ -583,10 +596,16 @@ MineSweeper.prototype.onClick = function ( event ) {
         }else{
 
             var subject = this.map.getValueAt(x,y);
-
+            
             if ( subject == this.actionKeys[this.styleMine] ) {
 
                 return this.end();
+                
+            }else if ( subject > this.actionKeys['end'] ) {
+                
+                this.map.putValueAt(x,y,subject,"heap");
+                
+                return this.drawMap(false, 'heap', false);
                 
             }else {
 
@@ -597,7 +616,7 @@ MineSweeper.prototype.onClick = function ( event ) {
                     //console.info("has mines", x,y, hasMines);
                     this.map.putValueAt(x,y,true,"stack");
                     this.map.putValueAt(x,y,hasMines,"heap");
-
+                    
                 }else {
 
                     this.map.putValueAt(x,y,true,"stack");
@@ -606,9 +625,9 @@ MineSweeper.prototype.onClick = function ( event ) {
                     this.reveal( x, y );
 
                 }
-                
+
                 return this.drawMap(false, 'heap', false);
-                
+
             }
 
         }

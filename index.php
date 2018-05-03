@@ -26,7 +26,7 @@ if(!isset($_SESSION['language'])) {
 	</head>
 	<body class="container fade-in">
 		<div class="hidden">
-			<img id="tileset" src="./assets/minesweeper-tileset.png"></img>
+			<img id="tileset" src="./assets/minesweeper.tilemap.png"></img>
 		</div>
 		<div id="ui-modal" class="modal">
 			<div class="modal-container zoom-in">
@@ -355,7 +355,6 @@ if(!isset($_SESSION['language'])) {
 		            	
 		                gameCanvas = document.getElementById("game");
 		                game.init(tileSet,gameCanvas);
-		                NewGame();
 		                /* New Game Event */
 		                newGameBtn.addEventListener("click", NewGame, true);
 		                
